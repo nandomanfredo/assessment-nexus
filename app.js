@@ -3,8 +3,8 @@
    Assessment Nexus — app.js
 ════════════════════════════════════════════════════════ */
 
-// URL do webapp GAS — preencher após o deploy no Google Apps Script
-const GAS_URL = '';
+// URL do webapp GAS — Assessment Nexus Backend
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyaL1vkvy24sX481xAvxtk0cO4IMPnnb0CIGHLu_WWj7Et3sqz59qShDkizOBoxB68Blg/exec';
 
 const PILAR_ORDER   = ['N', 'T', 'P', 'G', 'IA'];
 const GAUGE_SM_CIRC = Math.PI * 80;
