@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Nexus — Nexus Consultoria</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- ════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">AN</div>
+      <div class="brand-info">
+        <span class="brand-product">Assessment Nexus</span>
+        <span class="brand-company">Nexus Consultoria</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-section-label">Início</span>
+
+      <a class="nav-item active" data-screen="config" href="#">
+        <span class="nav-icon-wrap config-icon">✦</span>
+        <span class="nav-text">Configuração</span>
+        <span class="nav-dot" id="dot-config"></span>
+      </a>
+
+      <span class="nav-section-label">Os 5 Pilares</span>
+
+      <a class="nav-item nav-pilar" data-screen="pilar" data-pilar="N" href="#">
+        <span class="nav-sigla" style="background:var(--color-N)">N</span>
+        <div class="nav-pilar-text">
+          <span class="nav-pilar-nome">Negócio</span>
+          <span class="nav-pilar-peso">15% do IMD</span>
+        </div>
+        <span class="nav-score-badge hidden" id="badge-N"></span>
+      </a>
+
+      <a class="nav-item nav-pilar" data-screen="pilar" data-pilar="T" href="#">
+        <span class="nav-sigla" style="background:var(--color-T)">T</span>
+        <div class="nav-pilar-text">
+          <span class="nav-pilar-nome">Tecnologia</span>
+          <span class="nav-pilar-peso">25% do IMD</span>
+        </div>
+        <span class="nav-score-badge hidden" id="badge-T"></span>
+      </a>
+
+      <a class="nav-item nav-pilar" data-screen="pilar" data-pilar="P" href="#">
+        <span class="nav-sigla" style="background:var(--color-P)">P</span>
+        <div class="nav-pilar-text">
+          <span class="nav-pilar-nome">Processos</span>
+          <span class="nav-pilar-peso">25% do IMD</span>
+        </div>
+        <span class="nav-score-badge hidden" id="badge-P"></span>
+      </a>
+
+      <a class="nav-item nav-pilar" data-screen="pilar" data-pilar="G" href="#">
+        <span class="nav-sigla" style="background:var(--color-G)">G</span>
+        <div class="nav-pilar-text">
+          <span class="nav-pilar-nome">Governança</span>
+          <span class="nav-pilar-peso">15% do IMD</span>
+        </div>
+        <span class="nav-score-badge hidden" id="badge-G"></span>
+      </a>
+
+      <a class="nav-item nav-pilar" data-screen="pilar" data-pilar="IA" href="#">
+        <span class="nav-sigla" style="background:var(--color-IA)">IA</span>
+        <div class="nav-pilar-text">
+          <span class="nav-pilar-nome">Inteligência Artificial</span>
+          <span class="nav-pilar-peso">20% do IMD</span>
+        </div>
+        <span class="nav-score-badge hidden" id="badge-IA"></span>
+      </a>
+
+      <div class="nav-rule"></div>
+
+      <a class="nav-item" data-screen="dashboard" href="#">
+        <span class="nav-icon-wrap dash-icon">◈</span>
+        <span class="nav-text">Dashboard IMD</span>
+        <span class="nav-score-badge nav-imd-badge hidden" id="badge-imd"></span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer" id="sidebar-footer">
+      <div class="sidebar-company hidden" id="sidebar-company">
+        <span class="sc-nome" id="sc-nome">—</span>
+        <span class="sc-meta" id="sc-meta">—</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ───────────────────────────────────
+         SCREEN: CONFIGURAÇÃO
+    ─────────────────────────────────── -->
+    <section class="screen" id="screen-config">
+      <header class="screen-header">
+        <h1>Configuração do Assessment</h1>
+        <p>Preencha os dados da empresa para calibrar os cálculos de custo e potencial de IA.</p>
+      </header>
+
+      <div class="config-layout">
+
+        <div class="card config-intro">
+          <h3>Metodologia IMD</h3>
+          <p>A plataforma avalia a maturidade digital em <strong>5 pilares estratégicos</strong>, gerando um <strong>Índice de Maturidade Digital (IMD)</strong> de 0 a 100.</p>
+          <div class="pilares-preview">
+            <div class="pp-item" style="--c:var(--color-N)"><span class="pp-sigla">N</span><span class="pp-nome">Negócio</span><span class="pp-peso">15%</span></div>
+            <div class="pp-item" style="--c:var(--color-T)"><span class="pp-sigla">T</span><span class="pp-nome">Tecnologia</span><span class="pp-peso">25%</span></div>
+            <div class="pp-item" style="--c:var(--color-P)"><span class="pp-sigla">P</span><span class="pp-nome">Processos</span><span class="pp-peso">25%</span></div>
+            <div class="pp-item" style="--c:var(--color-G)"><span class="pp-sigla">G</span><span class="pp-nome">Governança</span><span class="pp-peso">15%</span></div>
+            <div class="pp-item" style="--c:var(--color-IA)"><span class="pp-sigla">IA</span><span class="pp-nome">IA</span><span class="pp-peso">20%</span></div>
+          </div>
+          <div class="faixas-imd">
+            <span class="faixa" style="--c:#E24B4A">20–39 Crítico</span>
+            <span class="faixa" style="--c:#BA7517">40–54 Em Desenvolvimento</span>
+            <span class="faixa" style="--c:#1D9E75">55–69 Estruturado</span>
+            <span class="faixa" style="--c:#3B8BD4">70–84 Avançado</span>
+            <span class="faixa" style="--c:#9B6DD4">85–100 Referência Digital</span>
+          </div>
+        </div>
+
+        <div class="card config-form-card">
+          <h3>Dados da Empresa</h3>
+          <form id="form-config" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="empresa-nome">Nome da empresa <span class="badge-opt">opcional</span></label>
+                <input type="text" id="empresa-nome" placeholder="Ex: Acme Tecnologia Ltda" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="responsavel">Responsável pelo assessment <span class="badge-req">*</span></label>
+                <input type="text" id="responsavel" placeholder="Nome do consultor" required autocomplete="off">
+              </div>
+            </div>
+            <div class="form-row form-row--3">
+              <div class="form-group">
+                <label for="setor">Setor principal <span class="badge-req">*</span></label>
+                <select id="setor" required>
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="faturamento">Faturamento mensal <span class="badge-req">*</span></label>
+                <select id="faturamento" required>
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="funcionarios">Nº de funcionários <span class="badge-req">*</span></label>
+                <select id="funcionarios" required>
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-lg" id="btn-iniciar">
+                Iniciar Assessment <span>→</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────
+         SCREEN: PILAR (reutilizado para os 5)
+    ─────────────────────────────────── -->
+    <section class="screen hidden" id="screen-pilar">
+
+      <div class="pilar-header" id="pilar-header">
+        <div class="pilar-badge" id="pilar-badge">N</div>
+        <div class="pilar-header-body">
+          <div class="pilar-header-top">
+            <h1 class="pilar-nome" id="pilar-nome">Visão Estratégica do Negócio</h1>
+            <span class="pilar-peso-tag" id="pilar-peso-tag">15% do IMD</span>
+          </div>
+          <p class="pilar-objetivo" id="pilar-objetivo">Objetivo do pilar</p>
+        </div>
+        <div class="pilar-score-widget" id="pilar-score-widget">
+          <span class="psw-val" id="psw-val">—</span>
+          <span class="psw-label">Score atual</span>
+        </div>
+      </div>
+
+      <div class="tabs" id="pilar-tabs">
+        <button class="tab-btn active" data-tab="avaliacao">Avaliação</button>
+        <button class="tab-btn" data-tab="score">Score &amp; Gaps</button>
+        <button class="tab-btn" data-tab="perguntas">Perguntas-Guia</button>
+        <button class="tab-btn hidden" id="tab-btn-quickwins" data-tab="quickwins">Quick Wins ✦</button>
+      </div>
+
+      <!-- TAB: Avaliação -->
+      <div class="tab-content active" id="tab-avaliacao">
+        <div class="dim-toolbar">
+          <span class="dim-progress-text" id="dim-progress-text">0 de 0 dimensões avaliadas</span>
+          <div class="level-legend">
+            <span class="ll-item"><i style="background:#DC2626"></i>Caótico</span>
+            <span class="ll-item"><i style="background:#EA580C"></i>Básico</span>
+            <span class="ll-item"><i style="background:#CA8A04"></i>Estruturado</span>
+            <span class="ll-item"><i style="background:#16A34A"></i>Gerenciado</span>
+            <span class="ll-item"><i style="background:#0F766E"></i>Otimizado</span>
+          </div>
+        </div>
+        <div class="dimensoes-list" id="dimensoes-list">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- TAB: Score & Gaps -->
+      <div class="tab-content hidden" id="tab-score">
+        <div class="score-layout">
+          <div class="score-col-main">
+            <div class="card pilar-score-card">
+              <div class="psc-gauge">
+                <svg class="gauge-sm" id="gauge-pilar" viewBox="0 0 200 120">
+                  <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E5E7EB" stroke-width="14" stroke-linecap="round"/>
+                  <path id="gauge-pilar-fill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="var(--pilar-color)" stroke-width="14" stroke-linecap="round" stroke-dasharray="0 251"/>
+                  <text x="100" y="92" text-anchor="middle" class="g-score" id="gauge-pilar-score">—</text>
+                  <text x="100" y="110" text-anchor="middle" class="g-level" id="gauge-pilar-level">—</text>
+                </svg>
+              </div>
+              <div class="psc-meta">
+                <div class="custo-box" id="custo-box">
+                  <span class="custo-box-label">Custo total dos gaps</span>
+                  <span class="custo-box-val" id="custo-box-val">—</span>
+                  <span class="custo-box-sub" id="custo-box-sub"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">Top 3 Gaps Prioritários</h3>
+              <div class="gaps-list" id="top3-gaps"><!-- app.js --></div>
+            </div>
+          </div>
+
+          <div class="score-col-side">
+            <div class="card">
+              <h3 class="card-title">Score por Dimensão</h3>
+              <div class="dim-bars" id="dim-bars"><!-- app.js --></div>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Radar do Pilar</h3>
+              <div class="radar-wrap">
+                <svg class="radar-svg" id="radar-pilar" viewBox="0 0 300 280"><!-- app.js --></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Perguntas-Guia -->
+      <div class="tab-content hidden" id="tab-perguntas">
+        <div class="card perguntas-intro">
+          <p>Use as perguntas abaixo para conduzir a reunião de assessment com o CEO. Dimensões marcadas como N/A aparecem esmaecidas.</p>
+        </div>
+        <div class="perguntas-list" id="perguntas-list"><!-- app.js --></div>
+      </div>
+
+      <!-- TAB: Quick Wins (IA only) -->
+      <div class="tab-content hidden" id="tab-quickwins">
+        <div class="card qw-header-card">
+          <div class="qwh-text">
+            <h3>Quick Wins com Inteligência Artificial</h3>
+            <p>Ações de alto impacto ordenadas por ROI estimado, com base nos scores das dimensões avaliadas.</p>
+          </div>
+          <div class="qwh-total">
+            <span class="qwh-total-label">Potencial total de ganho/mês</span>
+            <span class="qwh-total-val" id="qwh-total-val">—</span>
+          </div>
+        </div>
+        <div class="qw-list" id="qw-list"><!-- app.js --></div>
+      </div>
+
+      <div class="pilar-nav-bar">
+        <button class="btn btn-ghost" id="btn-anterior">← Pilar anterior</button>
+        <button class="btn btn-primary" id="btn-proximo">Próximo pilar →</button>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────
+         SCREEN: DASHBOARD IMD
+    ─────────────────────────────────── -->
+    <section class="screen hidden" id="screen-dashboard">
+
+      <header class="screen-header screen-header--dashboard">
+        <div>
+          <h1>Dashboard IMD</h1>
+          <p class="dashboard-empresa" id="dashboard-empresa">Assessment completo</p>
+        </div>
+        <button class="btn btn-outline" id="btn-salvar">Salvar Assessment</button>
+      </header>
+
+      <!-- Hero IMD -->
+      <div class="card imd-hero">
+        <div class="imd-gauge-area">
+          <svg class="gauge-lg" id="gauge-imd" viewBox="0 0 320 190">
+            <path d="M 30 160 A 130 130 0 0 1 290 160" fill="none" stroke="#E5E7EB" stroke-width="22" stroke-linecap="round"/>
+            <path id="gauge-imd-fill" d="M 30 160 A 130 130 0 0 1 290 160" fill="none" stroke="#3B8BD4" stroke-width="22" stroke-linecap="round" stroke-dasharray="0 408"/>
+            <text x="160" y="142" text-anchor="middle" class="g-main-score" id="gauge-imd-score">—</text>
+            <text x="160" y="163" text-anchor="middle" class="g-main-label">IMD</text>
+          </svg>
+          <div class="gauge-scale">
+            <span>20</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="imd-info">
+          <div class="imd-class-badge" id="imd-class-badge">—</div>
+          <p class="imd-diagnostico" id="imd-diagnostico">Complete o assessment para ver o diagnóstico.</p>
+          <p class="imd-formula">IMD = (N×15% + T×25% + P×25% + G×15% + IA×20%) × 20</p>
+        </div>
+      </div>
+
+      <!-- Cards dos pilares -->
+      <div class="pilares-grid" id="pilares-grid"><!-- app.js --></div>
+
+      <!-- Perfil de Maturidade (injetado por app.js) -->
+      <div id="perfil-card-wrap"></div>
+
+      <!-- Radar + Top 5 -->
+      <div class="dashboard-split">
+        <div class="card">
+          <h3 class="card-title">Radar de Maturidade — 5 Pilares</h3>
+          <div class="radar-wrap radar-wrap--lg">
+            <svg class="radar-svg" id="radar-imd" viewBox="0 0 360 340"><!-- app.js --></svg>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Top 5 Gaps Críticos</h3>
+          <div class="gaps-list gaps-list--lg" id="top5-gaps"><!-- app.js --></div>
+        </div>
+      </div>
+
+      <!-- Resumo executivo IA -->
+      <div class="card resumo-card">
+        <div class="resumo-card-header">
+          <div>
+            <h3>Resumo Executivo</h3>
+            <p>Diagnóstico cruzado dos 5 pilares gerado por Inteligência Artificial.</p>
+          </div>
+          <button class="btn btn-ia" id="btn-gerar-resumo">✦ Gerar Resumo com IA</button>
+        </div>
+        <div class="resumo-content hidden" id="resumo-content"></div>
+      </div>
+
+      <!-- Ações pós-assessment -->
+      <div class="card">
+        <h3 class="card-title">Próximos Passos</h3>
+        <div class="actions-grid">
+          <button class="action-tile" id="btn-gerar-proposta">
+            <span class="action-tile-icon">📄</span>
+            <span class="action-tile-title">Proposta Comercial</span>
+            <span class="action-tile-desc">Escopo, entregáveis e investimento</span>
+          </button>
+          <button class="action-tile" id="btn-gerar-apresentacao">
+            <span class="action-tile-icon">📊</span>
+            <span class="action-tile-title">Estrutura de Apresentação</span>
+            <span class="action-tile-desc">10 slides com conteúdo sugerido</span>
+          </button>
+          <button class="action-tile" id="btn-gerar-roadmap">
+            <span class="action-tile-icon">🗺</span>
+            <span class="action-tile-title">Roadmap de 90 Dias</span>
+            <span class="action-tile-desc">Ações, responsáveis e métricas</span>
+          </button>
+          <button class="action-tile" id="btn-gerar-relatorio">
+            <span class="action-tile-icon">📋</span>
+            <span class="action-tile-title">Relatório Completo</span>
+            <span class="action-tile-desc">Google Docs com análise completa</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- ════════════════════════════════════════
+     MODAL (output de IA)
+════════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title">Resultado</h3>
+      <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="btn-modal-copiar">Copiar texto</button>
+      <button class="btn btn-primary" id="btn-modal-fechar">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     LOADING OVERLAY (chamadas IA)
+════════════════════════════════════════ -->
+<div class="loading-overlay hidden" id="loading-overlay">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <p class="loading-text" id="loading-text">Gerando com IA...</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TOASTS
+════════════════════════════════════════ -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="config.js"></script>
+<script src="perfil_maturidade.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
