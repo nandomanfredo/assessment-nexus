@@ -244,10 +244,115 @@ svg { display: block; }
   padding: var(--sp-4);
   border-top: 1px solid var(--sidebar-border);
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
 }
 .sidebar-company { display: flex; flex-direction: column; gap: 2px; }
 .sc-nome { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sc-meta { font-size: 11px; color: var(--text-muted); }
+
+/* Sidebar user info + logout */
+.sidebar-user {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.su-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.su-info { flex: 1; min-width: 0; }
+.su-nome { display: block; font-size: 12px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.su-role { display: block; font-size: 10px; color: var(--text-muted); text-transform: capitalize; }
+.su-logout {
+  background: none; border: none; cursor: pointer; padding: 4px;
+  color: var(--text-muted); border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  transition: color .15s, background .15s; flex-shrink: 0;
+}
+.su-logout:hover { color: var(--danger); background: #FEE2E2; }
+
+/* ── Login overlay ───────────────────────────────────────── */
+.login-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #F1F5F9;
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--sp-6);
+}
+.login-overlay.hidden { display: none; }
+.login-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8) var(--sp-8);
+  width: 100%; max-width: 380px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+}
+.login-brand {
+  display: flex; align-items: center; gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+.login-brand-icon {
+  width: 42px; height: 42px; border-radius: var(--r-md);
+  background: var(--primary); color: #fff;
+  font-size: 14px; font-weight: 900; letter-spacing: -0.5px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.login-brand-title { font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.login-brand-sub   { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.login-desc        { font-size: 13px; color: var(--text-2); margin-bottom: var(--sp-5); line-height: 1.55; }
+.login-error {
+  font-size: 12px; color: var(--danger);
+  background: #FEF2F2; border: 1px solid #FECACA;
+  border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.login-error.hidden { display: none; }
+.login-footer { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: var(--sp-5); }
+
+/* ── Usuários table ──────────────────────────────────────── */
+.usuarios-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.usuarios-table th {
+  text-align: left; padding: var(--sp-2) var(--sp-3);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-muted); border-bottom: 1.5px solid var(--border);
+}
+.usuarios-table td { padding: var(--sp-3) var(--sp-3); border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+.usuarios-table tr:last-child td { border-bottom: none; }
+.usuarios-table tr:hover td { background: var(--surface-2); }
+.usr-badge {
+  display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px;
+  border-radius: var(--r-full); border: 1px solid;
+}
+.usr-badge-admin    { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+.usr-badge-consultor { background: #F0FDF4; color: #15803D; border-color: #BBF7D0; }
+.usr-badge-visualizador { background: #FEFCE8; color: #A16207; border-color: #FEF08A; }
+.usr-badge-inativo  { background: var(--surface-2); color: var(--text-muted); border-color: var(--border); }
+.usr-actions { display: flex; gap: var(--sp-2); justify-content: flex-end; }
+.usr-btn {
+  background: none; border: 1px solid var(--border); cursor: pointer;
+  padding: 4px 10px; border-radius: var(--r-sm); font-size: 11px; font-weight: 500;
+  color: var(--text-2); transition: all .15s;
+}
+.usr-btn:hover { background: var(--surface-2); color: var(--text); }
+.usr-btn-danger:hover { background: #FEE2E2; color: var(--danger); border-color: #FECACA; }
+
+/* form-select (para o modal de usuário) */
+.form-select {
+  width: 100%; height: 44px; padding: 0 var(--sp-3);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  font-size: 14px; font-family: var(--font); color: var(--text);
+  background: #fff; cursor: pointer; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring); }
 
 /* ── Main content ────────────────────────────────────────── */
 .main {

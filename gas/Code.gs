@@ -24,6 +24,29 @@ function doPost(e) {
     const payload = JSON.parse(e.postData.contents);
     const action  = payload.action;
 
+    // ── Rotas públicas (sem token) ──────────────────────────
+    if (action === 'login') {
+      return _jsonResponse(loginUsuario(payload.username, payload.senha));
+    }
+    if (action === 'logout') {
+      return _jsonResponse(logoutUsuario(payload.token));
+    }
+    if (action === 'validarSessao') {
+      return _jsonResponse(validarSessao(payload.token));
+    }
+
+    // ── Rotas de gestão de usuários (token validado dentro de Auth.gs) ──
+    if (action === 'listarUsuarios')   return _jsonResponse(listarUsuarios(payload.token));
+    if (action === 'criarUsuario')     return _jsonResponse(criarUsuario(payload.token, payload.dados));
+    if (action === 'atualizarUsuario') return _jsonResponse(atualizarUsuario(payload.token, payload.dados));
+    if (action === 'deletarUsuario')   return _jsonResponse(deletarUsuario(payload.token, payload.id));
+
+    // ── Todas as demais rotas requerem sessão válida ────────
+    const sessao = validarSessao(payload.token);
+    if (!sessao.ok) {
+      return _jsonResponse({ ok: false, erro: sessao.erro || 'Sessão inválida. Faça login novamente.' });
+    }
+
     let resultado;
     switch (action) {
       case 'salvarAssessment':

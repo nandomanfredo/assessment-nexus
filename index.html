@@ -94,10 +94,28 @@
       </a>
     </nav>
 
+    <div class="nav-rule"></div>
+    <a class="nav-item nav-admin-only hidden" id="nav-usuarios" data-screen="usuarios" href="#">
+      <span class="nav-icon-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </span>
+      <span class="nav-text">Usuários</span>
+    </a>
+
     <div class="sidebar-footer" id="sidebar-footer">
       <div class="sidebar-company hidden" id="sidebar-company">
         <span class="sc-nome" id="sc-nome">—</span>
         <span class="sc-meta" id="sc-meta">—</span>
+      </div>
+      <div class="sidebar-user hidden" id="sidebar-user">
+        <div class="su-avatar" id="su-avatar">?</div>
+        <div class="su-info">
+          <span class="su-nome" id="su-nome">—</span>
+          <span class="su-role" id="su-role">—</span>
+        </div>
+        <button class="su-logout" id="btn-logout" title="Sair">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
       </div>
     </div>
   </aside>
@@ -393,6 +411,28 @@
 
     </section>
 
+    <!-- ───────────────────────────────────
+         SCREEN: USUÁRIOS (admin only)
+    ─────────────────────────────────── -->
+    <section class="screen hidden" id="screen-usuarios">
+      <header class="screen-header">
+        <h1>Gestão de Usuários</h1>
+        <p>Cadastre e gerencie os usuários com acesso ao Assessment Nexus.</p>
+      </header>
+      <div class="card" style="max-width:760px">
+        <div class="card-header-row" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-5)">
+          <h3 style="font-size:15px;font-weight:700;margin:0">Usuários cadastrados</h3>
+          <button class="btn btn-primary" id="btn-novo-usuario" style="font-size:13px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Novo usuário
+          </button>
+        </div>
+        <div id="usuarios-table-wrap">
+          <p class="text-muted" style="font-size:13px">Carregando...</p>
+        </div>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -427,6 +467,86 @@
      TOASTS
 ════════════════════════════════════════ -->
 <div class="toast-container" id="toast-container"></div>
+
+<!-- ════════════════════════════════════════
+     LOGIN OVERLAY
+════════════════════════════════════════ -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-brand-icon">AN</div>
+      <div>
+        <div class="login-brand-title">Assessment Nexus</div>
+        <div class="login-brand-sub">Nexus Consultoria</div>
+      </div>
+    </div>
+    <p class="login-desc">Informe suas credenciais para acessar o sistema.</p>
+    <form id="login-form" autocomplete="on">
+      <div class="form-field">
+        <label class="form-label" for="login-username">Usuário</label>
+        <input class="form-input" id="login-username" name="username"
+               type="text" autocomplete="username" placeholder="seu.usuario" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="login-password">Senha</label>
+        <input class="form-input" id="login-password" name="password"
+               type="password" autocomplete="current-password" placeholder="••••••••" required>
+      </div>
+      <p class="login-error hidden" id="login-error"></p>
+      <button class="btn btn-primary" id="login-btn" type="submit" style="width:100%;margin-top:var(--sp-2)">
+        <span id="login-btn-text">Entrar</span>
+        <span id="login-btn-loading" class="hidden">
+          <span class="loading-spinner" style="width:14px;height:14px;border-width:2px;border-color:rgba(255,255,255,.3);border-top-color:#fff;display:inline-block"></span>
+        </span>
+      </button>
+    </form>
+    <p class="login-footer">Assessment Nexus · IMD v2.1 · © 2026 Nexus Consultoria</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MODAL: USUÁRIO (criar/editar)
+════════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-usuario-overlay">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-usuario-titulo">Novo Usuário</h3>
+      <button class="modal-close" id="modal-usuario-close" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body" style="padding-top:var(--sp-4)">
+      <input type="hidden" id="usr-edit-id">
+      <div class="form-field">
+        <label class="form-label">Username <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" id="usr-username" type="text" placeholder="nome.sobrenome" autocomplete="off">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Nome completo <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" id="usr-nome" type="text" placeholder="Nome Completo" autocomplete="off">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Senha <span id="senha-hint" style="color:var(--text-muted);font-weight:400"></span></label>
+        <input class="form-input" id="usr-senha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Perfil</label>
+        <select class="form-select" id="usr-role">
+          <option value="consultor">Consultor</option>
+          <option value="admin">Administrador</option>
+          <option value="visualizador">Visualizador</option>
+        </select>
+      </div>
+      <div class="form-field" id="usr-ativo-wrap" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="usr-ativo" checked style="width:16px;height:16px;accent-color:var(--primary)">
+        <label for="usr-ativo" style="font-size:13px;color:var(--text-2);cursor:pointer">Usuário ativo</label>
+      </div>
+      <p class="login-error hidden" id="modal-usuario-error"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="btn-usuario-cancelar">Cancelar</button>
+      <button class="btn btn-primary" id="btn-usuario-salvar">Salvar usuário</button>
+    </div>
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="perfil_maturidade.js"></script>

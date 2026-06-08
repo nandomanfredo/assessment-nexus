@@ -20,6 +20,14 @@ const QW_TEMPLATES = {
   IA7: { titulo: 'IA no RH: triagem de candidatos e predição de turnover', descricao: 'Implementar ATS com IA para triagem e ranking automático de candidatos, análise de eNPS com sentimento e modelo preditivo de risco de saída de talentos.', prazo: '4–6 semanas', area: 'Pessoas / RH' },
 };
 
+// ── Estado de autenticação ───────────────────────────────
+const AUTH_STATE = {
+  token:   null,
+  usuario: null, // { id, username, nome, role }
+};
+
+const ROLE_LABELS = { admin: 'Administrador', consultor: 'Consultor', visualizador: 'Visualizador' };
+
 // ── Estado ───────────────────────────────────────────────
 const STATE = {
   config: { empresa: '', responsavel: '', setor: '', faturamento: '', funcionarios: '', faturamentoVal: 0, funcionariosVal: 0 },
@@ -33,20 +41,167 @@ const qs  = sel => document.querySelector(sel);
 const qsa = sel => document.querySelectorAll(sel);
 const svgEl = tag => document.createElementNS('http://www.w3.org/2000/svg', tag);
 
+// ── Auth — login / logout / sessão ───────────────────────
+
+function showLoginOverlay(msg) {
+  const overlay = qs('#login-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('hidden');
+  if (msg) {
+    const err = qs('#login-error');
+    if (err) { err.textContent = msg; err.classList.remove('hidden'); }
+  }
+}
+
+function hideLoginOverlay() {
+  const overlay = qs('#login-overlay');
+  if (overlay) overlay.classList.add('hidden');
+}
+
+async function checkAuth() {
+  const token   = localStorage.getItem('nexus_auth_token');
+  const userStr = localStorage.getItem('nexus_auth_user');
+  if (!token || !GAS_URL) { showLoginOverlay(); return false; }
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'validarSessao', token }),
+    });
+    const json = await res.json();
+    if (json.ok) {
+      AUTH_STATE.token   = token;
+      AUTH_STATE.usuario = json.usuario;
+      // Recupera nome do localStorage (sessão não devolve nome)
+      try { const u = JSON.parse(userStr); if (u && u.nome) AUTH_STATE.usuario.nome = u.nome; } catch (_) {}
+      return true;
+    }
+    localStorage.removeItem('nexus_auth_token');
+    localStorage.removeItem('nexus_auth_user');
+    showLoginOverlay();
+    return false;
+  } catch (_) {
+    showLoginOverlay();
+    return false;
+  }
+}
+
+async function doLogin(username, senha) {
+  const btn     = qs('#login-btn');
+  const btnText = qs('#login-btn-text');
+  const btnLoad = qs('#login-btn-loading');
+  const errEl   = qs('#login-error');
+  btn.disabled = true;
+  btnText.classList.add('hidden');
+  btnLoad.classList.remove('hidden');
+  errEl.classList.add('hidden');
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'login', username: username.trim().toLowerCase(), senha }),
+    });
+    const json = await res.json();
+    if (json.ok) {
+      AUTH_STATE.token   = json.token;
+      AUTH_STATE.usuario = json.usuario;
+      localStorage.setItem('nexus_auth_token', json.token);
+      localStorage.setItem('nexus_auth_user',  JSON.stringify(json.usuario));
+      hideLoginOverlay();
+      initApp(); // inicializa a app após login
+    } else {
+      errEl.textContent = json.erro || 'Credenciais inválidas.';
+      errEl.classList.remove('hidden');
+    }
+  } catch (e) {
+    errEl.textContent = 'Erro de conexão. Verifique o backend.';
+    errEl.classList.remove('hidden');
+  } finally {
+    btn.disabled = false;
+    btnText.classList.remove('hidden');
+    btnLoad.classList.add('hidden');
+  }
+}
+
+async function doLogout() {
+  if (AUTH_STATE.token) {
+    try { await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'logout', token: AUTH_STATE.token }),
+    }); } catch (_) {}
+  }
+  AUTH_STATE.token   = null;
+  AUTH_STATE.usuario = null;
+  localStorage.removeItem('nexus_auth_token');
+  localStorage.removeItem('nexus_auth_user');
+  showLoginOverlay('Você saiu. Faça login para continuar.');
+}
+
+function updateSidebarUser() {
+  const u = AUTH_STATE.usuario;
+  if (!u) return;
+  const wrap = qs('#sidebar-user');
+  if (wrap) wrap.classList.remove('hidden');
+  const nome = u.nome || u.username || '?';
+  qs('#su-avatar').textContent = nome.charAt(0).toUpperCase();
+  qs('#su-nome').textContent   = nome;
+  qs('#su-role').textContent   = ROLE_LABELS[u.role] || u.role;
+  // Admin: mostra item de usuários
+  if (u.role === 'admin') {
+    qs('#nav-usuarios')?.classList.remove('hidden');
+  }
+}
+
 // ── Init ─────────────────────────────────────────────────
-function init() {
+async function init() {
+  // Primeiro verifica autenticação
+  const authed = await checkAuth();
+  if (authed) {
+    initApp();
+  } else {
+    // configura o form de login
+    setupLoginForm();
+  }
+}
+
+function setupLoginForm() {
+  qs('#login-form')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const user = qs('#login-username').value;
+    const pass = qs('#login-password').value;
+    await doLogin(user, pass);
+  });
+}
+
+function initApp() {
+  // Inicializa scores
   CONFIG.pilares.forEach(p =>
     p.dimensoes.forEach(d => {
-      STATE.scores[d.id] = { score: null, na: false, naMotivo: '', obs: '' };
+      if (!STATE.scores[d.id]) {
+        STATE.scores[d.id] = { score: null, na: false, naMotivo: '', obs: '' };
+      }
     })
   );
 
-  // Popula selects
-  CONFIG.setores.forEach(s => qs('#setor').add(new Option(s.label, s.id)));
-  CONFIG.faturamentoOpcoes.forEach(f => qs('#faturamento').add(new Option(f.label, f.id)));
-  CONFIG.funcionariosOpcoes.forEach(f => qs('#funcionarios').add(new Option(f.label, f.id)));
+  // Popula selects (só na primeira vez)
+  const setorEl = qs('#setor');
+  if (setorEl && setorEl.options.length === 0) {
+    CONFIG.setores.forEach(s => setorEl.add(new Option(s.label, s.id)));
+    CONFIG.faturamentoOpcoes.forEach(f => qs('#faturamento').add(new Option(f.label, f.id)));
+    CONFIG.funcionariosOpcoes.forEach(f => qs('#funcionarios').add(new Option(f.label, f.id)));
+  }
 
+  setupLoginForm();
   setupEvents();
+  setupAuthEvents();
+  updateSidebarUser();
+}
+
+function setupAuthEvents() {
+  qs('#btn-logout')?.addEventListener('click', () => {
+    if (confirm('Deseja sair do sistema?')) doLogout();
+  });
 }
 
 // ── Navegação ────────────────────────────────────────────
@@ -631,6 +786,7 @@ function setupEvents() {
     const { screen, pilar } = nav.dataset;
     if (screen === 'config') { navigateTo('config'); return; }
     if (screen === 'dashboard') { navigateTo('dashboard'); return; }
+    if (screen === 'usuarios') { navigateTo('usuarios'); carregarUsuarios(); return; }
     if (screen === 'pilar' && pilar) {
       if (!STATE.config.responsavel) { toast('Configure o assessment primeiro.', 'error'); return; }
       navigateTo('pilar', pilar);
@@ -729,6 +885,8 @@ function renderPerfilCard(scores, imd) {
 
 async function api(payload) {
   if (!GAS_URL) throw new Error('GAS_URL não configurada em app.js.');
+  // Injeta token automaticamente em todas as chamadas
+  if (AUTH_STATE.token && !payload.token) payload.token = AUTH_STATE.token;
   const res  = await fetch(GAS_URL, {
     method:  'POST',
     headers: { 'Content-Type': 'text/plain' }, // GAS não aceita application/json cross-origin
@@ -736,6 +894,11 @@ async function api(payload) {
   });
   if (!res.ok) throw new Error('Erro HTTP ' + res.status);
   const json = await res.json();
+  // Sessão expirada ou inválida — força login
+  if (!json.ok && json.erro && json.erro.toLowerCase().includes('sessão')) {
+    showLoginOverlay('Sua sessão expirou. Faça login novamente.');
+    throw new Error(json.erro);
+  }
   if (!json.ok) throw new Error(json.erro || 'Erro desconhecido no servidor.');
   return json;
 }
@@ -798,5 +961,194 @@ async function onAcaoIA(action, titulo) {
     qs('#loading-text').textContent = 'Gerando com IA...';
   }
 }
+
+// ── Gestão de usuários (admin) ────────────────────────────
+
+async function carregarUsuarios() {
+  const wrap = qs('#usuarios-table-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted)">Carregando...</p>';
+  try {
+    const res = await api({ action: 'listarUsuarios' });
+    renderUsuariosTable(res.usuarios || []);
+  } catch (e) {
+    wrap.innerHTML = `<p style="font-size:13px;color:var(--danger)">${e.message}</p>`;
+  }
+}
+
+function renderUsuariosTable(usuarios) {
+  const wrap = qs('#usuarios-table-wrap');
+  if (!wrap) return;
+  if (!usuarios.length) {
+    wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted)">Nenhum usuário cadastrado.</p>';
+    return;
+  }
+  const rows = usuarios.map(u => {
+    const badgeClass = u.ativo ? `usr-badge-${u.role}` : 'usr-badge-inativo';
+    const badgeLabel = u.ativo ? (ROLE_LABELS[u.role] || u.role) : 'Inativo';
+    const dtCriado   = u.criadoEm ? new Date(u.criadoEm).toLocaleDateString('pt-BR') : '—';
+    const isSelf     = AUTH_STATE.usuario && AUTH_STATE.usuario.id === u.id;
+    const uJson      = escAttr(JSON.stringify(u));
+    return `
+      <tr>
+        <td style="font-weight:600">${escHtml(u.username)}</td>
+        <td>${escHtml(u.nome)}</td>
+        <td><span class="usr-badge ${badgeClass}">${badgeLabel}</span></td>
+        <td style="color:var(--text-muted);font-size:12px">${dtCriado}</td>
+        <td>
+          <div class="usr-actions">
+            <button class="usr-btn" onclick="abrirModalEditarUsuarioById('${u.id}')">Editar</button>
+            ${isSelf ? '' : `<button class="usr-btn usr-btn-danger" onclick="confirmarDeletarUsuario('${u.id}','${escHtml(u.username)}')">Excluir</button>`}
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+  wrap.innerHTML = `
+    <table class="usuarios-table">
+      <thead><tr>
+        <th>Username</th><th>Nome</th><th>Perfil</th><th>Criado em</th><th style="text-align:right">Ações</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// Cache dos usuários para edição inline
+let _usuariosCache = [];
+
+async function carregarUsuariosComCache() {
+  try {
+    const res = await api({ action: 'listarUsuarios' });
+    _usuariosCache = res.usuarios || [];
+    renderUsuariosTable(_usuariosCache);
+  } catch (e) {
+    const wrap = qs('#usuarios-table-wrap');
+    if (wrap) wrap.innerHTML = `<p style="font-size:13px;color:var(--danger)">${e.message}</p>`;
+  }
+}
+
+// Redefine carregarUsuarios para usar cache
+async function carregarUsuarios() {
+  const wrap = qs('#usuarios-table-wrap');
+  if (wrap) wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted)">Carregando...</p>';
+  await carregarUsuariosComCache();
+}
+
+function abrirModalEditarUsuarioById(id) {
+  const u = _usuariosCache.find(x => x.id === id);
+  if (u) abrirModalEditarUsuario(u);
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function abrirModalNovoUsuario() {
+  qs('#modal-usuario-titulo').textContent = 'Novo Usuário';
+  qs('#usr-edit-id').value   = '';
+  qs('#usr-username').value  = '';
+  qs('#usr-nome').value      = '';
+  qs('#usr-senha').value     = '';
+  qs('#usr-role').value      = 'consultor';
+  qs('#usr-ativo').checked   = true;
+  qs('#usr-ativo-wrap').style.display = 'none';
+  qs('#senha-hint').textContent = '(obrigatório)';
+  qs('#usr-username').disabled  = false;
+  qs('#modal-usuario-error').classList.add('hidden');
+  qs('#modal-usuario-overlay').classList.remove('hidden');
+}
+
+function abrirModalEditarUsuario(u) {
+  qs('#modal-usuario-titulo').textContent = 'Editar Usuário';
+  qs('#usr-edit-id').value   = u.id;
+  qs('#usr-username').value  = u.username;
+  qs('#usr-nome').value      = u.nome;
+  qs('#usr-senha').value     = '';
+  qs('#usr-role').value      = u.role || 'consultor';
+  qs('#usr-ativo').checked   = u.ativo !== false;
+  qs('#usr-ativo-wrap').style.display = 'flex';
+  qs('#senha-hint').textContent = '(deixe vazio para não alterar)';
+  qs('#usr-username').disabled  = true;
+  qs('#modal-usuario-error').classList.add('hidden');
+  qs('#modal-usuario-overlay').classList.remove('hidden');
+}
+
+async function salvarUsuarioModal() {
+  const id    = qs('#usr-edit-id').value;
+  const nome  = qs('#usr-nome').value.trim();
+  const senha = qs('#usr-senha').value;
+  const role  = qs('#usr-role').value;
+  const ativo = qs('#usr-ativo').checked;
+  const errEl = qs('#modal-usuario-error');
+
+  if (!id) {
+    // NOVO usuário
+    const username = qs('#usr-username').value.trim().toLowerCase();
+    if (!username || !nome || !senha) {
+      errEl.textContent = 'Preencha username, nome e senha.';
+      errEl.classList.remove('hidden'); return;
+    }
+    if (senha.length < 6) {
+      errEl.textContent = 'A senha precisa ter pelo menos 6 caracteres.';
+      errEl.classList.remove('hidden'); return;
+    }
+    const btn = qs('#btn-usuario-salvar');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try {
+      await api({ action: 'criarUsuario', dados: { username, nome, senha, role } });
+      fecharModalUsuario();
+      toast('Usuário criado com sucesso!', 'success');
+      carregarUsuarios();
+    } catch (e) {
+      errEl.textContent = e.message; errEl.classList.remove('hidden');
+    } finally { btn.disabled = false; btn.textContent = 'Salvar usuário'; }
+  } else {
+    // EDITAR usuário
+    if (!nome) {
+      errEl.textContent = 'Nome é obrigatório.';
+      errEl.classList.remove('hidden'); return;
+    }
+    if (senha && senha.length < 6) {
+      errEl.textContent = 'A nova senha precisa ter pelo menos 6 caracteres.';
+      errEl.classList.remove('hidden'); return;
+    }
+    const dados = { id, nome, role, ativo };
+    if (senha) dados.senha = senha;
+    const btn = qs('#btn-usuario-salvar');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try {
+      await api({ action: 'atualizarUsuario', dados });
+      fecharModalUsuario();
+      toast('Usuário atualizado!', 'success');
+      carregarUsuarios();
+    } catch (e) {
+      errEl.textContent = e.message; errEl.classList.remove('hidden');
+    } finally { btn.disabled = false; btn.textContent = 'Salvar usuário'; }
+  }
+}
+
+async function confirmarDeletarUsuario(id, username) {
+  if (!confirm(`Excluir o usuário "${username}"? Esta ação não pode ser desfeita.`)) return;
+  try {
+    await api({ action: 'deletarUsuario', id });
+    toast(`Usuário "${username}" excluído.`, 'success');
+    carregarUsuarios();
+  } catch (e) {
+    toast('Erro ao excluir: ' + e.message, 'error');
+  }
+}
+
+function fecharModalUsuario() {
+  qs('#modal-usuario-overlay').classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  qs('#modal-usuario-close')?.addEventListener('click',   fecharModalUsuario);
+  qs('#btn-usuario-cancelar')?.addEventListener('click',  fecharModalUsuario);
+  qs('#btn-novo-usuario')?.addEventListener('click',      abrirModalNovoUsuario);
+  qs('#btn-usuario-salvar')?.addEventListener('click',    salvarUsuarioModal);
+});
 
 document.addEventListener('DOMContentLoaded', init);
