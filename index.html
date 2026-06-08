@@ -780,39 +780,103 @@
 <div class="toast-container" id="toast-container"></div>
 
 <!-- ════════════════════════════════════════
-     LOGIN OVERLAY
+     LOGIN OVERLAY — Split Screen
 ════════════════════════════════════════ -->
 <div class="login-overlay" id="login-overlay">
-  <div class="login-card">
-    <div class="login-brand">
-      <div class="login-brand-icon">AN</div>
-      <div>
-        <div class="login-brand-title">Assessment Nexus</div>
-        <div class="login-brand-sub">Nexus Consultoria</div>
+
+  <!-- ── Painel esquerdo: brand ── -->
+  <div class="lp-brand">
+    <div class="lp-brand-inner">
+
+      <!-- Logo -->
+      <div class="lpb-logo">
+        <span>AN</span>
       </div>
+
+      <!-- Headline -->
+      <h1 class="lpb-headline">Descubra onde a IA vai gerar mais retorno para sua empresa</h1>
+      <p class="lpb-sub">Avalie a maturidade digital em 5 pilares e receba um plano de ação personalizado com ROI estimado.</p>
+
+      <!-- Métricas -->
+      <div class="lpb-stats">
+        <div class="lpb-stat">
+          <span class="lpb-stat-val">3.2×</span>
+          <span class="lpb-stat-lbl">mais produtividade</span>
+        </div>
+        <div class="lpb-stat-div"></div>
+        <div class="lpb-stat">
+          <span class="lpb-stat-val">68%</span>
+          <span class="lpb-stat-lbl">menos processos manuais</span>
+        </div>
+        <div class="lpb-stat-div"></div>
+        <div class="lpb-stat">
+          <span class="lpb-stat-val">90d</span>
+          <span class="lpb-stat-lbl">para resultados reais</span>
+        </div>
+      </div>
+
+      <!-- Método -->
+      <div class="lpb-method">
+        <span class="lpb-method-label">NEXUS AI METHOD™</span>
+        <div class="lpb-phases">
+          <span class="lpb-phase">SCAN</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#334155;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="lpb-phase">DESIGN</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#334155;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="lpb-phase">BUILD</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#334155;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="lpb-phase">ADOPT</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#334155;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="lpb-phase">EVOLVE</span>
+        </div>
+      </div>
+
     </div>
-    <p class="login-desc">Informe suas credenciais para acessar o sistema.</p>
-    <form id="login-form" autocomplete="on">
-      <div class="form-field">
-        <label class="form-label" for="login-username">Usuário</label>
-        <input class="form-input" id="login-username" name="username"
-               type="text" autocomplete="username" placeholder="seu.usuario" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="login-password">Senha</label>
-        <input class="form-input" id="login-password" name="password"
-               type="password" autocomplete="current-password" placeholder="••••••••" required>
-      </div>
-      <p class="login-error hidden" id="login-error"></p>
-      <button class="btn btn-primary" id="login-btn" type="submit" style="width:100%;margin-top:var(--sp-2)">
-        <span id="login-btn-text">Entrar</span>
-        <span id="login-btn-loading" class="hidden">
-          <span class="loading-spinner" style="width:14px;height:14px;border-width:2px;border-color:rgba(255,255,255,.3);border-top-color:#fff;display:inline-block"></span>
-        </span>
-      </button>
-    </form>
-    <p class="login-footer">Assessment Nexus · IMD v2.1 · © 2026 Nexus Consultoria</p>
   </div>
+
+  <!-- ── Painel direito: formulário ── -->
+  <div class="lp-form">
+    <div class="lp-form-inner">
+
+      <div class="lp-form-header">
+        <div class="lp-form-logo-sm">AN</div>
+        <h2>Bem-vindo de volta</h2>
+        <p>Entre com suas credenciais para continuar</p>
+      </div>
+
+      <form id="login-form" autocomplete="on" novalidate>
+        <div class="lp-field">
+          <label for="login-username">Usuário</label>
+          <div class="lp-input-wrap">
+            <svg class="lp-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input id="login-username" name="username" type="text"
+                   autocomplete="username" placeholder="seu.usuario" required>
+          </div>
+        </div>
+        <div class="lp-field">
+          <label for="login-password">Senha</label>
+          <div class="lp-input-wrap">
+            <svg class="lp-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input id="login-password" name="password" type="password"
+                   autocomplete="current-password" placeholder="••••••••" required>
+          </div>
+        </div>
+
+        <p class="login-error hidden" id="login-error"></p>
+
+        <button class="lp-btn" id="login-btn" type="submit">
+          <span id="login-btn-text">Entrar no sistema</span>
+          <span id="login-btn-loading" class="hidden">
+            <span class="lp-spinner"></span>
+            Verificando...
+          </span>
+        </button>
+      </form>
+
+      <p class="lp-version">Assessment Nexus · IMD v2.1 · © 2026 Nexus Consultoria</p>
+    </div>
+  </div>
+
 </div>
 
 <!-- ════════════════════════════════════════
