@@ -1346,8 +1346,7 @@ function _setupROICalc() {
     const _updateRangeGradient = () => {
       const min = +range.min || 10, max = +range.max || 90, val = +range.value;
       const pct = ((val - min) / (max - min)) * 100;
-      // Use indigo (#6366F1) to match dark panel + login palette
-      range.style.background = `linear-gradient(to right,#6366F1 0%,#6366F1 ${pct}%,rgba(255,255,255,.1) ${pct}%,rgba(255,255,255,.1) 100%)`;
+      range.style.background = `linear-gradient(to right,#6366F1 0%,#6366F1 ${pct}%,#E2E8F0 ${pct}%,#E2E8F0 100%)`;
     };
     range.addEventListener('input', () => {
       qs('#ci-reducao-lbl').textContent = range.value + '%';

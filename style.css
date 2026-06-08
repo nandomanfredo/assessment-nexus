@@ -1473,36 +1473,31 @@ input[type=range].ci::-webkit-slider-thumb:hover { transform: scale(1.15); }
   gap: 5px;
 }
 
-/* ── Formula box (dark terminal style) ── */
+/* ── Formula box (light mode) ── */
 .calc-formula-card {
-  background: #0F172A !important;
-  border-color: #1E293B !important;
+  background: var(--surface-2) !important;
+  border-color: var(--border) !important;
 }
-.calc-formula-card .calc-section-hdr { color: #94A3B8; }
-.calc-formula-card .calc-section-hdr .calc-sect-icon {
-  background: #1E293B !important;
-  color: #6366F1 !important;
-}
-.calc-formula-list { display: flex; flex-direction: column; gap: 10px; }
+.calc-formula-list { display: flex; flex-direction: column; gap: 8px; }
 .cfl-item {
   display: grid;
   grid-template-columns: 110px 1fr;
   gap: 8px;
   font-size: 12px;
   align-items: baseline;
-  padding: 7px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.05);
+  background: #fff;
+  border: 1px solid var(--border);
 }
 .cfl-label {
   font-weight: 700;
-  color: #6EE7B7;
+  color: #6366F1;
   font-family: 'Courier New', monospace;
   font-size: 12px;
 }
 .cfl-eq {
-  color: #94A3B8;
+  color: var(--text-muted);
   font-family: 'Courier New', monospace;
   font-size: 12px;
 }
@@ -1840,131 +1835,53 @@ input[type=range].ci::-webkit-slider-thumb:hover { transform: scale(1.15); }
 .calc-hero .calc-tab svg { opacity: .7; }
 .calc-hero .calc-tab.active svg { opacity: 1; }
 
-/* ── Section icon color variants ── */
-.csi-blue   { background: rgba(37,99,235,.15) !important;   color: #93C5FD !important; }
-.csi-indigo { background: rgba(99,102,241,.15) !important;  color: #A5B4FC !important; }
-.csi-green  { background: rgba(22,163,74,.15) !important;   color: #6EE7B7 !important; }
-.csi-orange { background: rgba(234,88,12,.15) !important;   color: #FCA5A5 !important; }
+/* ── Section icon color variants (light mode) ── */
+.csi-blue   { background: #EFF6FF !important; color: #2563EB !important; }
+.csi-indigo { background: #EEF2FF !important; color: #6366F1 !important; }
+.csi-green  { background: #F0FDF4 !important; color: #16A34A !important; }
+.csi-orange { background: #FFF7ED !important; color: #EA580C !important; }
 
-/* ── Input column — dark panel ── */
+/* ── Input column — light mode card ── */
 .calc-inputs-col {
-  background: #0F172A;
-  border-radius: 16px;
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
-.calc-inputs-col::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(99,102,241,.13) 1.5px, transparent 1.5px);
-  background-size: 24px 24px;
-  pointer-events: none; z-index: 0;
-}
-.calc-inputs-col::after {
-  content: '';
-  position: absolute;
-  width: 320px; height: 320px;
-  bottom: -80px; right: -60px;
-  background: radial-gradient(circle, rgba(99,102,241,.09) 0%, transparent 70%);
-  pointer-events: none; z-index: 0;
-}
-.calc-inputs-col > * { position: relative; z-index: 1; }
-
-/* Strip white-card style inside dark panel */
-.calc-inputs-col .card,
+/* Cards inside input col: connected stack (no gap, shared border) */
 .calc-inputs-col .calc-card {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
   border-radius: 0 !important;
+  border-bottom: none !important;
   margin-bottom: 0 !important;
 }
-/* Separator between sections */
-.calc-inputs-col .card + .card {
-  border-top: 1px solid rgba(255,255,255,.07) !important;
-  padding-top: 20px !important;
-  margin-top: 20px !important;
+.calc-inputs-col .calc-card:first-child {
+  border-radius: 14px 14px 0 0 !important;
+}
+.calc-inputs-col .calc-card:last-child {
+  border-radius: 0 0 14px 14px !important;
+  border-bottom: 1.5px solid var(--border) !important;
+}
+.calc-inputs-col .calc-card + .calc-card {
+  border-top: none !important;
 }
 
-/* Section headers inside dark panel */
-.calc-inputs-col .calc-section-hdr {
-  color: #E2E8F0;
-  margin-bottom: 16px;
+/* Range slider — light mode */
+input[type=range].ci {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 6px;
+  border-radius: 999px;
+  outline: none; cursor: pointer;
+  display: block; margin-top: 8px;
 }
-
-/* Form labels inside dark panel */
-.calc-inputs-col .form-label,
-.calc-inputs-col label {
-  color: #64748B;
-  font-size: 12px;
-  font-weight: 600;
+input[type=range].ci::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff;
+  border: 2px solid #6366F1;
+  box-shadow: 0 2px 6px rgba(99,102,241,.3);
+  cursor: pointer; transition: transform .15s;
 }
-.calc-inputs-col .badge-opt {
-  color: #475569;
-  font-size: 10px;
-  font-weight: 500;
-}
-
-/* Inputs inside dark panel */
-.calc-inputs-col .form-input,
-.calc-inputs-col input[type="number"],
-.calc-inputs-col input[type="text"] {
-  background: rgba(255,255,255,.05);
-  border: 1.5px solid rgba(255,255,255,.09);
-  color: #F1F5F9;
-  border-radius: 10px;
-  height: 42px;
-}
-.calc-inputs-col .form-input::placeholder,
-.calc-inputs-col input::placeholder { color: #334155; }
-.calc-inputs-col .form-input:focus,
-.calc-inputs-col input:focus {
-  background: rgba(255,255,255,.08);
-  border-color: #6366F1;
-  box-shadow: 0 0 0 3px rgba(99,102,241,.18);
-  outline: none;
-}
-
-/* Select inside dark panel */
-.calc-inputs-col select.form-select,
-.calc-inputs-col select {
-  appearance: none;
-  background: rgba(255,255,255,.05) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
-  border: 1.5px solid rgba(255,255,255,.09);
-  color: #F1F5F9;
-  border-radius: 10px;
-  height: 42px;
-  padding: 0 36px 0 12px;
-  width: 100%;
-  font-size: 13px;
-  cursor: pointer;
-}
-.calc-inputs-col select:focus {
-  border-color: #6366F1;
-  box-shadow: 0 0 0 3px rgba(99,102,241,.18);
-  outline: none;
-}
-.calc-inputs-col select option {
-  background: #1E293B;
-  color: #F1F5F9;
-}
-
-/* Range slider inside dark panel */
-.calc-inputs-col input[type=range].ci {
-  background: linear-gradient(to right, #6366F1 50%, rgba(255,255,255,.1) 50%);
-  margin-top: 8px;
-  display: block;
-  width: 100%;
-}
-.calc-inputs-col input[type=range].ci::-webkit-slider-thumb {
-  border-color: #6366F1;
-  box-shadow: 0 2px 8px rgba(99,102,241,.4);
-}
-.calc-inputs-col .calc-range-val { color: #A5B4FC; }
-.calc-inputs-col .calc-range-marks { color: #334155; }
+input[type=range].ci::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.calc-range-val { font-size: 14px; font-weight: 800; color: #6366F1; letter-spacing: -0.02em; }
 
 /* ── KPI Result cards — gradient text values ── */
 .ckc-blue .ckc-value:not(.ckc-empty) {
