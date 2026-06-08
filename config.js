@@ -1,59 +1,57 @@
 /**
- * Assessment Nexus — config.js
+ * Assessment Nexus — config.js  v2.0
  * Fonte única de verdade: pilares, dimensões, critérios, pesos, perguntas-guia e cálculos.
- * Altere aqui para atualizar a metodologia sem tocar na lógica do app.
+ * v2.0 — Adicionadas N6, T7, IA7; P7 e G6 reformulados; perguntas disruptivas em todos os pilares.
  */
 
 const CONFIG = {
-  versao: "1.0",
+  versao: "2.0",
   metodologia: "IMD — Índice de Maturidade Digital",
   empresa: "Nexus Consultoria",
 
   // ─── Opções de formulário ────────────────────────────────────────────────
 
   setores: [
-    { id: "ecommerce",   label: "E-commerce" },
-    { id: "industria",   label: "Indústria" },
-    { id: "servicos_b2b",label: "Serviços B2B" },
-    { id: "saude",       label: "Saúde" },
-    { id: "outro",       label: "Outro" },
+    { id: "ecommerce",    label: "E-commerce" },
+    { id: "industria",    label: "Indústria" },
+    { id: "servicos_b2b", label: "Serviços B2B" },
+    { id: "saude",        label: "Saúde" },
+    { id: "outro",        label: "Outro" },
   ],
 
   faturamentoOpcoes: [
-    { id: "ate_300k",      label: "Até R$ 300k",         valorCalculo: 150000  },
-    { id: "300k_1_5m",     label: "R$ 300k – R$ 1,5M",   valorCalculo: 900000  },
-    { id: "1_5m_5m",       label: "R$ 1,5M – R$ 5M",     valorCalculo: 3250000 },
-    { id: "acima_5m",      label: "Acima de R$ 5M",       valorCalculo: 7500000 },
+    { id: "ate_300k",  label: "Até R$ 300k",       valorCalculo: 150000  },
+    { id: "300k_1_5m", label: "R$ 300k – R$ 1,5M", valorCalculo: 900000  },
+    { id: "1_5m_5m",   label: "R$ 1,5M – R$ 5M",   valorCalculo: 3250000 },
+    { id: "acima_5m",  label: "Acima de R$ 5M",     valorCalculo: 7500000 },
   ],
 
   funcionariosOpcoes: [
-    { id: "ate_20",        label: "Até 20",       valorCalculo: 10  },
-    { id: "20_100",        label: "20 – 100",     valorCalculo: 60  },
-    { id: "100_300",       label: "100 – 300",    valorCalculo: 200 },
-    { id: "acima_300",     label: "Acima de 300", valorCalculo: 350 },
+    { id: "ate_20",     label: "Até 20",       valorCalculo: 10  },
+    { id: "20_100",     label: "20 – 100",     valorCalculo: 60  },
+    { id: "100_300",    label: "100 – 300",    valorCalculo: 200 },
+    { id: "acima_300",  label: "Acima de 300", valorCalculo: 350 },
   ],
 
   // ─── Faixas de resultado IMD ─────────────────────────────────────────────
 
   faixasIMD: [
-    { min: 20,  max: 39,  nome: "Crítico",           diagnostico: "Riscos imediatos. Intervenção urgente necessária.",                          cor: "#E24B4A" },
-    { min: 40,  max: 54,  nome: "Em Desenvolvimento", diagnostico: "Base existente mas frágil. Oportunidades de estruturação.",                 cor: "#BA7517" },
-    { min: 55,  max: 69,  nome: "Estruturado",        diagnostico: "Fundação sólida. Pronto para escalar com suporte.",                         cor: "#1D9E75" },
-    { min: 70,  max: 84,  nome: "Avançado",           diagnostico: "Operação madura. Foco em otimização e IA.",                                 cor: "#3B8BD4" },
-    { min: 85,  max: 100, nome: "Referência Digital",  diagnostico: "Alto desempenho. Modelo a ser replicado.",                                  cor: "#9B6DD4" },
+    { min: 20, max: 39,  nome: "Crítico",           cor: "#E24B4A", diagnostico: "Riscos imediatos. Intervenção urgente necessária." },
+    { min: 40, max: 54,  nome: "Em Desenvolvimento", cor: "#BA7517", diagnostico: "Base existente mas frágil. Oportunidades de estruturação." },
+    { min: 55, max: 69,  nome: "Estruturado",        cor: "#1D9E75", diagnostico: "Fundação sólida. Pronto para escalar com suporte." },
+    { min: 70, max: 84,  nome: "Avançado",           cor: "#3B8BD4", diagnostico: "Operação madura. Foco em otimização e IA." },
+    { min: 85, max: 100, nome: "Referência Digital",  cor: "#9B6DD4", diagnostico: "Alto desempenho. Modelo a ser replicado." },
   ],
 
   // ─── Níveis de maturidade ────────────────────────────────────────────────
 
   niveis: [
-    { nivel: 1, nome: "Caótico",      descricao: "Sem processos. Tudo na cabeça de pessoas-chave. Alto risco operacional." },
-    { nivel: 2, nome: "Básico",       descricao: "Processos existem mas são informais. Dependência de planilhas e e-mail." },
-    { nivel: 3, nome: "Estruturado",  descricao: "Documentado e repetível. Sistemas implantados, mas pouco integrados." },
-    { nivel: 4, nome: "Gerenciado",   descricao: "Monitorado com indicadores. Decisões baseadas em dados. Integrações ativas." },
-    { nivel: 5, nome: "Otimizado",    descricao: "Melhoria contínua. Automação avançada. IA integrada à operação." },
+    { nivel: 1, nome: "Caótico",     descricao: "Sem processos. Tudo na cabeça de pessoas-chave. Alto risco operacional." },
+    { nivel: 2, nome: "Básico",      descricao: "Processos existem mas são informais. Dependência de planilhas e e-mail." },
+    { nivel: 3, nome: "Estruturado", descricao: "Documentado e repetível. Sistemas implantados, mas pouco integrados." },
+    { nivel: 4, nome: "Gerenciado",  descricao: "Monitorado com indicadores. Decisões baseadas em dados. Integrações ativas." },
+    { nivel: 5, nome: "Otimizado",   descricao: "Melhoria contínua. Automação avançada. IA integrada à operação." },
   ],
-
-  // ─── Fatores de custo de gap por nível ───────────────────────────────────
 
   fatoresGap: { 1: 1.00, 2: 0.70, 3: 0.40, 4: 0.15, 5: 0.00 },
   fatoresIA:  { 1: 1.00, 2: 0.75, 3: 0.50, 4: 0.25, 5: 0.05 },
@@ -63,14 +61,13 @@ const CONFIG = {
   pilares: [
 
     // ════════════════════════════════════════════════════════════════════════
-    // PILAR 1 — VISÃO ESTRATÉGICA DO NEGÓCIO
+    // PILAR 1 — VISÃO ESTRATÉGICA DO NEGÓCIO  (6 dimensões)
+    // Pesos: N1:0.20, N2:0.16, N3:0.16, N4:0.20, N5:0.14, N6:0.14
     // ════════════════════════════════════════════════════════════════════════
     {
-      id: "N",
-      sigla: "N",
+      id: "N", sigla: "N",
       nome: "Visão Estratégica do Negócio",
-      peso: 0.15,
-      cor: "#3B8BD4",
+      peso: 0.15, cor: "#3B8BD4",
       objetivo: "Entender como a empresa opera e ganha dinheiro, e o quanto a liderança tem clareza e controle estratégico sobre o negócio.",
       entregas: [
         "Mapa operacional do negócio",
@@ -80,9 +77,7 @@ const CONFIG = {
       ],
       dimensoes: [
         {
-          id: "N1",
-          nome: "Modelo de negócio e receita",
-          peso: 0.22,
+          id: "N1", nome: "Modelo de negócio e receita", peso: 0.20,
           naSugeridoPara: [],
           descricao: "Clareza sobre como a empresa gera receita, quais produtos/serviços são mais rentáveis e qual é o modelo de precificação.",
           criterios: {
@@ -96,16 +91,14 @@ const CONFIG = {
             "Quais são os principais produtos ou serviços da empresa, e qual a margem aproximada de cada um?",
             "Como é definida a precificação? Existe análise de custo + margem ou é baseada em mercado/intuição?",
             "Existem diferentes fontes de receita (recorrente, projeto, produto)? Qual é a mais relevante?",
-            "A empresa sabe quais clientes ou contratos são mais rentáveis? Essa informação orienta decisões comerciais?",
+            "Se você tivesse que cortar 30% do portfólio para dobrar a margem, o que cortaria? Esse dado existe hoje?",
             "Com que frequência o modelo de negócio é revisado pela liderança?",
           ],
           benchmark: "Empresas do mesmo porte e setor geralmente atingem nível 3 (modelo documentado com margens conhecidas) em até 3 anos de operação.",
           custoGap: null,
         },
         {
-          id: "N2",
-          nome: "Diferencial competitivo",
-          peso: 0.18,
+          id: "N2", nome: "Diferencial competitivo", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Clareza e comunicação do posicionamento da empresa frente à concorrência, e como esse diferencial é protegido e monitorado.",
           criterios: {
@@ -117,18 +110,16 @@ const CONFIG = {
           },
           perguntas: [
             "Por que um cliente escolhe vocês e não um concorrente? Esse motivo é documentado e comunicado?",
-            "Qual é o posicionamento da empresa no mercado? Isso está formalizado em algum documento ou pitch?",
+            "Se um concorrente com IA nativa entrasse no seu mercado amanhã, em quanto tempo copiaria 80% do que você faz?",
             "A empresa realiza análise de win/loss (por que ganhou ou perdeu negócios)?",
-            "Como é monitorado o que os concorrentes estão fazendo?",
-            "O diferencial competitivo é único ou facilmente copiável?",
+            "Como é monitorado o que os concorrentes estão fazendo — existe processo ou é percepção informal?",
+            "O diferencial competitivo é único ou facilmente copiável? O que o protege?",
           ],
           benchmark: "Empresas com posicionamento claro crescem em média 20% mais rápido do que concorrentes sem diferencial articulado.",
           custoGap: null,
         },
         {
-          id: "N3",
-          nome: "Gestão de canais e operação",
-          peso: 0.18,
+          id: "N3", nome: "Gestão de canais e operação", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Estrutura e gestão dos canais de venda e distribuição, com métricas e responsáveis definidos por canal.",
           criterios: {
@@ -141,7 +132,7 @@ const CONFIG = {
           perguntas: [
             "Quais são os canais de venda e atendimento da empresa (direto, parceiros, marketplace, digital)?",
             "Existe um responsável por cada canal? Há metas específicas por canal?",
-            "A empresa mede a performance de cada canal individualmente? Quais métricas usa?",
+            "Se o canal principal parasse de funcionar hoje, o que aconteceria com a receita nos próximos 30 dias?",
             "Como a operação é coordenada entre canais diferentes quando o mesmo cliente usa mais de um?",
             "Qual canal traz mais receita e qual tem melhor margem? A empresa age sobre esse dado?",
           ],
@@ -149,9 +140,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "N4",
-          nome: "Visibilidade de gargalos e crescimento",
-          peso: 0.22,
+          id: "N4", nome: "Visibilidade de gargalos e crescimento", peso: 0.20,
           naSugeridoPara: [],
           descricao: "Capacidade da liderança de identificar, priorizar e resolver gargalos operacionais e de planejar o crescimento com base em dados.",
           criterios: {
@@ -162,19 +151,17 @@ const CONFIG = {
             5: { nome: "Otimizado",   descricao: "Detecção proativa de gargalos com dados em tempo real. Modelo preditivo de crescimento. IA na identificação de oportunidades e riscos emergentes." },
           },
           perguntas: [
-            "Quais são hoje os 3 maiores gargalos que impedem o crescimento da empresa?",
-            "Existe um plano de crescimento formal com metas para os próximos 12 meses?",
-            "Como a liderança identifica novos gargalos? Existe algum processo ou é percepção do dia a dia?",
-            "A empresa tem visibilidade do que acontece na operação sem precisar perguntar para a equipe?",
-            "Quais foram os gargalos resolvidos nos últimos 6 meses? O resultado foi medido?",
+            "Se o faturamento dobrasse em 90 dias, o que colapsaria primeiro — pessoas, processos ou tecnologia?",
+            "Se os sócios ficassem 30 dias sem internet, a empresa avançaria, estagnaria ou entraria em crise?",
+            "Como a liderança identifica novos gargalos? É dado em painel ou ainda chega por conversa?",
+            "Qual informação crítica sobre o negócio você ainda descobre em reuniões — em vez de lendo num dashboard?",
+            "Quais foram os gargalos resolvidos nos últimos 6 meses? O resultado foi medido com dados?",
           ],
           benchmark: "Empresas que identificam e resolvem gargalos sistematicamente crescem 2x mais rápido do que as que reagem a crises.",
           custoGap: null,
         },
         {
-          id: "N5",
-          nome: "Gestão de performance",
-          peso: 0.20,
+          id: "N5", nome: "Gestão de performance", peso: 0.14,
           naSugeridoPara: [],
           descricao: "Existência e uso de indicadores de performance estratégica, com rituais de revisão e cultura de decisão baseada em dados.",
           criterios: {
@@ -185,27 +172,51 @@ const CONFIG = {
             5: { nome: "Otimizado",   descricao: "Performance em tempo real com alertas automáticos de desvio. IA na análise de causas e sugestão de ações corretivas. Cultura de dados consolidada." },
           },
           perguntas: [
-            "Quais são os 5 principais indicadores que a liderança acompanha hoje?",
-            "Com que frequência são revisados os resultados? Existe uma reunião de ritmo para isso?",
+            "Quais são os 5 principais indicadores que a liderança acompanha hoje — além do faturamento?",
+            "Quando um indicador sai do esperado, existe processo definido de análise e resposta ou cada caso é tratado diferente?",
             "As metas de desempenho são conhecidas por toda a equipe ou apenas pela liderança?",
-            "Quando um indicador sai do esperado, existe um processo definido de análise e resposta?",
+            "Você tomaria uma decisão de R$ 500k baseada nos dados que seu sistema mostra hoje? Por que não?",
             "A empresa usa algum dashboard ou ferramenta de BI para acompanhar performance?",
           ],
           benchmark: "Empresas com OKRs bem implementados reportam 30% mais foco e 25% menos retrabalho do que sem metodologia de gestão.",
           custoGap: null,
         },
+        {
+          id: "N6", nome: "Experiência do Cliente (CX)", peso: 0.14,
+          naSugeridoPara: [],
+          descricao: "Uso estratégico da experiência do cliente como vantagem competitiva — mapeamento da jornada, medição de satisfação e fechamento do loop de feedback.",
+          criterios: {
+            1: { nome: "Caótico",     descricao: "Sem NPS ou pesquisa de satisfação. Feedback só chega via reclamação espontânea. Nenhuma visão da jornada do cliente." },
+            2: { nome: "Básico",      descricao: "NPS medido pontualmente (sem cadência). Jornada do cliente desconhecida. Reclamações resolvidas caso a caso sem processo." },
+            3: { nome: "Estruturado", descricao: "NPS medido com frequência definida. Jornada do cliente mapeada em pelo menos um canal. Processo de tratamento de reclamações documentado." },
+            4: { nome: "Gerenciado",  descricao: "CX como KPI estratégico. Jornada mapeada end-to-end com pontos de fricção identificados e endereçados. Loop de feedback fechado com ações documentadas." },
+            5: { nome: "Otimizado",   descricao: "CX como vantagem competitiva mensurável. IA preditiva de churn e satisfação. Personalização em escala. Experiência digital e humana integradas." },
+          },
+          perguntas: [
+            "Qual é o momento em que mais clientes desistem ou ficam decepcionados? Você mede isso com dados?",
+            "Se um cliente novo descrevesse a experiência de comprar de vocês, o que diria de diferente dos concorrentes?",
+            "Quanto do churn da empresa é previsível com 30 dias de antecedência — ou só é descoberto quando o cliente já foi?",
+            "Como é fechado o loop de feedback: quando um cliente reclama, como a empresa garante que o problema não vai se repetir?",
+            "A satisfação do cliente impacta alguma meta ou remuneração da equipe?",
+          ],
+          benchmark: "Empresas líderes em CX crescem 5x mais rápido do que a média do mercado e têm CAC 25% menor por indicações orgânicas.",
+          custoGap: {
+            tipo: "percentual_faturamento",
+            base: 0.03,
+            descricao: "3% do faturamento mensal estimado como perda por churn e insatisfação não detectada",
+          },
+        },
       ],
     },
 
     // ════════════════════════════════════════════════════════════════════════
-    // PILAR 2 — TECNOLOGIA
+    // PILAR 2 — TECNOLOGIA  (7 dimensões)
+    // Pesos: T1:0.13, T2:0.16, T3:0.13, T4:0.16, T5:0.14, T6:0.14, T7:0.14
     // ════════════════════════════════════════════════════════════════════════
     {
-      id: "T",
-      sigla: "T",
+      id: "T", sigla: "T",
       nome: "Tecnologia",
-      peso: 0.25,
-      cor: "#1D9E75",
+      peso: 0.25, cor: "#1D9E75",
       objetivo: "Avaliar a maturidade técnica da infraestrutura, sistemas, integrações e segurança — ângulo de implementação técnica.",
       entregas: [
         "Score técnico com mapa de risco",
@@ -214,9 +225,7 @@ const CONFIG = {
       ],
       dimensoes: [
         {
-          id: "T1",
-          nome: "Infraestrutura e cloud",
-          peso: 0.15,
+          id: "T1", nome: "Infraestrutura e cloud", peso: 0.13,
           naSugeridoPara: [],
           descricao: "Maturidade da infraestrutura tecnológica: cloud, backups, redundância e política de segurança de dados.",
           criterios: {
@@ -227,9 +236,9 @@ const CONFIG = {
             5: { nome: "Otimizado",   descricao: "Infraestrutura como código (IaC). Multi-cloud ou failover automático. Segurança zero-trust implementada com conformidade certificada." },
           },
           perguntas: [
-            "Onde estão hospedados os sistemas críticos da empresa — servidores locais, cloud ou híbrido?",
-            "Com que frequência os dados são copiados (backup)? Esse processo é automático ou manual?",
-            "A empresa já passou por perda de dados ou indisponibilidade de sistema? Como foi resolvido?",
+            "Se a sede pegasse fogo hoje, em quantas horas a empresa voltaria a operar normalmente — e esse número foi testado?",
+            "Com que frequência os dados são copiados (backup)? Esse processo é automático e o restore já foi testado?",
+            "A empresa já passou por perda de dados ou indisponibilidade de sistema? Quanto custou?",
             "Existe política formal de segurança da informação? Quando foi revisada pela última vez?",
             "Os colaboradores acessam sistemas da empresa de dispositivos pessoais? Existe controle disso?",
           ],
@@ -237,9 +246,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "T2",
-          nome: "ERP e CRM — sistemas internos",
-          peso: 0.18,
+          id: "T2", nome: "ERP e CRM — sistemas internos", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Uso e maturidade de sistemas de gestão (ERP) e de relacionamento com clientes (CRM), e a qualidade dos dados neles.",
           criterios: {
@@ -253,16 +260,14 @@ const CONFIG = {
             "A empresa usa algum ERP (Totvs, SAP, Omie, Conta Azul etc.)? Qual e desde quando?",
             "Existe CRM implementado? Como a equipe de vendas registra interações com clientes?",
             "Os sistemas de gestão se comunicam entre si ou os dados precisam ser inseridos manualmente em mais de um lugar?",
-            "Com que nível de confiança a liderança usa os dados do ERP/CRM para tomar decisões?",
+            "Se você precisasse vender a empresa hoje, seus dados estariam limpos o suficiente para due diligence em 48h?",
             "Existem dados de clientes ou vendas em planilhas fora dos sistemas principais?",
           ],
           benchmark: "Empresas com ERP e CRM integrados reduzem o tempo de fechamento financeiro em 60% e aumentam a taxa de renovação de clientes em 25%.",
           custoGap: null,
         },
         {
-          id: "T3",
-          nome: "Integrações e APIs",
-          peso: 0.15,
+          id: "T3", nome: "Integrações e APIs", peso: 0.13,
           naSugeridoPara: [],
           descricao: "Nível de integração entre os sistemas da empresa e o uso de APIs para automatizar fluxos de dados entre ferramentas.",
           criterios: {
@@ -283,9 +288,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "T4",
-          nome: "Segurança e LGPD técnica",
-          peso: 0.18,
+          id: "T4", nome: "Segurança e LGPD técnica", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Maturidade das práticas de segurança da informação e conformidade técnica com a Lei Geral de Proteção de Dados.",
           criterios: {
@@ -299,16 +302,14 @@ const CONFIG = {
             "A empresa tem política de senha e autenticação em dois fatores nos sistemas críticos?",
             "Existe um inventário de quais dados pessoais de clientes/colaboradores a empresa armazena e onde?",
             "A empresa tem um DPO (Encarregado de Proteção de Dados) designado, mesmo que seja informal?",
-            "Como é realizado o descarte seguro de dados quando um contrato com cliente é encerrado?",
+            "Se um ex-funcionário demitido amanhã decidisse vazar dados, o que teria acesso e o que custaria à empresa?",
             "Já houve algum incidente de segurança ou vazamento de dados na empresa? Como foi tratado?",
           ],
           benchmark: "Multas da ANPD por violação da LGPD podem chegar a 2% do faturamento anual. Empresas com nível 3+ têm risco reduzido em 80%.",
           custoGap: null,
         },
         {
-          id: "T5",
-          nome: "Documentação e dependência técnica",
-          peso: 0.16,
+          id: "T5", nome: "Documentação e dependência técnica", peso: 0.14,
           naSugeridoPara: [],
           descricao: "Existência de documentação técnica atualizada e ausência de dependência crítica de pessoas ou fornecedores únicos.",
           criterios: {
@@ -329,9 +330,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "T6",
-          nome: "Monitoramento e disponibilidade",
-          peso: 0.18,
+          id: "T6", nome: "Monitoramento e disponibilidade", peso: 0.14,
           naSugeridoPara: [],
           descricao: "Capacidade de detectar e responder a falhas de sistemas antes que impactem clientes, com SLAs definidos e métricas de disponibilidade.",
           criterios: {
@@ -343,7 +342,7 @@ const CONFIG = {
           },
           perguntas: [
             "Como a empresa descobre que um sistema está fora do ar — alerta automático, reclamação de cliente ou internamente?",
-            "Existe um SLA de disponibilidade definido para os sistemas críticos? Ele é monitorado?",
+            "Existe um SLA de disponibilidade definido para os sistemas críticos? Ele é monitorado e reportado?",
             "Quanto tempo em média leva para resolver uma falha crítica de sistema? Esse tempo é registrado?",
             "Existe alguém de plantão (on-call) para incidentes fora do horário comercial?",
             "A empresa já perdeu receita diretamente por indisponibilidade de sistema? Com que frequência isso ocorre?",
@@ -351,18 +350,42 @@ const CONFIG = {
           benchmark: "1 hora de indisponibilidade custa em média 1,5% do faturamento diário. Empresas com monitoramento ativo reduzem o MTTR em 70%.",
           custoGap: null,
         },
+        {
+          id: "T7", nome: "Qualidade e Governança de Dados", peso: 0.14,
+          naSugeridoPara: [],
+          descricao: "Confiabilidade, organização e governança dos dados da empresa — da coleta à decisão. Qualidade de dados como ativo estratégico.",
+          criterios: {
+            1: { nome: "Caótico",     descricao: "Dados fragmentados entre planilhas, sistemas e pessoas. Mesmos clientes com nomes diferentes em sistemas distintos. Nenhuma fonte única de verdade." },
+            2: { nome: "Básico",      descricao: "Dados centralizados em algum sistema, mas com inconsistências frequentes. Limpeza manual antes de relatórios. Sem responsável pela qualidade de dados." },
+            3: { nome: "Estruturado", descricao: "Fonte única de verdade para dados críticos (cliente, produto, financeiro). Processo básico de limpeza e validação. Dicionário de dados esboçado." },
+            4: { nome: "Gerenciado",  descricao: "Data governance com responsáveis por domínio. Pipelines de dados automatizados. Qualidade de dados monitorada com alertas de inconsistência." },
+            5: { nome: "Otimizado",   descricao: "Data mesh implementado. Qualidade automatizada com SLA de dados. Linhagem de dados rastreável. Dados como produto e potencial ativo monetizável." },
+          },
+          perguntas: [
+            "Quantas 'versões da verdade' existem na empresa — o faturamento no ERP bate com o do financeiro e o do comercial?",
+            "Se você precisasse vender a empresa hoje, seus dados estariam limpos o suficiente para due diligence em 48h?",
+            "Os dados que a empresa coleta de clientes geram vantagem competitiva real — ou são apenas conformidade regulatória?",
+            "Quem é o responsável pela qualidade dos dados? Existe processo quando dados inconsistentes são encontrados?",
+            "Quanto tempo a equipe gasta por semana limpando ou conciliando dados antes de gerar relatórios?",
+          ],
+          benchmark: "Dados de baixa qualidade custam em média 15-25% da receita de uma empresa. Fonte única de verdade reduz esse custo em 80%.",
+          custoGap: {
+            tipo: "percentual_faturamento",
+            base: 0.02,
+            descricao: "2% do faturamento mensal estimado como perda por decisões baseadas em dados incorretos ou inconsistentes",
+          },
+        },
       ],
     },
 
     // ════════════════════════════════════════════════════════════════════════
-    // PILAR 3 — PROCESSOS
+    // PILAR 3 — PROCESSOS  (7 dimensões)
+    // P7 reformulado: Talentos e Cultura de Alta Performance
     // ════════════════════════════════════════════════════════════════════════
     {
-      id: "P",
-      sigla: "P",
+      id: "P", sigla: "P",
       nome: "Processos",
-      peso: 0.25,
-      cor: "#BA7517",
+      peso: 0.25, cor: "#BA7517",
       objetivo: "Identificar gargalos operacionais, dependência de pessoas e oportunidades de automação nos fluxos de trabalho.",
       entregas: [
         "Mapa AS-IS dos processos críticos",
@@ -371,9 +394,7 @@ const CONFIG = {
       ],
       dimensoes: [
         {
-          id: "P1",
-          nome: "Comercial e onboarding",
-          peso: 0.18,
+          id: "P1", nome: "Comercial e onboarding", peso: 0.18,
           naSugeridoPara: [],
           descricao: "Estrutura e eficiência do processo de vendas, da geração de proposta ao onboarding do novo cliente.",
           criterios: {
@@ -386,8 +407,8 @@ const CONFIG = {
           perguntas: [
             "Como funciona o processo de venda da empresa — do primeiro contato até o fechamento?",
             "Existe um CRM onde todas as oportunidades são registradas e acompanhadas?",
-            "Qual é o tempo médio entre o primeiro contato e o fechamento de uma venda?",
-            "Como é feito o onboarding de um novo cliente? Existe checklist ou processo documentado?",
+            "Qual é o tempo médio entre o primeiro contato e o fechamento de uma venda — e esse dado é rastreado?",
+            "Se o melhor vendedor saísse amanhã, o processo continuaria — ou ele levaria o pipeline na cabeça?",
             "Quais etapas do processo comercial são feitas manualmente e poderiam ser automatizadas?",
           ],
           benchmark: "Empresas com processo comercial estruturado convertem 35% mais leads do que as que operam de forma ad hoc.",
@@ -398,9 +419,7 @@ const CONFIG = {
           },
         },
         {
-          id: "P2",
-          nome: "Financeiro e faturamento",
-          peso: 0.15,
+          id: "P2", nome: "Financeiro e faturamento", peso: 0.15,
           naSugeridoPara: [],
           descricao: "Maturidade dos processos de controle financeiro, faturamento, fluxo de caixa e conciliação contábil.",
           criterios: {
@@ -425,9 +444,7 @@ const CONFIG = {
           },
         },
         {
-          id: "P3",
-          nome: "Suporte e atendimento",
-          peso: 0.15,
+          id: "P3", nome: "Suporte e atendimento", peso: 0.15,
           naSugeridoPara: [],
           descricao: "Estrutura do processo de atendimento ao cliente, com canais definidos, SLAs e métricas de qualidade.",
           criterios: {
@@ -452,9 +469,7 @@ const CONFIG = {
           },
         },
         {
-          id: "P4",
-          nome: "Logística e operação",
-          peso: 0.15,
+          id: "P4", nome: "Logística e operação", peso: 0.15,
           naSugeridoPara: ["servicos_b2b", "saude"],
           descricao: "Maturidade dos processos de logística, gestão de estoque, expedição e controle de operações físicas.",
           criterios: {
@@ -479,9 +494,7 @@ const CONFIG = {
           },
         },
         {
-          id: "P5",
-          nome: "Marketing e geração de demanda",
-          peso: 0.12,
+          id: "P5", nome: "Marketing e geração de demanda", peso: 0.12,
           naSugeridoPara: [],
           descricao: "Estrutura da operação de marketing, com estratégia, budget definido e mensuração de resultado por canal.",
           criterios: {
@@ -506,9 +519,7 @@ const CONFIG = {
           },
         },
         {
-          id: "P6",
-          nome: "Indicadores e performance",
-          peso: 0.12,
+          id: "P6", nome: "Indicadores e performance operacional", peso: 0.12,
           naSugeridoPara: [],
           descricao: "Existência de KPIs operacionais com rituais de acompanhamento e capacidade de agir rapidamente sobre desvios.",
           criterios: {
@@ -533,47 +544,44 @@ const CONFIG = {
           },
         },
         {
-          id: "P7",
-          nome: "Automação e integração",
-          peso: 0.13,
+          id: "P7", nome: "Talentos e Cultura de Alta Performance", peso: 0.13,
           naSugeridoPara: [],
-          descricao: "Nível de automação de tarefas repetitivas e integração entre sistemas para eliminar trabalho manual desnecessário.",
+          descricao: "Maturidade dos processos de atração, desenvolvimento e retenção de talentos — e a existência de cultura de alta performance como vantagem competitiva.",
           criterios: {
-            1: { nome: "Caótico",     descricao: "Zero automação na empresa. Tudo feito manualmente. Equipe sobrecarregada com tarefas repetitivas e previsíveis." },
-            2: { nome: "Básico",      descricao: "Automações pontuais e não documentadas (macros de planilha, regras básicas). Dependência de pessoas específicas para manter funcionando." },
-            3: { nome: "Estruturado", descricao: "Automações mapeadas e documentadas. Algumas integrações ativas entre sistemas. Ferramenta de automação adotada (Zapier, Make, n8n)." },
-            4: { nome: "Gerenciado",  descricao: "Plataforma de automação com fluxos complexos. Integrações entre todos os sistemas críticos. RPA em processos selecionados de alto volume." },
-            5: { nome: "Otimizado",   descricao: "Hyperautomation: IA + RPA + integração nativa. Processos manuais residuais < 10% do volume. Centro de excelência em automação ativo." },
+            1: { nome: "Caótico",     descricao: "Contratação por urgência e indicação sem processo seletivo. Alto turnover não medido. Onboarding inexistente. Desempenho nunca avaliado formalmente." },
+            2: { nome: "Básico",      descricao: "Processo seletivo básico mas sem estrutura. Turnover medido informalmente. Onboarding improvisado. Avaliação de desempenho anual sem metodologia." },
+            3: { nome: "Estruturado", descricao: "Processo seletivo documentado com job description. Onboarding com checklist e prazo. Avaliação de desempenho semestral com critérios definidos." },
+            4: { nome: "Gerenciado",  descricao: "People analytics básico (turnover, eNPS, tempo de produtividade). PDI para colaboradores-chave. Cultura documentada e vivida na operação." },
+            5: { nome: "Otimizado",   descricao: "IA no recrutamento e predição de turnover. Programa de desenvolvimento contínuo. eNPS acima de 50. Cultura de alta performance como diferencial de marca." },
           },
           perguntas: [
-            "Quais tarefas a equipe realiza hoje que são repetitivas e poderiam ser automatizadas?",
-            "A empresa usa alguma ferramenta de automação como Zapier, Make ou n8n?",
-            "Existe algum processo que exige que um colaborador transfira dados de um sistema para outro manualmente?",
-            "Quanto tempo por semana a equipe gasta em tarefas de baixo valor que poderiam ser automatizadas?",
-            "Já foram tentadas automações que falharam? O que aconteceu?",
+            "Quais são as 3 pessoas cuja saída amanhã causaria crise operacional imediata — e existe plano de sucessão para elas?",
+            "Quanto custa contratar e tornar um novo colaborador totalmente produtivo? Esse dado é rastreado?",
+            "Se sua empresa fosse avaliada no Glassdoor hoje, qual seria a nota — e por que essa nota?",
+            "Qual talento a empresa nunca conseguiu reter? O que fez essa pessoa sair?",
+            "Como são identificados os colaboradores com potencial de crescimento antes de perdê-los para a concorrência?",
           ],
-          benchmark: "Empresas com automação estruturada liberam em média 15 horas/mês por colaborador para atividades de maior valor agregado.",
+          benchmark: "Substituir um colaborador custa em média 1,5x o salário anual. Empresas com processo de talentos estruturado reduzem turnover em 40%.",
           custoGap: {
             tipo: "horas_funcionarios",
             horasPorSemana: 3,
             semanasPorMes: 4.3,
-            valorHora: 25,
-            proporcao: 1.0,
-            descricao: "Horas manuais desperdiçadas: Nº funcionários × 3h/semana × 4,3 semanas × R$25/h",
+            valorHora: 40,
+            proporcao: 0.15,
+            descricao: "15% dos funcionários × 3h/semana (retrabalho por turnover e onboarding ineficiente) × 4,3 × R$40/h",
           },
         },
       ],
     },
 
     // ════════════════════════════════════════════════════════════════════════
-    // PILAR 4 — GOVERNANÇA
+    // PILAR 4 — GOVERNANÇA  (6 dimensões)
+    // G6 reformulado: Reputação Digital e ESG Mínimo
     // ════════════════════════════════════════════════════════════════════════
     {
-      id: "G",
-      sigla: "G",
+      id: "G", sigla: "G",
       nome: "Governança",
-      peso: 0.15,
-      cor: "#9B6DD4",
+      peso: 0.15, cor: "#9B6DD4",
       objetivo: "Avaliar a maturidade corporativa: políticas, controles, compliance e capacidade de gestão de riscos.",
       entregas: [
         "Matriz de maturidade corporativa",
@@ -582,9 +590,7 @@ const CONFIG = {
       ],
       dimensoes: [
         {
-          id: "G1",
-          nome: "Tomada de decisão e estrutura",
-          peso: 0.18,
+          id: "G1", nome: "Tomada de decisão e estrutura", peso: 0.18,
           naSugeridoPara: [],
           descricao: "Clareza da estrutura organizacional, delegação de autoridade e processo de tomada de decisão na empresa.",
           criterios: {
@@ -598,16 +604,14 @@ const CONFIG = {
             "Como é a estrutura hierárquica da empresa? Existe organograma atualizado?",
             "Quais decisões precisam da aprovação do CEO/fundador? Existem alçadas formais para outros níveis?",
             "Existe algum comitê de gestão ou reunião executiva regular para decisões estratégicas?",
-            "Quando há discordância sobre uma decisão importante, como ela é resolvida?",
+            "Quando há discordância sobre uma decisão importante, como ela é resolvida — existe processo ou é poder?",
             "A empresa usa alguma metodologia de gestão (OKR, BSC, MBO)?",
           ],
           benchmark: "Empresas com governança de decisão estruturada são 40% mais rápidas em implementar mudanças estratégicas.",
           custoGap: null,
         },
         {
-          id: "G2",
-          nome: "Políticas e compliance",
-          peso: 0.16,
+          id: "G2", nome: "Políticas e compliance", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Existência de políticas formais, contratos padronizados e processos de compliance com regulamentações aplicáveis.",
           criterios: {
@@ -618,8 +622,8 @@ const CONFIG = {
             5: { nome: "Otimizado",   descricao: "GRC (Governance, Risk & Compliance) integrado em plataforma. Compliance as code. Auditoria contínua e automatizada." },
           },
           perguntas: [
-            "A empresa tem políticas documentadas de RH, TI, uso de dados e conduta?",
-            "Os contratos com clientes e fornecedores são padronizados e revisados por jurídico?",
+            "Se um colaborador demitido amanhã decidisse processar a empresa, qual seria a maior vulnerabilidade jurídica?",
+            "Qual cláusula nos contratos atuais com clientes você não conseguiria defender se fosse questionada?",
             "Como a empresa acompanha o vencimento e renovação de contratos críticos?",
             "A equipe recebe treinamento sobre compliance, LGPD ou outras regulamentações aplicáveis?",
             "Quais são as principais obrigações regulatórias do setor que a empresa precisa cumprir?",
@@ -628,9 +632,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "G3",
-          nome: "Gestão de riscos e continuidade",
-          peso: 0.18,
+          id: "G3", nome: "Gestão de riscos e continuidade", peso: 0.18,
           naSugeridoPara: [],
           descricao: "Capacidade de identificar, avaliar e mitigar riscos operacionais, e de manter a operação em situações de crise.",
           criterios: {
@@ -651,9 +653,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "G4",
-          nome: "Gestão de acessos e fornecedores",
-          peso: 0.16,
+          id: "G4", nome: "Gestão de acessos e fornecedores", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Controle de quem acessa o quê nos sistemas da empresa, e gestão estruturada de fornecedores críticos.",
           criterios: {
@@ -674,9 +674,7 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "G5",
-          nome: "Indicadores e controles de gestão",
-          peso: 0.16,
+          id: "G5", nome: "Indicadores e controles de gestão", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Existência de indicadores de saúde corporativa com visibilidade da liderança e controles preventivos de desvios.",
           criterios: {
@@ -697,40 +695,37 @@ const CONFIG = {
           custoGap: null,
         },
         {
-          id: "G6",
-          nome: "Governança de TI e IA",
-          peso: 0.16,
+          id: "G6", nome: "Reputação Digital e ESG Mínimo", peso: 0.16,
           naSugeridoPara: [],
-          descricao: "Estrutura de governança das tecnologias e do uso de Inteligência Artificial na empresa, com políticas, roadmap e responsáveis.",
+          descricao: "Gestão da presença e reputação digital da empresa — reviews, redes sociais, imagem de marca — e adoção de práticas mínimas de ESG como critério de acesso a mercados e crédito.",
           criterios: {
-            1: { nome: "Caótico",     descricao: "TI sem governança. Compras de tecnologia ad hoc sem critério. IA usada individualmente sem política. Shadow IT prevalente." },
-            2: { nome: "Básico",      descricao: "Alguns padrões de TI informais. IA usada por alguns colaboradores sem política formal. Inventário de sistemas desatualizado ou inexistente." },
-            3: { nome: "Estruturado", descricao: "Responsável de TI ou comitê designado. Política básica de uso de IA documentada. Inventário de sistemas atualizado. Roadmap tecnológico esboçado." },
-            4: { nome: "Gerenciado",  descricao: "ITIL básico implementado. Política de IA com diretrizes de uso, privacidade e ética. Roadmap de tecnologia com budget aprovado." },
-            5: { nome: "Otimizado",   descricao: "Digital governance framework completo. IA governance com ética, risco e compliance integrados. Chief AI Officer ou equivalente designado." },
+            1: { nome: "Caótico",     descricao: "Reputação digital não monitorada. Perfis desatualizados. Reviews negativas sem resposta. Sem qualquer prática ou discurso de ESG." },
+            2: { nome: "Básico",      descricao: "Presença digital básica. Reviews monitoradas manualmente e de forma reativa. ESG conhecida como tema mas sem ação concreta." },
+            3: { nome: "Estruturado", descricao: "Perfis digitais ativos e consistentes. Processo de resposta a reviews definido. Código de conduta publicado. Política ambiental mínima documentada." },
+            4: { nome: "Gerenciado",  descricao: "Reputação digital monitorada com ferramentas. Score ESG básico calculado. Relatório de impacto publicado. ESG como critério em contratos com grandes clientes." },
+            5: { nome: "Otimizado",   descricao: "Reputação como ativo estratégico mensurado. IA no monitoramento de marca. Certificações ESG relevantes obtidas. ESG como diferencial de marca e acesso a capital." },
           },
           perguntas: [
-            "Existe uma política de uso de IA (ChatGPT, Copilot, etc.) na empresa? Os colaboradores sabem o que podem e não podem fazer?",
-            "Quem é responsável pelas decisões de tecnologia na empresa? Existe comitê ou é centralizado no fundador?",
-            "Como são tomadas decisões de compra de novas ferramentas de tecnologia?",
-            "A empresa tem roadmap de tecnologia para os próximos 12-24 meses?",
-            "Existem ferramentas de IA ou automação sendo usadas pelos colaboradores sem aprovação da empresa (shadow IT)?",
+            "Se um jornalista pesquisasse sua empresa no Google agora, o que encontraria nos primeiros 5 resultados?",
+            "Algum cliente grande ou banco já pediu informações sobre práticas ESG, diversidade ou sustentabilidade da empresa?",
+            "A empresa monitora o que falam dela nas redes sociais e no Google? Quem é responsável por isso?",
+            "Existe política sobre como a empresa age em crises de reputação — uma reclamação viral, por exemplo?",
+            "O posicionamento ESG da empresa é genuíno ou apenas para cumprir requisito de cliente?",
           ],
-          benchmark: "Empresas com governança de IA estruturada implementam casos de uso com 3x mais sucesso do que as sem política formal.",
+          benchmark: "78% dos compradores B2B pesquisam a reputação digital de fornecedores antes de contratar. Empresas com ESG estruturado acessam linhas de crédito 30% mais baratas.",
           custoGap: null,
         },
       ],
     },
 
     // ════════════════════════════════════════════════════════════════════════
-    // PILAR 5 — INTELIGÊNCIA ARTIFICIAL
+    // PILAR 5 — INTELIGÊNCIA ARTIFICIAL  (7 dimensões)
+    // Pesos: IA1:0.18, IA2:0.16, IA3:0.16, IA4:0.15, IA5:0.13, IA6:0.12, IA7:0.10
     // ════════════════════════════════════════════════════════════════════════
     {
-      id: "IA",
-      sigla: "IA",
+      id: "IA", sigla: "IA",
       nome: "Inteligência Artificial",
-      peso: 0.20,
-      cor: "#E24B4A",
+      peso: 0.20, cor: "#E24B4A",
       objetivo: "Revelar onde IA gera ganho real de produtividade e receita — o potencial não aproveitado pela empresa.",
       entregas: [
         "Mapa de oportunidades de IA por área",
@@ -740,9 +735,7 @@ const CONFIG = {
       ],
       dimensoes: [
         {
-          id: "IA1",
-          nome: "Atendimento com IA",
-          peso: 0.20,
+          id: "IA1", nome: "Atendimento com IA", peso: 0.18,
           naSugeridoPara: [],
           descricao: "Uso de IA para automatizar e escalar o atendimento ao cliente, reduzindo carga manual e melhorando experiência.",
           criterios: {
@@ -770,9 +763,7 @@ const CONFIG = {
           },
         },
         {
-          id: "IA2",
-          nome: "IA no comercial e marketing",
-          peso: 0.18,
+          id: "IA2", nome: "IA no comercial e marketing", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Uso de IA para qualificar leads, personalizar propostas, criar conteúdo e aumentar a taxa de conversão comercial.",
           criterios: {
@@ -783,11 +774,11 @@ const CONFIG = {
             5: { nome: "Otimizado",   descricao: "Hyper-personalização em escala com IA. Previsão de churn e LTV integrada ao CRM. Agente de vendas autônomo para qualificação de inbound." },
           },
           perguntas: [
-            "A equipe de vendas ou marketing usa IA hoje? De que forma (pessoal ou integrada ao processo)?",
-            "Como são criados os conteúdos de marketing — e-mail, posts, propostas? Quanto tempo isso leva?",
-            "A empresa consegue personalizar a comunicação para diferentes perfis de cliente em escala?",
-            "Existe alguma ferramenta de IA integrada ao CRM para scoring ou priorização de leads?",
-            "Se a IA pudesse gerar propostas comerciais personalizadas em 2 minutos, qual seria o impacto nas vendas?",
+            "A equipe de vendas ou marketing usa IA hoje? De que forma — pessoal ou integrada ao processo?",
+            "Qual % do tempo da equipe de vendas é gasto em tarefas que uma IA poderia fazer em segundos?",
+            "Se um concorrente nascido hoje, com IA nativa, entrasse no seu mercado, em quanto tempo igualaria sua operação comercial?",
+            "Existe alguma vantagem competitiva que uma IA não poderia replicar? Qual e por quanto tempo?",
+            "Se a IA pudesse gerar propostas personalizadas em 2 minutos, qual seria o impacto na taxa de conversão?",
           ],
           benchmark: "Empresas com IA no comercial aumentam a taxa de conversão em 30% e reduzem o ciclo de venda em 25%.",
           potencialIA: {
@@ -797,9 +788,7 @@ const CONFIG = {
           },
         },
         {
-          id: "IA3",
-          nome: "IA em operações e processos",
-          peso: 0.18,
+          id: "IA3", nome: "IA em operações e processos", peso: 0.16,
           naSugeridoPara: [],
           descricao: "Uso de IA e RPA para automatizar processos operacionais repetitivos, reduzindo retrabalho e aumentando produtividade.",
           criterios: {
@@ -814,7 +803,7 @@ const CONFIG = {
             "A empresa já implementou RPA ou IA em algum processo operacional? Com qual resultado?",
             "Existem processos que envolvem leitura de documentos, notas fiscais ou e-mails para extrair informação?",
             "Quantas horas por semana a equipe gasta em tarefas que poderiam ser feitas por IA?",
-            "Se os processos operacionais mais repetitivos fossem automatizados, para onde a equipe redirecionaria seu tempo?",
+            "Se os processos mais repetitivos fossem automatizados, para onde a equipe redirecionaria esse tempo?",
           ],
           benchmark: "Empresas com automação de processos operacionais reduzem erros em 80% e liberam 15h/mês por colaborador.",
           potencialIA: {
@@ -827,9 +816,7 @@ const CONFIG = {
           },
         },
         {
-          id: "IA4",
-          nome: "Analytics e BI com IA",
-          peso: 0.17,
+          id: "IA4", nome: "Analytics e BI com IA", peso: 0.15,
           naSugeridoPara: [],
           descricao: "Uso de BI e análise preditiva com IA para transformar dados em insights acionáveis para a tomada de decisão.",
           criterios: {
@@ -844,7 +831,7 @@ const CONFIG = {
             "Como são gerados os relatórios gerenciais — automático ou manual? Quanto tempo leva?",
             "A liderança consegue responder perguntas sobre o negócio em tempo real, ou precisa esperar relatórios?",
             "A empresa já faz previsão de vendas ou demanda com modelos quantitativos?",
-            "Se existisse um assistente de IA que respondesse perguntas sobre os dados da empresa, quais seriam as 3 primeiras perguntas?",
+            "Se existisse um assistente de IA que respondesse perguntas sobre os dados da empresa, quais seriam as 3 primeiras?",
           ],
           benchmark: "Empresas com BI avançado tomam decisões 5x mais rápido e identificam oportunidades de redução de custo 3x mais cedo.",
           potencialIA: {
@@ -854,9 +841,7 @@ const CONFIG = {
           },
         },
         {
-          id: "IA5",
-          nome: "IA em documentos e conhecimento",
-          peso: 0.14,
+          id: "IA5", nome: "IA em documentos e conhecimento", peso: 0.13,
           naSugeridoPara: [],
           descricao: "Uso de IA para organizar, buscar e gerar documentos, contratos, relatórios e bases de conhecimento corporativo.",
           criterios: {
@@ -884,9 +869,7 @@ const CONFIG = {
           },
         },
         {
-          id: "IA6",
-          nome: "Governança e estratégia de IA",
-          peso: 0.13,
+          id: "IA6", nome: "Governança e estratégia de IA", peso: 0.12,
           naSugeridoPara: [],
           descricao: "Maturidade da visão estratégica, política e gestão de IA na empresa — do uso informal ao programa estruturado.",
           criterios: {
@@ -898,16 +881,44 @@ const CONFIG = {
           },
           perguntas: [
             "A empresa tem uma visão clara de onde IA pode gerar mais valor nos próximos 12 meses?",
-            "Existe alguém na empresa responsável por liderar a agenda de IA e automação?",
+            "Se você tivesse R$ 50k para investir em IA amanhã, em qual área apostaria e por quê?",
             "Há budget aprovado para projetos de IA? Qual é a ordem de grandeza desse investimento?",
-            "A empresa tem política sobre o que pode ou não ser enviado para ferramentas de IA externas?",
-            "Como a empresa avalia e prioriza casos de uso de IA — existe critério formal?",
+            "Existe resistência interna ao uso de IA? De onde ela vem — liderança, equipe técnica ou operacional?",
+            "Qual decisão estratégica dos últimos 6 meses poderia ter sido melhor com mais dados e análise de IA?",
           ],
           benchmark: "Empresas com estratégia de IA estruturada têm 3x mais chances de alcançar ROI positivo em projetos de IA no primeiro ano.",
           potencialIA: {
             tipo: "percentual_faturamento",
             base: 0.02,
             descricao: "2% do faturamento mensal como potencial de ganho com governança e estratégia de IA estruturada",
+          },
+        },
+        {
+          id: "IA7", nome: "IA em Pessoas e Organização", peso: 0.10,
+          naSugeridoPara: [],
+          descricao: "Uso de IA nos processos de RH e gestão de pessoas — recrutamento, desenvolvimento, retenção e análise de engajamento.",
+          criterios: {
+            1: { nome: "Caótico",     descricao: "RH 100% manual. Recrutamento por indicação sem processo. Sem dados de engajamento ou performance. Alto turnover sem análise de causa." },
+            2: { nome: "Básico",      descricao: "ATS básico ou planilha de candidatos. Pesquisa de clima anual manual. Sem uso de IA em nenhuma etapa do ciclo de talentos." },
+            3: { nome: "Estruturado", descricao: "ATS com triagem semi-automatizada. Uso de IA para criação de job descriptions e análise de CVs. Pesquisa de engajamento com ferramenta digital." },
+            4: { nome: "Gerenciado",  descricao: "IA na triagem e ranking de candidatos. eNPS monitorado com análise de sentimento. PDI personalizado por colaborador. Predição básica de turnover." },
+            5: { nome: "Otimizado",   descricao: "People analytics com IA preditiva. Turnover previsto com 90 dias de antecedência. Plano de desenvolvimento gerado por IA. eNPS acima de 50 sistematicamente." },
+          },
+          perguntas: [
+            "Quantas horas o RH ou os gestores gastam por semana em triagem de CVs e processos seletivos manuais?",
+            "A empresa consegue prever quais colaboradores têm risco de sair nos próximos 90 dias — ou só descobre quando recebe a carta de demissão?",
+            "Como são identificados os talentos internos com potencial de crescimento antes de perdê-los para a concorrência?",
+            "Existe análise de dados de engajamento e clima para orientar decisões de gestão de pessoas?",
+            "Se a IA pudesse identificar o perfil ideal de candidato com base nos top performers atuais, como isso mudaria o recrutamento?",
+          ],
+          benchmark: "Empresas com IA no recrutamento reduzem o tempo de contratação em 50% e a taxa de turnover em até 35% no primeiro ano.",
+          potencialIA: {
+            tipo: "horas_funcionarios",
+            proporcao: 0.20,
+            horasPorSemana: 4,
+            semanasPorMes: 4.3,
+            valorHora: 35,
+            descricao: "20% dos funcionários × 4h/semana × 4,3 semanas × R$35/h = potencial recuperado com IA em pessoas e RH",
           },
         },
       ],

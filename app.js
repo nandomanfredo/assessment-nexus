@@ -17,6 +17,7 @@ const QW_TEMPLATES = {
   IA4: { titulo: 'Dashboard de BI com alertas preditivos', descricao: 'Conectar ERP e CRM em dashboard com KPIs em tempo real, forecasting de vendas e alertas automáticos de desvio.', prazo: '3–5 semanas', area: 'Analytics / BI' },
   IA5: { titulo: 'Base de conhecimento com busca inteligente por IA', descricao: 'Centralizar processos, políticas e FAQ com busca por IA, reduzindo tempo de onboarding e erros por desinformação.', prazo: '2–3 semanas', area: 'Documentação' },
   IA6: { titulo: 'Workshop: política e roadmap de IA em 30 dias', descricao: 'Mapear casos de uso por área, priorizar por ROI, criar política de uso e nomear responsável pela agenda de IA.', prazo: '2–4 semanas', area: 'Estratégia de IA' },
+  IA7: { titulo: 'IA no RH: triagem de candidatos e predição de turnover', descricao: 'Implementar ATS com IA para triagem e ranking automático de candidatos, análise de eNPS com sentimento e modelo preditivo de risco de saída de talentos.', prazo: '4–6 semanas', area: 'Pessoas / RH' },
 };
 
 // ── Estado ───────────────────────────────────────────────

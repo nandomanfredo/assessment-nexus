@@ -59,21 +59,21 @@ function deletarAssessment(id) {
 // Pesos dos pilares
 const PESOS_PILAR = { N: 0.15, T: 0.25, P: 0.25, G: 0.15, IA: 0.20 };
 
-// Dimensões e pesos por pilar
+// Dimensões e pesos por pilar — v2.0 (N6, T7, IA7 adicionados; P7 e G6 reformulados)
 const DIMENSOES_PILAR = {
-  N:  ['N1','N2','N3','N4','N5'],
-  T:  ['T1','T2','T3','T4','T5','T6'],
-  P:  ['P1','P2','P3','P4','P5','P6'],
-  G:  ['G1','G2','G3','G4','G5'],
-  IA: ['IA1','IA2','IA3','IA4','IA5','IA6'],
+  N:  ['N1','N2','N3','N4','N5','N6'],
+  T:  ['T1','T2','T3','T4','T5','T6','T7'],
+  P:  ['P1','P2','P3','P4','P5','P6','P7'],  // P7: Talentos e Cultura de Alta Performance
+  G:  ['G1','G2','G3','G4','G5','G6'],        // G6: Reputação Digital e ESG Mínimo
+  IA: ['IA1','IA2','IA3','IA4','IA5','IA6','IA7'],
 };
 
 const PESOS_DIMENSAO = {
-  N:  { N1:0.22, N2:0.22, N3:0.18, N4:0.20, N5:0.18 },
-  T:  { T1:0.18, T2:0.20, T3:0.18, T4:0.15, T5:0.15, T6:0.14 },
-  P:  { P1:0.18, P2:0.20, P3:0.18, P4:0.15, P5:0.15, P6:0.14 },
-  G:  { G1:0.22, G2:0.20, G3:0.20, G4:0.20, G5:0.18 },
-  IA: { IA1:0.20, IA2:0.18, IA3:0.18, IA4:0.18, IA5:0.16, IA6:0.10 },
+  N:  { N1:0.20, N2:0.16, N3:0.16, N4:0.20, N5:0.14, N6:0.14 },
+  T:  { T1:0.13, T2:0.16, T3:0.13, T4:0.16, T5:0.14, T6:0.14, T7:0.14 },
+  P:  { P1:0.18, P2:0.15, P3:0.15, P4:0.15, P5:0.12, P6:0.12, P7:0.13 },
+  G:  { G1:0.18, G2:0.16, G3:0.18, G4:0.16, G5:0.16, G6:0.16 },
+  IA: { IA1:0.18, IA2:0.16, IA3:0.16, IA4:0.15, IA5:0.13, IA6:0.12, IA7:0.10 },
 };
 
 const FATORES_GAP = { 1:1.00, 2:0.70, 3:0.40, 4:0.15, 5:0.00 };
