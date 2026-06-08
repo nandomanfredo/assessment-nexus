@@ -444,29 +444,37 @@
          SCREEN: CALCULADORA ROI & KPIs
     ─────────────────────────────────── -->
     <section class="screen hidden" id="screen-calculadora">
-      <header class="screen-header">
-        <h1>Calculadora ROI &amp; KPIs</h1>
-        <p>Calcule o retorno sobre investimento, o payback real e defina os KPIs do projeto para o cliente.</p>
-      </header>
 
-      <!-- ── Tab Bar ── -->
-      <div class="calc-tabs">
-        <button class="calc-tab active" data-ctab="roi">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          ROI &amp; Payback
-        </button>
-        <button class="calc-tab" data-ctab="kpis">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          KPIs do Projeto
-        </button>
-        <button class="calc-tab" data-ctab="jornada">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Jornada Comercial
-        </button>
-        <button class="calc-tab" data-ctab="relatorio">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          Antes × Depois
-        </button>
+      <!-- ── Hero header ── -->
+      <div class="calc-hero">
+        <div class="calc-hero-left">
+          <div class="calc-hero-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <h1 class="calc-hero-title">Calculadora ROI &amp; KPIs</h1>
+            <p class="calc-hero-sub">Calcule retorno, payback real e defina os KPIs do projeto para o cliente.</p>
+          </div>
+        </div>
+        <!-- Tab Bar dentro do hero -->
+        <div class="calc-tabs">
+          <button class="calc-tab active" data-ctab="roi">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            ROI &amp; Payback
+          </button>
+          <button class="calc-tab" data-ctab="kpis">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            KPIs do Projeto
+          </button>
+          <button class="calc-tab" data-ctab="jornada">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Jornada
+          </button>
+          <button class="calc-tab" data-ctab="relatorio">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Antes × Depois
+          </button>
+        </div>
       </div>
 
       <!-- ══════════════════════════════
@@ -480,7 +488,7 @@
 
             <div class="card calc-card">
               <div class="calc-section-hdr">
-                <span class="calc-sect-icon" style="background:#EFF6FF;color:#2563EB">
+                <span class="calc-sect-icon csi-blue">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                 </span>
                 <span>Processo Atual</span>
@@ -513,7 +521,7 @@
 
             <div class="card calc-card">
               <div class="calc-section-hdr">
-                <span class="calc-sect-icon" style="background:#FFF7ED;color:#EA580C">
+                <span class="calc-sect-icon csi-indigo">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </span>
                 <span>Projeto de IA</span>
@@ -535,9 +543,9 @@
               <div class="form-field">
                 <label class="form-label">
                   Redução esperada no processo
-                  <strong class="calc-range-val" id="ci-reducao-lbl" style="color:var(--primary);margin-left:6px">60%</strong>
+                  <strong class="calc-range-val" id="ci-reducao-lbl">60%</strong>
                 </label>
-                <input type="range" class="ci" id="ci-reducao" min="10" max="90" value="60" style="width:100%;accent-color:var(--primary);margin-top:6px;cursor:pointer">
+                <input type="range" class="ci" id="ci-reducao" min="10" max="90" value="60">
                 <div class="calc-range-marks">
                   <span>10%</span><span>30%</span><span>50%</span><span>70%</span><span>90%</span>
                 </div>
