@@ -550,24 +550,40 @@
           <div class="calc-results-col">
 
             <div class="calc-kpi-grid">
+              <!-- Card 1: Custo mensal -->
               <div class="calc-kpi-card ckc-blue">
+                <div class="ckc-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2"/><path d="M12 6v6l4 2"/></svg>
+                </div>
                 <div class="ckc-label">Custo mensal do processo</div>
-                <div class="ckc-value" id="cr-custo">R$ —</div>
-                <div class="ckc-sub" id="cr-custo-sub">Preencha os dados à esquerda</div>
+                <div class="ckc-value ckc-empty" id="cr-custo">R$ —</div>
+                <div class="ckc-sub" id="cr-custo-sub">Preencha os dados ao lado</div>
               </div>
+              <!-- Card 2: Economia -->
               <div class="calc-kpi-card ckc-green">
+                <div class="ckc-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
                 <div class="ckc-label">Economia mensal estimada</div>
-                <div class="ckc-value" id="cr-economia">R$ —</div>
+                <div class="ckc-value ckc-empty" id="cr-economia">R$ —</div>
                 <div class="ckc-sub" id="cr-economia-sub">—/ano</div>
               </div>
+              <!-- Card 3: ROI -->
               <div class="calc-kpi-card ckc-purple">
+                <div class="ckc-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
                 <div class="ckc-label">ROI em 12 meses</div>
-                <div class="ckc-value" id="cr-roi">—</div>
+                <div class="ckc-value ckc-empty" id="cr-roi">—</div>
                 <div class="ckc-sub" id="cr-roi-sub">—</div>
               </div>
+              <!-- Card 4: Payback -->
               <div class="calc-kpi-card ckc-orange">
+                <div class="ckc-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
                 <div class="ckc-label">Payback simples</div>
-                <div class="ckc-value" id="cr-payback">— meses</div>
+                <div class="ckc-value ckc-empty" id="cr-payback">— meses</div>
                 <div class="ckc-sub" id="cr-payback-ramp">Com ramp-up: —</div>
               </div>
             </div>
@@ -580,15 +596,18 @@
                 </span>
                 <span>Projeção de retorno — curva de adoção</span>
               </div>
-              <div id="calc-timeline"></div>
-              <p class="calc-timeline-note">Ramp-up: 30% → 60% → 90% → 100% do ganho esperado</p>
+              <div class="calc-timeline-wrap" id="calc-timeline"></div>
+              <p class="calc-timeline-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Ramp-up de adoção: 30% → 60% → 90% → 100%
+              </p>
             </div>
 
             <!-- Fórmula resumida -->
             <div class="card calc-card calc-formula-card">
-              <div class="calc-section-hdr" style="margin-bottom:10px">
-                <span class="calc-sect-icon" style="background:#F0FDF4;color:#16A34A">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div class="calc-section-hdr" style="margin-bottom:12px">
+                <span class="calc-sect-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#6EE7B7"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 </span>
                 <span>Como o cálculo funciona</span>
               </div>

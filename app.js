@@ -1343,10 +1343,17 @@ function _setupROICalc() {
 
   const range = qs('#ci-reducao');
   if (range) {
+    const _updateRangeGradient = () => {
+      const min = +range.min || 10, max = +range.max || 90, val = +range.value;
+      const pct = ((val - min) / (max - min)) * 100;
+      range.style.background = `linear-gradient(to right,var(--primary) 0%,var(--primary) ${pct}%,#E2E8F0 ${pct}%,#E2E8F0 100%)`;
+    };
     range.addEventListener('input', () => {
       qs('#ci-reducao-lbl').textContent = range.value + '%';
+      _updateRangeGradient();
       _calcROI();
     });
+    _updateRangeGradient(); // init
   }
 }
 
@@ -1377,29 +1384,35 @@ function _calcROI() {
   if (CALC.custoMensal > 0) {
     custoEl.textContent  = fmtBRL(CALC.custoMensal);
     subCusto.textContent = fmtBRL(CALC.custoMensal * 12) + '/ano';
+    custoEl.classList.remove('ckc-empty');
   } else {
     custoEl.textContent  = 'R$ —';
     subCusto.textContent = 'Preencha os dados do processo';
+    custoEl.classList.add('ckc-empty');
   }
 
   if (CALC.economiaMensal > 0) {
     econEl.textContent  = fmtBRL(CALC.economiaMensal);
     subEcon.textContent = fmtBRL(CALC.economiaMensal * 12) + '/ano';
+    econEl.classList.remove('ckc-empty');
   } else {
     econEl.textContent  = 'R$ —';
     subEcon.textContent = '—/ano';
+    econEl.classList.add('ckc-empty');
   }
 
   if (CALC.investimento > 0 && CALC.economiaMensal > 0) {
     const ganho12  = CALC.economiaMensal * 12;
     const roi      = ((ganho12 - CALC.investimento) / CALC.investimento) * 100;
     roiEl.textContent  = (roi >= 0 ? '+' : '') + Math.round(roi) + '%';
+    roiEl.classList.remove('ckc-empty');
     subROI.textContent = roi >= 0
       ? `R$ ${((roi / 100) * CALC.investimento / 1000).toFixed(1)}k de retorno para cada R$ 1k investido`
       : 'Projeto ainda não se paga em 12 meses com estes parâmetros';
 
     const pb = CALC.investimento / CALC.economiaMensal;
     pbEl.textContent = pb <= 120 ? pb.toFixed(1) + ' meses' : '> 10 anos';
+    pbEl.classList.remove('ckc-empty');
 
     const pbRampVal = _calcPaybackRampup(CALC.investimento, CALC.economiaMensal);
     pbRamp.textContent = 'Com ramp-up: ' + (pbRampVal <= 120 ? pbRampVal.toFixed(1) + ' meses' : '> 10 anos');
@@ -1408,8 +1421,10 @@ function _calcROI() {
     _renderTimeline(CALC.investimento, CALC.economiaMensal);
   } else {
     roiEl.textContent  = '—';
+    roiEl.classList.add('ckc-empty');
     subROI.textContent = 'Informe o investimento e o custo do processo';
     pbEl.textContent   = '— meses';
+    pbEl.classList.add('ckc-empty');
     pbRamp.textContent = 'Com ramp-up: —';
     tlCard.style.display = 'none';
   }
@@ -1434,22 +1449,30 @@ function _renderTimeline(inv, ganhoMes) {
   let rows = '';
   let paybackMes = null;
   const maxAcum = ganhoMes * 12;
+  // Show only first 6 months + last month where payback happens (max 12)
+  const shown = [1,2,3,4,5,6];
 
   for (let m = 1; m <= 12; m++) {
     const fator = ramp[m - 1] ?? 1.00;
     acum += ganhoMes * fator;
     if (paybackMes === null && acum >= inv) paybackMes = m;
-    const pct     = Math.min(100, (acum / (maxAcum || 1)) * 100);
-    const isPb    = paybackMes === m;
-    const color   = acum >= inv ? '#16A34A' : '#6366F1';
+    if (!shown.includes(m) && m !== 12 && m !== paybackMes) continue;
+
+    const pct   = Math.min(100, (acum / (maxAcum || 1)) * 100);
+    const isPb  = paybackMes === m;
+    const paid  = acum >= inv;
+    const grad  = paid
+      ? 'linear-gradient(to right,#16A34A,#4ADE80)'
+      : 'linear-gradient(to right,#6366F1,#A78BFA)';
 
     rows += `<div class="calc-timeline-row">
       <span class="calc-timeline-label">Mês ${m}</span>
       <div class="calc-timeline-track">
-        <div class="calc-timeline-fill" style="width:${pct}%;background:${color}"></div>
+        <div class="calc-timeline-fill" style="width:${pct}%;background:${grad}"></div>
       </div>
-      <span class="calc-timeline-val">${fmtBRL(acum)}</span>
-      ${isPb ? `<span class="calc-timeline-payback" style="display:inline-flex">✓ Payback</span>` : ''}
+      <span class="calc-timeline-val" style="color:${paid ? '#15803D' : 'var(--text)'}">
+        ${fmtBRL(acum)}${isPb ? `&nbsp;<span class="calc-timeline-payback">✓ Payback</span>` : ''}
+      </span>
     </div>`;
   }
   tl.innerHTML = rows;
