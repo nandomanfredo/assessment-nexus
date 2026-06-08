@@ -30,13 +30,14 @@ const COL = {
   SCORE_IA:     13,
   SCORES_JSON:  14,  // JSON completo dos scores por dimensão
   RESULTADOS_JSON: 15, // JSON com resultados calculados (gaps, potencial IA etc.)
+  RESUMO_IA:    16,  // Resumo executivo gerado pela IA
 };
 
 const HEADERS = [
   'ID', 'Data/Hora', 'Empresa', 'Responsável', 'Setor',
   'Faturamento', 'Funcionários', 'IMD', 'Faixa',
   'Score N', 'Score T', 'Score P', 'Score G', 'Score IA',
-  'Scores JSON', 'Resultados JSON',
+  'Scores JSON', 'Resultados JSON', 'Resumo IA',
 ];
 
 // ---- Acesso à planilha ----
@@ -187,9 +188,13 @@ function setupPlanilha() {
   const configSheet = ss.insertSheet(SHEET_NAME_CONFIG);
   _initHeadersConfig(configSheet);
 
-  setConfig('versao_app', '1.0.0');
-  setConfig('criado_em', new Date().toISOString());
+  // Escreve metadados direto no objeto ss (evita ler a const SPREADSHEET_ID
+  // que foi avaliada como '' no momento do carregamento do script)
+  const agora = new Date().toISOString();
+  configSheet.appendRow(['versao_app', '2.0.0', agora]);
+  configSheet.appendRow(['criado_em',  agora,   agora]);
 
+  console.log('setupPlanilha concluído com sucesso!');
   return { id, url: ss.getUrl() };
 }
 
@@ -225,4 +230,28 @@ function _rowToObj(row) {
     scores,
     resultados,
   };
+}
+
+// ---- Salvar outputs de IA ----
+
+/**
+ * Salva o texto gerado pela IA na coluna "Resumo IA" da linha do assessment.
+ * Cria o cabeçalho na coluna Q se ainda não existir.
+ */
+function salvarResumoIA(assessmentId, texto) {
+  const sheet  = _getSheet(SHEET_NAME_ASSESSMENTS);
+  const values = sheet.getDataRange().getValues();
+
+  // Garante que o cabeçalho da coluna Q existe
+  if (!values[0][COL.RESUMO_IA]) {
+    sheet.getRange(1, COL.RESUMO_IA + 1).setValue('Resumo IA');
+  }
+
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][COL.ID] === assessmentId) {
+      sheet.getRange(i + 1, COL.RESUMO_IA + 1).setValue(texto);
+      return true;
+    }
+  }
+  return false;
 }

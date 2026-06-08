@@ -334,18 +334,23 @@ function renderGapList(sel, gaps, defaultColor) {
 function renderPerguntas(pilar) {
   const list = qs('#perguntas-list');
   list.innerHTML = '';
+  const setor = STATE.config.setor;
   pilar.dimensoes.forEach(d => {
     const s = STATE.scores[d.id];
     const isNA = s && s.na;
     const block = document.createElement('div');
     block.className = 'perguntas-bloco' + (isNA ? ' na-active' : '');
+    const pergExtras = (d.perguntasPorSetor && d.perguntasPorSetor[setor]) || [];
+    const todasPerguntas = [...d.perguntas, ...pergExtras];
+    const sLabel = CONFIG.setores.find(x => x.id === setor)?.label || '';
     block.innerHTML = `
       <div class="perg-bloco-header">
         <span class="perg-bloco-nome">${d.nome}</span>
         <span class="perg-bloco-peso">${Math.round(d.peso * 100)}% do pilar</span>
         ${isNA ? '<span class="perg-bloco-na-badge">N/A</span>' : ''}
+        ${pergExtras.length ? `<span class="perg-bloco-setor-badge">+ ${sLabel}</span>` : ''}
       </div>
-      <ul class="perg-lista">${d.perguntas.map(p => `<li>${p}</li>`).join('')}</ul>
+      <ul class="perg-lista">${todasPerguntas.map(p => `<li>${p}</li>`).join('')}</ul>
     `;
     list.appendChild(block);
   });

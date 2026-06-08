@@ -15,6 +15,7 @@ const CONFIG = {
     { id: "ecommerce",    label: "E-commerce" },
     { id: "industria",    label: "Indústria" },
     { id: "servicos_b2b", label: "Serviços B2B" },
+    { id: "saas",         label: "Software SaaS / Tecnologia" },
     { id: "saude",        label: "Saúde" },
     { id: "outro",        label: "Outro" },
   ],
@@ -79,6 +80,15 @@ const CONFIG = {
         {
           id: "N1", nome: "Modelo de negócio e receita", peso: 0.20,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "Qual é o MRR atual e qual foi a variação nos últimos 3 meses — crescimento, estagnação ou contração?",
+              "Qual é o churn mensal (%) e quais os 3 principais motivos de cancelamento rastreados?",
+              "O ratio LTV/CAC está calculado e acima de 3x? Se não, o que impede de medir hoje?",
+              "Existem planos/tiers com precificação baseada em valor entregue — ou uma tarifa única para todos os clientes?",
+              "A Net Revenue Retention (NRR) supera 100%? Expansão dentro da base existente é uma estratégia ativa?",
+            ],
+          },
           descricao: "Clareza sobre como a empresa gera receita, quais produtos/serviços são mais rentáveis e qual é o modelo de precificação.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Receita não está mapeada. Não há clareza sobre produtos/serviços mais rentáveis. Precificação é intuitiva e sem análise de margem." },
@@ -121,6 +131,13 @@ const CONFIG = {
         {
           id: "N3", nome: "Gestão de canais e operação", peso: 0.16,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "O crescimento é product-led (PLG), sales-led ou híbrido? Essa estratégia está documentada e validada com dados?",
+              "Existe trial ou freemium? Qual é a taxa de conversão de trial para conta paga — e é monitorada?",
+              "O produto permite que o cliente escale o uso sem precisar de intervenção da equipe de vendas (self-serve)?",
+            ],
+          },
           descricao: "Estrutura e gestão dos canais de venda e distribuição, com métricas e responsáveis definidos por canal.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Canais não mapeados. Vendas acontecem por indicação ou oportunidade sem estrutura. Sem responsáveis definidos por canal." },
@@ -311,6 +328,13 @@ const CONFIG = {
         {
           id: "T5", nome: "Documentação e dependência técnica", peso: 0.14,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "Qual é a frequência de deploy em produção — diária, semanal ou esporádica? Existe pipeline CI/CD automatizado?",
+              "A cobertura de testes automatizados está acima de 60%? Um deploy com falha é revertido automaticamente?",
+              "Quanto da dívida técnica acumulada está bloqueando novas funcionalidades? Esse custo é visível para a liderança?",
+            ],
+          },
           descricao: "Existência de documentação técnica atualizada e ausência de dependência crítica de pessoas ou fornecedores únicos.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Sem documentação técnica. Todo o conhecimento na cabeça de 1-2 pessoas. Alta dependência de fornecedor ou desenvolvedor único sem substituto." },
@@ -332,6 +356,13 @@ const CONFIG = {
         {
           id: "T6", nome: "Monitoramento e disponibilidade", peso: 0.14,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "Qual foi o uptime real dos últimos 90 dias? Existe status page pública para os clientes acompanharem incidentes?",
+              "O MTTR (tempo médio de recuperação) está abaixo de 1h para incidentes críticos? Há post-mortems documentados?",
+              "Erros de produto (crashes, timeouts, falhas de API) são rastreados por funcionalidade — não apenas por servidor?",
+            ],
+          },
           descricao: "Capacidade de detectar e responder a falhas de sistemas antes que impactem clientes, com SLAs definidos e métricas de disponibilidade.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Sem monitoramento. Problemas são descobertos pelos clientes. Sem SLA de disponibilidade. Tempo de resposta a incidentes imprevisível." },
@@ -396,6 +427,14 @@ const CONFIG = {
         {
           id: "P1", nome: "Comercial e onboarding", peso: 0.18,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "Qual é a taxa de ativação — % de usuários que atingem o 'momento aha' nos primeiros 7 dias após cadastro?",
+              "O time-to-value (tempo até o cliente obter resultado real com o produto) está mapeado e abaixo de 14 dias?",
+              "O onboarding pode ser concluído sem intervenção humana — ou precisa de contato manual para cada novo cliente?",
+              "Qual é o payback period médio de um novo cliente? Está alinhado com o ciclo de venda?",
+            ],
+          },
           descricao: "Estrutura e eficiência do processo de vendas, da geração de proposta ao onboarding do novo cliente.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Processo de venda não estruturado. Proposta criada do zero por pedido. Onboarding de cliente sem padrão — cada um é feito de forma diferente." },
@@ -446,6 +485,14 @@ const CONFIG = {
         {
           id: "P3", nome: "Suporte e atendimento", peso: 0.15,
           naSugeridoPara: [],
+          perguntasPorSetor: {
+            saas: [
+              "Existe uma área de Customer Success separada do suporte? Quem é o responsável pela retenção e expansão de contas?",
+              "A equipe de CS tem acesso a dados de uso do produto para identificar clientes em risco antes que solicitem cancelamento?",
+              "QBRs (revisões trimestrais) com clientes estratégicos são conduzidos com dados de adoção de produto — não só de satisfação?",
+              "O NPS é segmentado por plano e tempo de conta? Esse dado alimenta diretamente o roadmap de produto?",
+            ],
+          },
           descricao: "Estrutura do processo de atendimento ao cliente, com canais definidos, SLAs e métricas de qualidade.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Atendimento por WhatsApp pessoal ou e-mail informal sem rastreamento. Sem SLA. Solicitações perdidas com frequência." },
@@ -470,7 +517,7 @@ const CONFIG = {
         },
         {
           id: "P4", nome: "Logística e operação", peso: 0.15,
-          naSugeridoPara: ["servicos_b2b", "saude"],
+          naSugeridoPara: ["servicos_b2b", "saude", "saas"],
           descricao: "Maturidade dos processos de logística, gestão de estoque, expedição e controle de operações físicas.",
           criterios: {
             1: { nome: "Caótico",     descricao: "Processo logístico sem rastreamento. Entregas com atrasos frequentes. Inventário sem controle — rupturas e excessos são comuns." },
