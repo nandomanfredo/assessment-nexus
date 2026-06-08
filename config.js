@@ -37,11 +37,31 @@ const CONFIG = {
   // ─── Faixas de resultado IMD ─────────────────────────────────────────────
 
   faixasIMD: [
-    { min: 20, max: 39,  nome: "Crítico",           cor: "#E24B4A", diagnostico: "Riscos imediatos. Intervenção urgente necessária." },
-    { min: 40, max: 54,  nome: "Em Desenvolvimento", cor: "#BA7517", diagnostico: "Base existente mas frágil. Oportunidades de estruturação." },
-    { min: 55, max: 69,  nome: "Estruturado",        cor: "#1D9E75", diagnostico: "Fundação sólida. Pronto para escalar com suporte." },
-    { min: 70, max: 84,  nome: "Avançado",           cor: "#3B8BD4", diagnostico: "Operação madura. Foco em otimização e IA." },
-    { min: 85, max: 100, nome: "Referência Digital",  cor: "#9B6DD4", diagnostico: "Alto desempenho. Modelo a ser replicado." },
+    { min: 20, max: 39,  nome: "Crítico",           cor: "#E24B4A",
+      diagnostico: "Riscos imediatos. Intervenção urgente necessária.",
+      produtoNexus: "Diagnóstico Estratégico",
+      acaoNexus: "Mapeamento completo de riscos e prioridades antes de qualquer investimento em IA. A fundação do negócio precisa ser estruturada primeiro.",
+      prazoNexus: "15 dias" },
+    { min: 40, max: 54,  nome: "Em Desenvolvimento", cor: "#BA7517",
+      diagnostico: "Base existente mas frágil. Oportunidades de estruturação.",
+      produtoNexus: "Diagnóstico Estratégico",
+      acaoNexus: "Diagnóstico aprofundado com roadmap priorizado por ROI. Identificar quais pilares estruturar antes de escalar com IA.",
+      prazoNexus: "15 dias" },
+    { min: 55, max: 69,  nome: "Estruturado",        cor: "#1D9E75",
+      diagnostico: "Fundação sólida. Pronto para implementar IA com resultado garantido.",
+      produtoNexus: "Inteligência Operacional",
+      acaoNexus: "Agente de IA em produção no processo de maior ROI em 30 dias — com garantia formal de entrega e KPIs acordados.",
+      prazoNexus: "30 dias" },
+    { min: 70, max: 84,  nome: "Avançado",           cor: "#3B8BD4",
+      diagnostico: "Operação madura. Pronto para transformação ampla com IA.",
+      produtoNexus: "Produto Inteligente",
+      acaoNexus: "Transformação ampla com múltiplos agentes integrados e time autônomo em IA ao final de 90 dias.",
+      prazoNexus: "90 dias" },
+    { min: 85, max: 100, nome: "Referência Digital",  cor: "#9B6DD4",
+      diagnostico: "Alto desempenho. Modelo a ser replicado e continuamente evoluído.",
+      produtoNexus: "Parceiro Estratégico",
+      acaoNexus: "Evolução contínua — expandir biblioteca de agentes e manter vantagem competitiva sustentável com parceria mensal.",
+      prazoNexus: "Mensal" },
   ],
 
   // ─── Níveis de maturidade ────────────────────────────────────────────────
@@ -68,7 +88,7 @@ const CONFIG = {
     {
       id: "N", sigla: "N",
       nome: "Visão Estratégica do Negócio",
-      peso: 0.15, cor: "#3B8BD4",
+      peso: 0.15, cor: "#3B8BD4", faseNexus: "SCAN",
       objetivo: "Entender como a empresa opera e ganha dinheiro, e o quanto a liderança tem clareza e controle estratégico sobre o negócio.",
       entregas: [
         "Mapa operacional do negócio",
@@ -233,7 +253,7 @@ const CONFIG = {
     {
       id: "T", sigla: "T",
       nome: "Tecnologia",
-      peso: 0.25, cor: "#1D9E75",
+      peso: 0.25, cor: "#1D9E75", faseNexus: "BUILD",
       objetivo: "Avaliar a maturidade técnica da infraestrutura, sistemas, integrações e segurança — ângulo de implementação técnica.",
       entregas: [
         "Score técnico com mapa de risco",
@@ -416,7 +436,7 @@ const CONFIG = {
     {
       id: "P", sigla: "P",
       nome: "Processos",
-      peso: 0.25, cor: "#BA7517",
+      peso: 0.25, cor: "#BA7517", faseNexus: "ADOPT",
       objetivo: "Identificar gargalos operacionais, dependência de pessoas e oportunidades de automação nos fluxos de trabalho.",
       entregas: [
         "Mapa AS-IS dos processos críticos",
@@ -628,7 +648,7 @@ const CONFIG = {
     {
       id: "G", sigla: "G",
       nome: "Governança",
-      peso: 0.15, cor: "#9B6DD4",
+      peso: 0.15, cor: "#9B6DD4", faseNexus: "DESIGN",
       objetivo: "Avaliar a maturidade corporativa: políticas, controles, compliance e capacidade de gestão de riscos.",
       entregas: [
         "Matriz de maturidade corporativa",
@@ -772,7 +792,7 @@ const CONFIG = {
     {
       id: "IA", sigla: "IA",
       nome: "Inteligência Artificial",
-      peso: 0.20, cor: "#E24B4A",
+      peso: 0.20, cor: "#E24B4A", faseNexus: "BUILD / EVOLVE",
       objetivo: "Revelar onde IA gera ganho real de produtividade e receita — o potencial não aproveitado pela empresa.",
       entregas: [
         "Mapa de oportunidades de IA por área",
@@ -852,7 +872,7 @@ const CONFIG = {
             "Quantas horas por semana a equipe gasta em tarefas que poderiam ser feitas por IA?",
             "Se os processos mais repetitivos fossem automatizados, para onde a equipe redirecionaria esse tempo?",
           ],
-          benchmark: "Empresas com automação de processos operacionais reduzem erros em 80% e liberam 15h/mês por colaborador.",
+          benchmark: "Empresas com automação de processos operacionais reduzem processos manuais em até 68% e liberam 15h/mês por colaborador. Times que adotam IA com metodologia produzem 3,2x mais com a mesma estrutura de pessoas.",
           potencialIA: {
             tipo: "horas_funcionarios",
             proporcao: 1.0,
@@ -924,16 +944,16 @@ const CONFIG = {
             2: { nome: "Básico",      descricao: "IA usada ad hoc por alguns colaboradores. Sem política formal ou responsável. Resultados inconsistentes e não medidos." },
             3: { nome: "Estruturado", descricao: "Política básica de uso de IA documentada. Budget inicial definido para projetos de IA. Casos de uso priorizados com critério." },
             4: { nome: "Gerenciado",  descricao: "Roadmap de IA com cases priorizados por ROI. Responsável designado (CDO ou equivalente). Métricas de impacto acompanhadas." },
-            5: { nome: "Otimizado",   descricao: "Centro de Excelência de IA ativo. Ética e governança de IA formalizadas. IA como vantagem competitiva central no posicionamento da empresa." },
+            5: { nome: "Otimizado",   descricao: "Centro de Excelência de IA ativo com biblioteca de agentes. Time autônomo que cria e evolui novos agentes internamente. IA como vantagem competitiva central e sustentável." },
           },
           perguntas: [
-            "A empresa tem uma visão clara de onde IA pode gerar mais valor nos próximos 12 meses?",
-            "Se você tivesse R$ 50k para investir em IA amanhã, em qual área apostaria e por quê?",
-            "Há budget aprovado para projetos de IA? Qual é a ordem de grandeza desse investimento?",
-            "Existe resistência interna ao uso de IA? De onde ela vem — liderança, equipe técnica ou operacional?",
-            "Qual decisão estratégica dos últimos 6 meses poderia ter sido melhor com mais dados e análise de IA?",
+            "A empresa tem um caso de uso de IA priorizado com ROI estimado — ou IA ainda é uma intenção sem projeto definido?",
+            "Existe um 'campeão de IA' interno — alguém com autoridade e disponibilidade para garantir que a equipe adote e evolua as soluções após a implantação?",
+            "O CEO ou principal decisor está pessoalmente comprometido com ter IA em produção nos próximos 90 dias — ou é um projeto delegado para uma área?",
+            "Há budget aprovado para projetos de IA? Já houve tentativa anterior que não chegou à produção? O que travou?",
+            "Existe resistência interna ao uso de IA? De onde ela vem — liderança, equipe técnica ou operacional — e o que a causa?",
           ],
-          benchmark: "Empresas com estratégia de IA estruturada têm 3x mais chances de alcançar ROI positivo em projetos de IA no primeiro ano.",
+          benchmark: "87% dos projetos de IA falham por falta de metodologia e comprometimento da liderança. Empresas com estratégia estruturada têm 3x mais chances de ROI positivo no primeiro ano.",
           potencialIA: {
             tipo: "percentual_faturamento",
             base: 0.02,
@@ -966,6 +986,31 @@ const CONFIG = {
             semanasPorMes: 4.3,
             valorHora: 35,
             descricao: "20% dos funcionários × 4h/semana × 4,3 semanas × R$35/h = potencial recuperado com IA em pessoas e RH",
+          },
+        },
+        {
+          id: "IA8", nome: "Prontidão para Agentes de IA", peso: 0.10,
+          naSugeridoPara: [],
+          descricao: "Nível de prontidão para implementar, operar e expandir agentes de IA autônomos em produção — da identificação do caso de uso à equipe autônoma após a implantação.",
+          criterios: {
+            1: { nome: "Caótico",     descricao: "Nenhum processo documentado para um agente operar. Sem dados organizados ou APIs disponíveis. Equipe sem exposição prática a IA. Liderança não comprometida." },
+            2: { nome: "Básico",      descricao: "Interesse em agentes mas sem caso de uso definido. Dados existem mas não estruturados para alimentar IA. Sem responsável interno para liderar a adoção." },
+            3: { nome: "Estruturado", descricao: "Caso de uso de agente identificado com ROI estimado. Dados minimamente estruturados. 'Campeão de IA' interno designado. Comprometimento formal da liderança para ir à produção." },
+            4: { nome: "Gerenciado",  descricao: "Agente em produção em pelo menos um processo crítico com KPIs monitorados. Equipe treinada e operando de forma autônoma. Payback do projeto documentado e positivo." },
+            5: { nome: "Otimizado",   descricao: "Biblioteca de agentes ativos e interconectados. Novos agentes criados pelo time interno sem dependência de consultoria. IA como vantagem competitiva sustentável e crescente." },
+          },
+          perguntas: [
+            "Se um agente de IA assumisse o processo mais repetitivo da empresa hoje, quem teria autoridade e disponibilidade para validar os resultados nas primeiras semanas de operação?",
+            "Existe pelo menos um processo com fluxo documentado, dados minimamente organizados e acesso disponível — pronto para um agente operar sem intervenção manual?",
+            "O CEO ou principal tomador de decisão está pessoalmente comprometido com ter IA em produção nos próximos 90 dias — com prazo definido e KPIs acordados?",
+            "A empresa já tentou implementar IA antes e não chegou à produção? Qual foi o principal obstáculo — técnico, de dados ou de pessoas?",
+            "Existe alguém interno que será o 'campeão de IA' após a implantação — responsável por garantir adoção contínua e evolução da solução mesmo sem a consultoria presente?",
+          ],
+          benchmark: "Comprometimento da liderança é o fator mais crítico: empresas com champion interno têm 3x mais chances de ter IA em produção após 12 meses. Agentes bem implementados com metodologia entregam payback em 3 a 6 meses.",
+          potencialIA: {
+            tipo: "percentual_faturamento",
+            base: 0.04,
+            descricao: "4% do faturamento mensal como potencial de ganho com agentes de IA em produção e equipe autônoma — resultado em 30 a 90 dias com metodologia",
           },
         },
       ],

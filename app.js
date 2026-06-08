@@ -408,6 +408,18 @@ function renderDashboard() {
     badge.style.cssText = `background:${faixa.cor}20;color:${faixa.cor};border-color:${faixa.cor}40`;
     qs('#imd-diagnostico').textContent = faixa.diagnostico;
     qs('#gauge-imd-fill').style.stroke = faixa.cor;
+    // Recomendação de produto Nexus
+    const prodEl = qs('#nexus-produto-recomendado');
+    if (prodEl && faixa.produtoNexus) {
+      prodEl.style.display = 'block';
+      prodEl.style.borderColor = faixa.cor + '50';
+      prodEl.innerHTML = `
+        <div class="nexus-rec-label">Próximo passo recomendado</div>
+        <div class="nexus-rec-produto" style="color:${faixa.cor}">${faixa.produtoNexus}</div>
+        <div class="nexus-rec-acao">${faixa.acaoNexus}</div>
+        <div class="nexus-rec-prazo" style="background:${faixa.cor}15;color:${faixa.cor}">⏱ Resultado em ${faixa.prazoNexus}</div>
+      `;
+    }
   }
 
   // Pilar cards
