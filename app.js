@@ -218,6 +218,7 @@ function navigateTo(screen, pilarId = null) {
 
   if (screen === 'pilar' && pilarId) setPilar(pilarId);
   if (screen === 'dashboard') renderDashboard();
+  if (screen === 'calculadora') renderCalculadora();
 
   qs('.main').scrollTo(0, 0);
 }
@@ -786,6 +787,7 @@ function setupEvents() {
     const { screen, pilar } = nav.dataset;
     if (screen === 'config') { navigateTo('config'); return; }
     if (screen === 'dashboard') { navigateTo('dashboard'); return; }
+    if (screen === 'calculadora') { navigateTo('calculadora'); return; }
     if (screen === 'usuarios') { navigateTo('usuarios'); carregarUsuarios(); return; }
     if (screen === 'pilar' && pilar) {
       if (!STATE.config.responsavel) { toast('Configure o assessment primeiro.', 'error'); return; }
@@ -1150,5 +1152,461 @@ document.addEventListener('DOMContentLoaded', () => {
   qs('#btn-novo-usuario')?.addEventListener('click',      abrirModalNovoUsuario);
   qs('#btn-usuario-salvar')?.addEventListener('click',    salvarUsuarioModal);
 });
+
+// ════════════════════════════════════════════════════════
+// CALCULADORA ROI & KPIs
+// ════════════════════════════════════════════════════════
+
+const KPI_DATA = {
+  diagnostico: {
+    titulo: 'Diagnóstico Estratégico de IA',
+    grupos: [
+      {
+        grupo: 'Amplitude e Profundidade',
+        kpis: [
+          { kpi: 'Nº de processos mapeados', meta: '≥ 5 processos', como: 'Workshops + entrevistas' },
+          { kpi: 'Nº de oportunidades identificadas', meta: '≥ 8 oportunidades', como: 'Relatório de Oportunidades' },
+          { kpi: 'Score de Maturidade Digital (IMD)', meta: '0–100 pontos', como: 'Assessment com 5 pilares' },
+        ],
+      },
+      {
+        grupo: 'Valor e Clareza',
+        kpis: [
+          { kpi: 'ROI potencial total identificado', meta: '≥ 3× o investimento', como: 'Cálculo com dados do cliente' },
+          { kpi: 'Prioridades por impacto/esforço', meta: 'Top 3 priorizados', como: 'Matriz 2×2 entregue' },
+          { kpi: 'Satisfação do cliente com o diagnóstico', meta: '≥ 8/10', como: 'Formulário pós-entrega' },
+        ],
+      },
+    ],
+  },
+  operacional: {
+    titulo: 'Inteligência Operacional',
+    grupos: [
+      {
+        grupo: 'Grupo A — Eficiência Operacional',
+        kpis: [
+          { kpi: 'Tempo médio de execução do processo', meta: 'Redução ≥ 40%', como: 'Cronômetro antes/depois' },
+          { kpi: 'Horas humanas dedicadas ao processo', meta: 'Redução ≥ 50%', como: 'Registro de horas' },
+          { kpi: 'Taxa de erros no processo', meta: 'Redução ≥ 60%', como: 'Log de ocorrências' },
+          { kpi: 'Etapas manuais eliminadas', meta: '≥ 3 etapas', como: 'Mapeamento de processo' },
+        ],
+      },
+      {
+        grupo: 'Grupo B — Adoção e Qualidade',
+        kpis: [
+          { kpi: 'Taxa de uso do agente pela equipe', meta: '≥ 80% em 4 semanas', como: 'Logs de acesso' },
+          { kpi: 'NPS interno (equipe que usa o agente)', meta: '≥ 7', como: 'Google Forms' },
+          { kpi: 'Nº de intervenções manuais necessárias', meta: 'Redução ≥ 70%', como: 'Log de exceções' },
+          { kpi: 'Uptime do agente', meta: '≥ 99%', como: 'Monitoramento de sistema' },
+        ],
+      },
+      {
+        grupo: 'Grupo C — Resultado de Negócio',
+        kpis: [
+          { kpi: 'Custo operacional do processo', meta: 'Redução conforme diagnóstico', como: 'Comparativo horas + erros' },
+          { kpi: 'Tempo de resposta ao cliente final', meta: 'Redução ≥ 30%', como: 'Registro de SLA' },
+          { kpi: 'Capacidade de escala (volume processado)', meta: 'Aumento ≥ 2× sem contratar', como: 'Volume antes/depois' },
+        ],
+      },
+    ],
+  },
+  produto: {
+    titulo: 'Produto Inteligente',
+    grupos: [
+      {
+        grupo: 'Entrega e Qualidade',
+        kpis: [
+          { kpi: 'Funcionalidades de IA em produção', meta: '100% do escopo', como: 'Por sprint (quinzenal)' },
+          { kpi: 'Taxa de adoção pelos usuários finais', meta: '≥ 80% em 30 dias pós go-live', como: 'Semanal no 1º mês' },
+          { kpi: 'Satisfação do usuário final (CSAT)', meta: '≥ 8/10', como: 'Pós-onboarding' },
+        ],
+      },
+      {
+        grupo: 'Operação e Escala',
+        kpis: [
+          { kpi: 'Redução de suporte/tickets relacionados', meta: '≥ 40%', como: 'Mensal' },
+          { kpi: 'Velocidade de entrega de novas features', meta: '+50% vs. antes', como: 'Por trimestre' },
+          { kpi: 'Custo por usuário/transação', meta: 'Redução ≥ 30%', como: 'Dashboard financeiro' },
+        ],
+      },
+    ],
+  },
+  parceiro: {
+    titulo: 'Parceiro Estratégico de IA',
+    grupos: [
+      {
+        grupo: 'Evolução Contínua',
+        kpis: [
+          { kpi: 'Novos casos de uso implementados', meta: '≥ 1 por trimestre', como: 'Trimestral' },
+          { kpi: 'Evolução do Score de Maturidade Digital', meta: '+10 pontos por semestre', como: 'Semestral (reassessment)' },
+          { kpi: 'ROI acumulado documentado', meta: '≥ 3× o investimento/ano', como: 'Anual' },
+        ],
+      },
+      {
+        grupo: 'Relacionamento e Retenção',
+        kpis: [
+          { kpi: 'Taxa de retenção do cliente', meta: '100% (contrato ativo)', como: 'Mensal' },
+          { kpi: 'NPS do cliente com a Nexus', meta: '≥ 9', como: 'Trimestral' },
+          { kpi: 'Horas de consultoria utilizadas vs. contratadas', meta: '≥ 90% de aproveitamento', como: 'Mensal' },
+        ],
+      },
+    ],
+  },
+};
+
+const JORNADA_STEPS = [
+  {
+    tempo: '00–05 min',
+    emoji: '👋',
+    cor: '#2563EB',
+    titulo: 'Abertura',
+    desc: 'Apresentação dos sócios (2 min). Foco em ouvir, não em vender. Comece com: "Antes de falar de nós, quero entender você."',
+    objetivo: 'Criar conexão e mostrar que você ouve antes de propor',
+  },
+  {
+    tempo: '05–20 min',
+    emoji: '🔍',
+    cor: '#059669',
+    titulo: 'Diagnóstico Rápido',
+    desc: 'As 5 perguntas essenciais — processo crítico, problema principal, tentativas anteriores, custo do problema e quem decide.',
+    objetivo: 'Identificar dor real, maturidade, budget e decisor',
+  },
+  {
+    tempo: '20–35 min',
+    emoji: '💡',
+    cor: '#D97706',
+    titulo: 'Reflexão Estratégica',
+    desc: 'Compartilhe 1–2 observações sobre o que ouviu. Cite um caso semelhante. Apresente brevemente o NEXUS AI METHOD™ em 3 pontos.',
+    objetivo: 'Mostrar que você pensa antes de propor — não só executar',
+  },
+  {
+    tempo: '35–42 min',
+    emoji: '⚖️',
+    cor: '#7C3AED',
+    titulo: 'Avaliação de Fit',
+    desc: '"Deixa eu ser direto: acho que podemos ajudar / não acho que somos a melhor opção agora porque..." — Se houver fit, proponha o Diagnóstico Estratégico.',
+    objetivo: 'Credibilidade: indicar outro caminho quando não há fit gera confiança',
+  },
+  {
+    tempo: '42–45 min',
+    emoji: '🚀',
+    cor: '#DC2626',
+    titulo: 'Próximo Passo',
+    desc: '"O próximo passo é um Diagnóstico Estratégico de 15 dias onde..." — Apresente escopo, prazo e investimento do produto de entrada.',
+    objetivo: 'Sair da call com uma ação clara: proposta em até 24h',
+  },
+];
+
+// ── Estado da calculadora ──────────────────────────────────
+const CALC = {
+  pessoas: 0, horas: 0, custoHora: 0, erros: 0, custoErro: 0,
+  investimento: 0, reducao: 60,
+  custoMensal: 0, economiaMensal: 0,
+};
+
+let _calcInitialized = false;
+
+// ── Entry point ───────────────────────────────────────────
+function renderCalculadora() {
+  if (!_calcInitialized) {
+    _calcInitialized = true;
+    _setupCalcTabs();
+    _setupROICalc();
+    _setupKPITab();
+    _setupJornadaTab();
+    _setupRelatorioTab();
+  }
+  // Sync tipo with KPI tab if already selected
+  const tipo = qs('#ci-tipo')?.value;
+  if (tipo) qs('#kpi-tipo').value = tipo;
+  _calcROI();
+  _updateRelatorio();
+}
+
+// ── Tab switching ─────────────────────────────────────────
+function _setupCalcTabs() {
+  qs('#screen-calculadora').addEventListener('click', e => {
+    const tab = e.target.closest('.calc-tab');
+    if (!tab) return;
+    const ctab = tab.dataset.ctab;
+    qsa('.calc-tab').forEach(t => t.classList.toggle('active', t.dataset.ctab === ctab));
+    qsa('.calc-panel').forEach(p => p.classList.toggle('hidden', p.id !== 'ctab-' + ctab));
+    if (ctab === 'relatorio') _updateRelatorio();
+    if (ctab === 'jornada' && !qs('#jornada-timeline-el').children.length) _renderJornada();
+  });
+}
+
+// ── ROI Calculator ────────────────────────────────────────
+function _setupROICalc() {
+  const ids = ['ci-pessoas','ci-horas','ci-custo-hora','ci-erros','ci-custo-erro','ci-investimento','ci-tipo'];
+  ids.forEach(id => qs('#' + id)?.addEventListener('input', _calcROI));
+
+  const range = qs('#ci-reducao');
+  if (range) {
+    range.addEventListener('input', () => {
+      qs('#ci-reducao-lbl').textContent = range.value + '%';
+      _calcROI();
+    });
+  }
+}
+
+function _calcROI() {
+  const v = id => parseFloat(qs('#' + id)?.value) || 0;
+
+  CALC.pessoas     = v('ci-pessoas');
+  CALC.horas       = v('ci-horas');
+  CALC.custoHora   = v('ci-custo-hora');
+  CALC.erros       = v('ci-erros');
+  CALC.custoErro   = v('ci-custo-erro');
+  CALC.investimento = v('ci-investimento');
+  CALC.reducao     = parseFloat(qs('#ci-reducao')?.value) || 60;
+
+  CALC.custoMensal   = (CALC.pessoas * CALC.horas * 4.33 * CALC.custoHora) + (CALC.erros * CALC.custoErro);
+  CALC.economiaMensal = CALC.custoMensal * (CALC.reducao / 100);
+
+  const custoEl    = qs('#cr-custo');
+  const subCusto   = qs('#cr-custo-sub');
+  const econEl     = qs('#cr-economia');
+  const subEcon    = qs('#cr-economia-sub');
+  const roiEl      = qs('#cr-roi');
+  const subROI     = qs('#cr-roi-sub');
+  const pbEl       = qs('#cr-payback');
+  const pbRamp     = qs('#cr-payback-ramp');
+  const tlCard     = qs('#calc-timeline-card');
+
+  if (CALC.custoMensal > 0) {
+    custoEl.textContent  = fmtBRL(CALC.custoMensal);
+    subCusto.textContent = fmtBRL(CALC.custoMensal * 12) + '/ano';
+  } else {
+    custoEl.textContent  = 'R$ —';
+    subCusto.textContent = 'Preencha os dados do processo';
+  }
+
+  if (CALC.economiaMensal > 0) {
+    econEl.textContent  = fmtBRL(CALC.economiaMensal);
+    subEcon.textContent = fmtBRL(CALC.economiaMensal * 12) + '/ano';
+  } else {
+    econEl.textContent  = 'R$ —';
+    subEcon.textContent = '—/ano';
+  }
+
+  if (CALC.investimento > 0 && CALC.economiaMensal > 0) {
+    const ganho12  = CALC.economiaMensal * 12;
+    const roi      = ((ganho12 - CALC.investimento) / CALC.investimento) * 100;
+    roiEl.textContent  = (roi >= 0 ? '+' : '') + Math.round(roi) + '%';
+    subROI.textContent = roi >= 0
+      ? `R$ ${((roi / 100) * CALC.investimento / 1000).toFixed(1)}k de retorno para cada R$ 1k investido`
+      : 'Projeto ainda não se paga em 12 meses com estes parâmetros';
+
+    const pb = CALC.investimento / CALC.economiaMensal;
+    pbEl.textContent = pb <= 120 ? pb.toFixed(1) + ' meses' : '> 10 anos';
+
+    const pbRampVal = _calcPaybackRampup(CALC.investimento, CALC.economiaMensal);
+    pbRamp.textContent = 'Com ramp-up: ' + (pbRampVal <= 120 ? pbRampVal.toFixed(1) + ' meses' : '> 10 anos');
+
+    tlCard.style.display = '';
+    _renderTimeline(CALC.investimento, CALC.economiaMensal);
+  } else {
+    roiEl.textContent  = '—';
+    subROI.textContent = 'Informe o investimento e o custo do processo';
+    pbEl.textContent   = '— meses';
+    pbRamp.textContent = 'Com ramp-up: —';
+    tlCard.style.display = 'none';
+  }
+}
+
+function _calcPaybackRampup(inv, ganhoMes) {
+  const ramp = [0.30, 0.60, 0.90, 1.00];
+  let acum = 0, mes = 0;
+  while (acum < inv && mes < 240) {
+    mes++;
+    const fator = mes <= ramp.length ? ramp[mes - 1] : 1.00;
+    acum += ganhoMes * fator;
+  }
+  return mes;
+}
+
+function _renderTimeline(inv, ganhoMes) {
+  const tl = qs('#calc-timeline');
+  if (!tl) return;
+  const ramp = [0.30, 0.60, 0.90, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00];
+  let acum = 0;
+  let rows = '';
+  let paybackMes = null;
+  const maxAcum = ganhoMes * 12;
+
+  for (let m = 1; m <= 12; m++) {
+    const fator = ramp[m - 1] ?? 1.00;
+    acum += ganhoMes * fator;
+    if (paybackMes === null && acum >= inv) paybackMes = m;
+    const pct     = Math.min(100, (acum / (maxAcum || 1)) * 100);
+    const isPb    = paybackMes === m;
+    const color   = acum >= inv ? '#16A34A' : '#6366F1';
+
+    rows += `<div class="calc-timeline-row">
+      <span class="calc-timeline-label">Mês ${m}</span>
+      <div class="calc-timeline-track">
+        <div class="calc-timeline-fill" style="width:${pct}%;background:${color}"></div>
+      </div>
+      <span class="calc-timeline-val">${fmtBRL(acum)}</span>
+      ${isPb ? `<span class="calc-timeline-payback" style="display:inline-flex">✓ Payback</span>` : ''}
+    </div>`;
+  }
+  tl.innerHTML = rows;
+}
+
+// ── KPIs tab ──────────────────────────────────────────────
+function _setupKPITab() {
+  qs('#kpi-tipo')?.addEventListener('change', e => _renderKPIs(e.target.value));
+  qs('#btn-copiar-kpis')?.addEventListener('click', () => {
+    const el = qs('#kpis-content');
+    if (!el) return;
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => toast('KPIs copiados!', 'success'));
+  });
+  // Sync com o tipo selecionado na aba ROI
+  qs('#ci-tipo')?.addEventListener('change', e => {
+    const tipo = e.target.value;
+    if (qs('#kpi-tipo')) qs('#kpi-tipo').value = tipo;
+    _renderKPIs(tipo);
+  });
+}
+
+function _renderKPIs(tipo) {
+  const wrap = qs('#kpis-content');
+  if (!wrap) return;
+  const data = KPI_DATA[tipo];
+  if (!data) {
+    wrap.innerHTML = `<div class="calc-empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-light);margin-bottom:12px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <p>Selecione o tipo de projeto para ver os KPIs sugeridos.</p>
+    </div>`;
+    return;
+  }
+
+  let html = `<h3 style="font-size:15px;font-weight:700;margin-bottom:var(--sp-5);color:var(--text)">${data.titulo}</h3>`;
+
+  data.grupos.forEach(g => {
+    html += `<div class="kpi-group">
+      <div class="kpi-group-title">${g.grupo}</div>
+      <table class="kpi-table">
+        <thead><tr>
+          <th style="width:38%">KPI</th>
+          <th style="width:27%">Meta padrão</th>
+          <th>Como medir</th>
+        </tr></thead>
+        <tbody>`;
+    g.kpis.forEach(k => {
+      html += `<tr>
+        <td>${k.kpi}</td>
+        <td><span class="kpi-meta-badge">${k.meta}</span></td>
+        <td style="color:var(--text-muted)">${k.como}</td>
+      </tr>`;
+    });
+    html += `</tbody></table></div>`;
+  });
+
+  wrap.innerHTML = html;
+}
+
+// ── Jornada tab ───────────────────────────────────────────
+function _setupJornadaTab() { /* rendered on first click */ }
+
+function _renderJornada() {
+  const el = qs('#jornada-timeline-el');
+  if (!el) return;
+  el.innerHTML = JORNADA_STEPS.map(s => `
+    <div class="jornada-step">
+      <div class="jornada-step-left">
+        <div class="jornada-step-dot" style="background:${s.cor}20;color:${s.cor}">${s.emoji}</div>
+        <div class="jornada-step-line"></div>
+      </div>
+      <div class="jornada-step-body">
+        <div class="jornada-step-time" style="color:${s.cor}">${s.tempo}</div>
+        <div class="jornada-step-title">${s.titulo}</div>
+        <div class="jornada-step-desc">${s.desc}</div>
+        <span class="jornada-step-goal">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Objetivo: ${s.objetivo}
+        </span>
+      </div>
+    </div>`).join('');
+}
+
+// ── Relatório Antes × Depois ──────────────────────────────
+function _setupRelatorioTab() {
+  qs('#btn-copiar-relatorio')?.addEventListener('click', () => {
+    const ta = qs('#calc-relatorio-text');
+    if (!ta) return;
+    navigator.clipboard.writeText(ta.value).then(() => toast('Relatório copiado!', 'success'));
+  });
+}
+
+function _updateRelatorio() {
+  const ta = qs('#calc-relatorio-text');
+  if (!ta) return;
+
+  const empresa    = STATE.config.empresa || '[Nome da Empresa]';
+  const resp       = STATE.config.responsavel || '[Consultor]';
+  const hoje       = new Date().toLocaleDateString('pt-BR');
+  const tipo       = qs('#ci-tipo')?.value;
+  const tipoLabel  = { diagnostico: 'Diagnóstico Estratégico', operacional: 'Inteligência Operacional', produto: 'Produto Inteligente', parceiro: 'Parceiro Estratégico' }[tipo] || '[Tipo de Projeto]';
+
+  const hasCusto   = CALC.custoMensal > 0;
+  const hasEcon    = CALC.economiaMensal > 0;
+  const hasInv     = CALC.investimento > 0;
+
+  const pb         = (hasInv && hasEcon) ? (CALC.investimento / CALC.economiaMensal).toFixed(1) : 'N/A';
+  const pbRamp     = (hasInv && hasEcon) ? _calcPaybackRampup(CALC.investimento, CALC.economiaMensal).toFixed(1) : 'N/A';
+  const roi12      = (hasInv && hasEcon) ? Math.round(((CALC.economiaMensal * 12 - CALC.investimento) / CALC.investimento) * 100) : null;
+
+  ta.value = `RELATÓRIO DE RESULTADO — ${empresa.toUpperCase()} — ${hoje}
+${'═'.repeat(60)}
+Projeto: ${tipoLabel}
+Consultor responsável: ${resp}
+Processo analisado: [Nome do processo]
+
+${'─'.repeat(60)}
+ANTES (situação pré-projeto):
+${'─'.repeat(60)}
+  Pessoas envolvidas:         ${CALC.pessoas || '—'}
+  Horas/semana por pessoa:    ${CALC.horas || '—'}
+  Custo/hora (salário+enc.):  ${CALC.custoHora ? 'R$ ' + CALC.custoHora : '—'}
+  Erros por mês:              ${CALC.erros || '—'}
+  Custo médio por erro:       ${CALC.custoErro ? 'R$ ' + CALC.custoErro : '—'}
+  CUSTO MENSAL DO PROCESSO:   ${hasCusto ? fmtBRL(CALC.custoMensal) : '—'}
+  Custo anual do processo:    ${hasCusto ? fmtBRL(CALC.custoMensal * 12) : '—'}
+
+${'─'.repeat(60)}
+DEPOIS (projeção pós-implantação):
+${'─'.repeat(60)}
+  Redução esperada:           ${CALC.reducao}%
+  Economia mensal estimada:   ${hasEcon ? fmtBRL(CALC.economiaMensal) : '—'}
+  Economia anual projetada:   ${hasEcon ? fmtBRL(CALC.economiaMensal * 12) : '—'}
+
+${'─'.repeat(60)}
+ANÁLISE DE RETORNO:
+${'─'.repeat(60)}
+  Investimento total:         ${hasInv ? fmtBRL(CALC.investimento) : '—'}
+  ROI em 12 meses:            ${roi12 !== null ? (roi12 >= 0 ? '+' : '') + roi12 + '%' : '—'}
+  Payback simples:            ${pb} meses
+  Payback com ramp-up:        ${pbRamp} meses
+
+${'─'.repeat(60)}
+FONTE DOS DADOS:
+${'─'.repeat(60)}
+  Dados fornecidos por:       [Nome do responsável no cliente]
+  Data de referência:         ${hoje}
+  Premissas consideradas:     [Listar premissas]
+
+${'─'.repeat(60)}
+PRÓXIMOS PASSOS:
+  1. [Definir data de kick-off]
+  2. [Mapear stakeholders internos]
+  3. [Agendar workshop de imersão]
+${'═'.repeat(60)}
+Documento gerado pelo Assessment Nexus — Nexus Consultoria
+`;
+}
 
 document.addEventListener('DOMContentLoaded', init);

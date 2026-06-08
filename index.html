@@ -92,6 +92,13 @@
         <span class="nav-text">Dashboard IMD</span>
         <span class="nav-score-badge nav-imd-badge hidden" id="badge-imd"></span>
       </a>
+
+      <a class="nav-item" data-screen="calculadora" href="#">
+        <span class="nav-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
+        </span>
+        <span class="nav-text">Calculadora ROI</span>
+      </a>
     </nav>
 
     <div class="nav-rule"></div>
@@ -431,6 +438,310 @@
           <p class="text-muted" style="font-size:13px">Carregando...</p>
         </div>
       </div>
+    </section>
+
+    <!-- ───────────────────────────────────
+         SCREEN: CALCULADORA ROI & KPIs
+    ─────────────────────────────────── -->
+    <section class="screen hidden" id="screen-calculadora">
+      <header class="screen-header">
+        <h1>Calculadora ROI &amp; KPIs</h1>
+        <p>Calcule o retorno sobre investimento, o payback real e defina os KPIs do projeto para o cliente.</p>
+      </header>
+
+      <!-- ── Tab Bar ── -->
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-ctab="roi">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          ROI &amp; Payback
+        </button>
+        <button class="calc-tab" data-ctab="kpis">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          KPIs do Projeto
+        </button>
+        <button class="calc-tab" data-ctab="jornada">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Jornada Comercial
+        </button>
+        <button class="calc-tab" data-ctab="relatorio">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Antes × Depois
+        </button>
+      </div>
+
+      <!-- ══════════════════════════════
+           PANEL: ROI & PAYBACK
+      ══════════════════════════════ -->
+      <div class="calc-panel" id="ctab-roi">
+        <div class="calc-layout">
+
+          <!-- Coluna esquerda: inputs -->
+          <div class="calc-inputs-col">
+
+            <div class="card calc-card">
+              <div class="calc-section-hdr">
+                <span class="calc-sect-icon" style="background:#EFF6FF;color:#2563EB">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </span>
+                <span>Processo Atual</span>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label">Pessoas no processo</label>
+                  <input class="form-input ci" id="ci-pessoas" type="number" placeholder="Ex: 3" min="1" step="1">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Horas/semana por pessoa</label>
+                  <input class="form-input ci" id="ci-horas" type="number" placeholder="Ex: 20" min="0">
+                </div>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Custo/hora (R$) <span class="badge-opt">salário + encargos</span></label>
+                <input class="form-input ci" id="ci-custo-hora" type="number" placeholder="Ex: 45" min="0">
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label">Erros/mês</label>
+                  <input class="form-input ci" id="ci-erros" type="number" placeholder="Ex: 15" min="0">
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Custo médio/erro (R$)</label>
+                  <input class="form-input ci" id="ci-custo-erro" type="number" placeholder="Ex: 200" min="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="card calc-card">
+              <div class="calc-section-hdr">
+                <span class="calc-sect-icon" style="background:#FFF7ED;color:#EA580C">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </span>
+                <span>Projeto de IA</span>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Tipo de projeto</label>
+                <select class="form-select ci" id="ci-tipo">
+                  <option value="">Selecione o produto...</option>
+                  <option value="diagnostico">Diagnóstico Estratégico (R$ 8k–15k · 15 dias)</option>
+                  <option value="operacional">Inteligência Operacional (R$ 35k–80k · 30 dias)</option>
+                  <option value="produto">Produto Inteligente (R$ 80k–250k · 90 dias)</option>
+                  <option value="parceiro">Parceiro Estratégico (R$ 6k–20k/mês)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Investimento total no projeto (R$)</label>
+                <input class="form-input ci" id="ci-investimento" type="number" placeholder="Ex: 60000" min="0">
+              </div>
+              <div class="form-field">
+                <label class="form-label">
+                  Redução esperada no processo
+                  <strong class="calc-range-val" id="ci-reducao-lbl" style="color:var(--primary);margin-left:6px">60%</strong>
+                </label>
+                <input type="range" class="ci" id="ci-reducao" min="10" max="90" value="60" style="width:100%;accent-color:var(--primary);margin-top:6px;cursor:pointer">
+                <div class="calc-range-marks">
+                  <span>10%</span><span>30%</span><span>50%</span><span>70%</span><span>90%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Coluna direita: resultados -->
+          <div class="calc-results-col">
+
+            <div class="calc-kpi-grid">
+              <div class="calc-kpi-card ckc-blue">
+                <div class="ckc-label">Custo mensal do processo</div>
+                <div class="ckc-value" id="cr-custo">R$ —</div>
+                <div class="ckc-sub" id="cr-custo-sub">Preencha os dados à esquerda</div>
+              </div>
+              <div class="calc-kpi-card ckc-green">
+                <div class="ckc-label">Economia mensal estimada</div>
+                <div class="ckc-value" id="cr-economia">R$ —</div>
+                <div class="ckc-sub" id="cr-economia-sub">—/ano</div>
+              </div>
+              <div class="calc-kpi-card ckc-purple">
+                <div class="ckc-label">ROI em 12 meses</div>
+                <div class="ckc-value" id="cr-roi">—</div>
+                <div class="ckc-sub" id="cr-roi-sub">—</div>
+              </div>
+              <div class="calc-kpi-card ckc-orange">
+                <div class="ckc-label">Payback simples</div>
+                <div class="ckc-value" id="cr-payback">— meses</div>
+                <div class="ckc-sub" id="cr-payback-ramp">Com ramp-up: —</div>
+              </div>
+            </div>
+
+            <!-- Projeção de retorno -->
+            <div class="card calc-card" id="calc-timeline-card" style="display:none">
+              <div class="calc-section-hdr">
+                <span class="calc-sect-icon" style="background:#F5F3FF;color:#7C3AED">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </span>
+                <span>Projeção de retorno — curva de adoção</span>
+              </div>
+              <div id="calc-timeline"></div>
+              <p class="calc-timeline-note">Ramp-up: 30% → 60% → 90% → 100% do ganho esperado</p>
+            </div>
+
+            <!-- Fórmula resumida -->
+            <div class="card calc-card calc-formula-card">
+              <div class="calc-section-hdr" style="margin-bottom:10px">
+                <span class="calc-sect-icon" style="background:#F0FDF4;color:#16A34A">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </span>
+                <span>Como o cálculo funciona</span>
+              </div>
+              <div class="calc-formula-list">
+                <div class="cfl-item"><span class="cfl-label">Custo mensal</span><span class="cfl-eq">= (pessoas × h/sem × 4,33 × R$/h) + (erros × custo/erro)</span></div>
+                <div class="cfl-item"><span class="cfl-label">Economia/mês</span><span class="cfl-eq">= custo mensal × redução (%)</span></div>
+                <div class="cfl-item"><span class="cfl-label">ROI 12m</span><span class="cfl-eq">= ((economia × 12 − investimento) / investimento) × 100</span></div>
+                <div class="cfl-item"><span class="cfl-label">Payback</span><span class="cfl-eq">= investimento / economia mensal</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PANEL: KPIs
+      ══════════════════════════════ -->
+      <div class="calc-panel hidden" id="ctab-kpis">
+        <div class="card" style="max-width:860px">
+          <div class="calc-kpi-header">
+            <div class="form-field" style="margin:0;flex:1">
+              <label class="form-label" style="margin-bottom:6px">Tipo de projeto</label>
+              <select class="form-select" id="kpi-tipo">
+                <option value="">Selecione para ver os KPIs...</option>
+                <option value="diagnostico">Diagnóstico Estratégico</option>
+                <option value="operacional">Inteligência Operacional</option>
+                <option value="produto">Produto Inteligente</option>
+                <option value="parceiro">Parceiro Estratégico</option>
+              </select>
+            </div>
+            <button class="btn btn-outline" id="btn-copiar-kpis" style="margin-top:22px;white-space:nowrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar KPIs
+            </button>
+          </div>
+          <div id="kpis-content">
+            <div class="calc-empty-state">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-light);margin-bottom:12px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <p>Selecione o tipo de projeto para ver os KPIs sugeridos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PANEL: JORNADA COMERCIAL
+      ══════════════════════════════ -->
+      <div class="calc-panel hidden" id="ctab-jornada">
+        <div class="jornada-layout">
+
+          <!-- Call de 45min -->
+          <div class="jornada-main">
+            <div class="card calc-card">
+              <div class="calc-section-hdr" style="margin-bottom:var(--sp-5)">
+                <span class="calc-sect-icon" style="background:#F0FDF4;color:#16A34A">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </span>
+                <span>A call de 45 minutos — estrutura ideal</span>
+              </div>
+              <div class="jornada-timeline" id="jornada-timeline-el">
+                <!-- Renderizado por JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Lateral -->
+          <div class="jornada-side">
+
+            <div class="card calc-card">
+              <div class="calc-section-hdr" style="margin-bottom:var(--sp-4)">
+                <span class="calc-sect-icon" style="background:#FFF7ED;color:#EA580C">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </span>
+                <span>Antes da call (enviar 24h antes)</span>
+              </div>
+              <div class="jornada-check-list">
+                <div class="jornada-check-item">
+                  <div class="jci-dot" style="background:#EA580C"></div>
+                  <div><strong>Formulário AI Readiness (5 perguntas)</strong><p>Envie via e-mail ou WhatsApp para maximizar a reunião</p></div>
+                </div>
+                <div class="jornada-check-item">
+                  <div class="jci-dot" style="background:#EA580C"></div>
+                  <div><strong>Pesquise a empresa</strong><p>LinkedIn, site, notícias recentes, setor e tamanho da equipe</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card calc-card">
+              <div class="calc-section-hdr" style="margin-bottom:var(--sp-4)">
+                <span class="calc-sect-icon" style="background:#F5F3FF;color:#7C3AED">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91A16 16 0 0 0 16.09 16l.91-.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>
+                </span>
+                <span>Após a call (dentro de 24h)</span>
+              </div>
+              <div class="jornada-check-list">
+                <div class="jornada-check-item">
+                  <div class="jci-dot" style="background:#7C3AED"></div>
+                  <div><strong>One-pager do Diagnóstico Estratégico</strong><p>PDF com escopo, prazo e investimento</p></div>
+                </div>
+                <div class="jornada-check-item">
+                  <div class="jci-dot" style="background:#7C3AED"></div>
+                  <div><strong>Proposta comercial (se houver fit)</strong><p>Personalizada com os dados levantados na call</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card calc-card">
+              <div class="calc-section-hdr" style="margin-bottom:var(--sp-4)">
+                <span class="calc-sect-icon" style="background:#EFF6FF;color:#2563EB">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </span>
+                <span>5 perguntas essenciais da call</span>
+              </div>
+              <ol class="jornada-perguntas">
+                <li>"Qual é o processo que mais consome tempo da sua equipe hoje?"</li>
+                <li>"Se você pudesse resolver um problema operacional amanhã, qual seria?"</li>
+                <li>"Vocês já tentaram implementar IA antes? O que aconteceu?"</li>
+                <li>"Qual é o custo desse problema por mês — em pessoas, tempo ou dinheiro?"</li>
+                <li>"Quem na empresa precisa aprovar uma iniciativa como essa?"</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           PANEL: ANTES × DEPOIS
+      ══════════════════════════════ -->
+      <div class="calc-panel hidden" id="ctab-relatorio">
+        <div style="max-width:760px">
+          <div class="card calc-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-4);flex-wrap:wrap;gap:var(--sp-3)">
+              <div class="calc-section-hdr" style="margin-bottom:0">
+                <span class="calc-sect-icon" style="background:#F0FDF4;color:#16A34A">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </span>
+                <span>Relatório de Resultado — Antes × Depois</span>
+              </div>
+              <button class="btn btn-outline" id="btn-copiar-relatorio">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar texto
+              </button>
+            </div>
+            <p style="font-size:13px;color:var(--text-muted);margin-bottom:var(--sp-4)">
+              Preenchido automaticamente com os dados da calculadora. Edite livremente.
+            </p>
+            <textarea id="calc-relatorio-text" class="calc-relatorio-ta" rows="30" spellcheck="false"></textarea>
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
