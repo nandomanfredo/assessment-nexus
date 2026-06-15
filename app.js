@@ -184,9 +184,9 @@ function initApp() {
     })
   );
 
-  // Popula selects (só na primeira vez)
+  // Popula selects (só na primeira vez; <= 1 porque o placeholder já existe no HTML)
   const setorEl = qs('#setor');
-  if (setorEl && setorEl.options.length === 0) {
+  if (setorEl && setorEl.options.length <= 1) {
     CONFIG.setores.forEach(s => setorEl.add(new Option(s.label, s.id)));
     CONFIG.faturamentoOpcoes.forEach(f => qs('#faturamento').add(new Option(f.label, f.id)));
     CONFIG.funcionariosOpcoes.forEach(f => qs('#funcionarios').add(new Option(f.label, f.id)));
