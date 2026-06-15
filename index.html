@@ -485,73 +485,86 @@
 
           <!-- Coluna esquerda: inputs -->
           <div class="calc-inputs-col">
+            <div class="card ci-card">
 
-            <div class="card calc-card">
-              <div class="calc-section-hdr">
-                <span class="calc-sect-icon csi-blue">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                </span>
-                <span>Processo Atual</span>
-              </div>
-              <div class="form-row">
-                <div class="form-field">
-                  <label class="form-label">Pessoas no processo</label>
-                  <input class="form-input ci" id="ci-pessoas" type="number" placeholder="Ex: 3" min="1" step="1">
+              <!-- Seção 1: Processo Atual -->
+              <div class="ci-section">
+                <div class="ci-section-hdr">
+                  <span class="ci-step">1</span>
+                  <div>
+                    <div class="ci-section-title">Processo Atual</div>
+                    <div class="ci-section-sub">Quanto custa o processo hoje?</div>
+                  </div>
                 </div>
-                <div class="form-field">
-                  <label class="form-label">Horas/semana por pessoa</label>
-                  <input class="form-input ci" id="ci-horas" type="number" placeholder="Ex: 20" min="0">
+                <div class="ci-fields">
+                  <div class="ci-field-row">
+                    <div class="form-field">
+                      <label class="form-label">Pessoas envolvidas</label>
+                      <input class="form-input ci" id="ci-pessoas" type="number" placeholder="3" min="1" step="1">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label">Horas por semana / pessoa</label>
+                      <input class="form-input ci" id="ci-horas" type="number" placeholder="20" min="0">
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label">Custo/hora (R$) <span class="ci-hint">salário + encargos</span></label>
+                    <input class="form-input ci" id="ci-custo-hora" type="number" placeholder="45" min="0">
+                  </div>
+                  <div class="ci-field-row">
+                    <div class="form-field">
+                      <label class="form-label">Erros/mês</label>
+                      <input class="form-input ci" id="ci-erros" type="number" placeholder="15" min="0">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label">Custo por erro (R$)</label>
+                      <input class="form-input ci" id="ci-custo-erro" type="number" placeholder="200" min="0">
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="form-field">
-                <label class="form-label">Custo/hora (R$) <span class="badge-opt">salário + encargos</span></label>
-                <input class="form-input ci" id="ci-custo-hora" type="number" placeholder="Ex: 45" min="0">
-              </div>
-              <div class="form-row">
-                <div class="form-field">
-                  <label class="form-label">Erros/mês</label>
-                  <input class="form-input ci" id="ci-erros" type="number" placeholder="Ex: 15" min="0">
+
+              <!-- Divisor -->
+              <div class="ci-divider"></div>
+
+              <!-- Seção 2: Projeto de IA -->
+              <div class="ci-section">
+                <div class="ci-section-hdr">
+                  <span class="ci-step ci-step-indigo">2</span>
+                  <div>
+                    <div class="ci-section-title">Projeto de IA</div>
+                    <div class="ci-section-sub">Qual é o investimento previsto?</div>
+                  </div>
                 </div>
-                <div class="form-field">
-                  <label class="form-label">Custo médio/erro (R$)</label>
-                  <input class="form-input ci" id="ci-custo-erro" type="number" placeholder="Ex: 200" min="0">
+                <div class="ci-fields">
+                  <div class="form-field">
+                    <label class="form-label">Tipo de produto</label>
+                    <select class="form-select ci" id="ci-tipo">
+                      <option value="">Selecione o produto…</option>
+                      <option value="diagnostico">Diagnóstico Estratégico (R$ 8k–15k · 15 dias)</option>
+                      <option value="operacional">Inteligência Operacional (R$ 35k–80k · 30 dias)</option>
+                      <option value="produto">Produto Inteligente (R$ 80k–250k · 90 dias)</option>
+                      <option value="parceiro">Parceiro Estratégico (R$ 6k–20k/mês)</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label">Investimento total (R$)</label>
+                    <input class="form-input ci" id="ci-investimento" type="number" placeholder="60000" min="0">
+                  </div>
+                  <div class="form-field">
+                    <div class="ci-range-label">
+                      <label class="form-label">Redução esperada no processo</label>
+                      <strong class="calc-range-val" id="ci-reducao-lbl">60%</strong>
+                    </div>
+                    <input type="range" class="ci" id="ci-reducao" min="10" max="90" value="60">
+                    <div class="calc-range-marks">
+                      <span>10%</span><span>30%</span><span>50%</span><span>70%</span><span>90%</span>
+                    </div>
+                  </div>
                 </div>
               </div>
+
             </div>
-
-            <div class="card calc-card">
-              <div class="calc-section-hdr">
-                <span class="calc-sect-icon csi-indigo">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                </span>
-                <span>Projeto de IA</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Tipo de projeto</label>
-                <select class="form-select ci" id="ci-tipo">
-                  <option value="">Selecione o produto...</option>
-                  <option value="diagnostico">Diagnóstico Estratégico (R$ 8k–15k · 15 dias)</option>
-                  <option value="operacional">Inteligência Operacional (R$ 35k–80k · 30 dias)</option>
-                  <option value="produto">Produto Inteligente (R$ 80k–250k · 90 dias)</option>
-                  <option value="parceiro">Parceiro Estratégico (R$ 6k–20k/mês)</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Investimento total no projeto (R$)</label>
-                <input class="form-input ci" id="ci-investimento" type="number" placeholder="Ex: 60000" min="0">
-              </div>
-              <div class="form-field">
-                <label class="form-label">
-                  Redução esperada no processo
-                  <strong class="calc-range-val" id="ci-reducao-lbl">60%</strong>
-                </label>
-                <input type="range" class="ci" id="ci-reducao" min="10" max="90" value="60">
-                <div class="calc-range-marks">
-                  <span>10%</span><span>30%</span><span>50%</span><span>70%</span><span>90%</span>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <!-- Coluna direita: resultados -->

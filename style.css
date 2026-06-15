@@ -1281,20 +1281,75 @@ svg { display: block; }
 /* ── ROI layout ── */
 .calc-layout {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 310px 1fr;
   gap: 20px;
   align-items: start;
 }
-.calc-inputs-col { display: flex; flex-direction: column; gap: 16px; }
+.calc-inputs-col { display: flex; flex-direction: column; }
 .calc-results-col { display: flex; flex-direction: column; gap: 16px; }
 
-/* Input cards */
-.calc-card {
-  padding: 20px !important;
-  margin-bottom: 0 !important;
-  border-radius: 14px !important;
+/* ── Unified input card ── */
+.ci-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
 }
-.calc-card:last-child { margin-bottom: 0; }
+.ci-section { padding: 20px; }
+.ci-divider { height: 1px; background: var(--border); }
+.ci-section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ci-step {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB 0%, #6366F1 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ci-step.ci-step-indigo {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+}
+.ci-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.ci-section-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+.ci-fields { display: flex; flex-direction: column; gap: 12px; }
+.ci-field-row { display: flex; flex-direction: column; gap: 12px; }
+.ci-hint {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.ci-range-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ci-range-label .form-label { margin-bottom: 0; }
+
+/* Legacy card (kept for backward compat, unused in new ROI section) */
+.calc-card { padding: 20px; border-radius: 14px; }
 
 /* ── Range slider ── */
 .calc-range-marks {
