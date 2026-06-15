@@ -1351,6 +1351,279 @@ svg { display: block; }
 /* Legacy card (kept for backward compat, unused in new ROI section) */
 .calc-card { padding: 20px; border-radius: 14px; }
 
+/* ══════════════════════════════════════════════
+   PREMIUM INPUT SYSTEM — redesign 2025
+═══════════════════════════════════════════════ */
+
+/* Section header */
+.ci-section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.ci-step {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB 0%, #6366F1 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(99,102,241,.28);
+}
+.ci-step.ci-step-indigo {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  box-shadow: 0 4px 14px rgba(139,92,246,.28);
+}
+.ci-hdr-txt { display: flex; flex-direction: column; gap: 1px; }
+.ci-section-title { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.ci-section-sub   { font-size: 11px; color: var(--text-muted); }
+
+/* Field group */
+.ci-fields { display: flex; flex-direction: column; gap: 12px; }
+.ci-fg     { display: flex; flex-direction: column; gap: 5px; }
+.ci-lbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #64748B;
+  letter-spacing: .01em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Premium input wrap */
+.ci-iw {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background: #F8FAFF;
+  border: 1.5px solid #E2EAF8;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+  cursor: text;
+}
+.ci-iw:focus-within {
+  background: #fff;
+  border-color: #6366F1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.1);
+}
+.ci-ii {
+  width: 36px;
+  height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: #94A3B8;
+  flex-shrink: 0;
+  transition: color .18s;
+}
+.ci-iw:focus-within .ci-ii { color: #6366F1; }
+.ci-ii-warn { color: #F59E0B; }
+.ci-iw:focus-within .ci-ii-warn { color: #D97706; }
+.ci-ip {
+  font-size: 13px;
+  font-weight: 700;
+  color: #94A3B8;
+  flex-shrink: 0;
+  padding-right: 3px;
+  transition: color .18s;
+  user-select: none;
+}
+.ci-ip-sm { padding-left: 12px; font-size: 12px; }
+.ci-iw:focus-within .ci-ip { color: #6366F1; }
+.ci-fld {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  outline: none;
+  min-width: 0;
+  padding: 0 10px 0 0;
+}
+.ci-fld.ci-pfx { padding-left: 0; }
+.ci-fld::placeholder { color: #C8D3E0; font-weight: 400; }
+.ci-iu {
+  font-size: 11px;
+  font-weight: 600;
+  color: #B0BAC9;
+  padding-right: 12px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* 2-col row for short fields */
+.ci-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ci-2col .ci-ii { width: 28px; }
+
+/* Quick-select chips */
+.ci-chips { display: flex; gap: 5px; flex-wrap: wrap; }
+.ci-chip {
+  padding: 3px 11px;
+  border-radius: 999px;
+  border: 1.5px solid #E2E8F0;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all .15s;
+  line-height: 1.6;
+}
+.ci-chip:hover {
+  border-color: #A5B4FC;
+  background: #EEF2FF;
+  color: #6366F1;
+}
+.ci-chip.active {
+  border-color: #6366F1;
+  background: #EEF2FF;
+  color: #6366F1;
+}
+
+/* Live preview strip */
+.ci-live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%);
+  border: 1px solid #C7D2FE;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: 2px;
+}
+.ci-live-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: #6366F1;
+  flex-shrink: 0;
+  box-shadow: 0 1px 5px rgba(99,102,241,.18);
+}
+.ci-live-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.ci-live-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6366F1;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.ci-live-val {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #3730A3;
+  letter-spacing: -0.02em;
+}
+
+/* Hint badge */
+.ci-hint {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #94A3B8;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 5px;
+  padding: 1px 6px;
+  vertical-align: middle;
+  letter-spacing: 0;
+}
+
+/* Product type card grid */
+.ci-typegrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.ci-typecard {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 11px;
+  border: 1.5px solid #E2EAF8;
+  border-radius: 11px;
+  background: #F8FAFF;
+  cursor: pointer;
+  text-align: left;
+  transition: all .18s;
+}
+.ci-typecard:hover {
+  border-color: #A5B4FC;
+  background: #EEF2FF;
+  transform: translateY(-1px);
+}
+.ci-typecard.active {
+  border-color: #6366F1;
+  background: linear-gradient(135deg, #EEF2FF 0%, #EDE9FE 100%);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.1);
+}
+.ci-tc-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.ci-tc-price {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6366F1;
+  margin-top: 2px;
+}
+.ci-tc-time {
+  font-size: 10px;
+  font-weight: 500;
+  color: #94A3B8;
+}
+.ci-typecard.active .ci-tc-name  { color: #4338CA; }
+.ci-typecard.active .ci-tc-price { color: #4338CA; }
+
+/* Range premium */
+.ci-range-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.ci-range-label .ci-lbl { margin: 0; }
+.ci-rdisplay {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+input[type=range].ci-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range].ci-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2.5px solid #6366F1;
+  box-shadow: 0 2px 8px rgba(99,102,241,.35);
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+input[type=range].ci-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 14px rgba(99,102,241,.4);
+}
+
 /* ── Range slider ── */
 .calc-range-marks {
   display: flex;

@@ -1353,8 +1353,47 @@ function _setupROICalc() {
       _updateRangeGradient();
       _calcROI();
     });
-    _updateRangeGradient(); // init
+    _updateRangeGradient();
   }
+
+  // Quick-select chips
+  document.querySelectorAll('.ci-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      target.value = btn.dataset.val;
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+      document.querySelectorAll(`.ci-chip[data-target="${btn.dataset.target}"]`)
+        .forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Product type card grid → syncs hidden select
+  document.querySelectorAll('.ci-typecard').forEach(card => {
+    card.addEventListener('click', () => {
+      const val = card.dataset.val;
+      const sel = qs('#ci-tipo');
+      if (sel) {
+        sel.value = val;
+        sel.dispatchEvent(new Event('input',  { bubbles: true }));
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      document.querySelectorAll('.ci-typecard').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+}
+
+function _updateLivePreview() {
+  const v = id => parseFloat(document.getElementById(id)?.value) || 0;
+  const total = (v('ci-pessoas') * v('ci-horas') * 4.33 * v('ci-custo-hora'))
+              + (v('ci-erros') * v('ci-custo-erro'));
+  const el = document.getElementById('ci-live-val');
+  if (!el) return;
+  el.textContent = total > 0
+    ? 'R$ ' + total.toLocaleString('pt-BR', { maximumFractionDigits: 0 }) + '/mês'
+    : '— Preencha os campos';
 }
 
 function _calcROI() {
@@ -1370,6 +1409,7 @@ function _calcROI() {
 
   CALC.custoMensal   = (CALC.pessoas * CALC.horas * 4.33 * CALC.custoHora) + (CALC.erros * CALC.custoErro);
   CALC.economiaMensal = CALC.custoMensal * (CALC.reducao / 100);
+  _updateLivePreview();
 
   const custoEl    = qs('#cr-custo');
   const subCusto   = qs('#cr-custo-sub');
