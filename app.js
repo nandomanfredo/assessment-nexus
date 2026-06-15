@@ -1356,21 +1356,22 @@ function _setupROICalc() {
     _updateRangeGradient();
   }
 
-  // Quick-select chips
-  document.querySelectorAll('.ci-chip').forEach(btn => {
+  // Quick-select chips (rci-chip = new, ci-chip = legacy compat)
+  document.querySelectorAll('.rci-chip, .ci-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = document.getElementById(btn.dataset.target);
       if (!target) return;
       target.value = btn.dataset.val;
       target.dispatchEvent(new Event('input', { bubbles: true }));
-      document.querySelectorAll(`.ci-chip[data-target="${btn.dataset.target}"]`)
+      const cls = btn.classList.contains('rci-chip') ? '.rci-chip' : '.ci-chip';
+      document.querySelectorAll(`${cls}[data-target="${btn.dataset.target}"]`)
         .forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     });
   });
 
-  // Product type card grid → syncs hidden select
-  document.querySelectorAll('.ci-typecard').forEach(card => {
+  // Product type card grid → syncs hidden select (rci-tc = new, ci-typecard = legacy)
+  document.querySelectorAll('.rci-tc, .ci-typecard').forEach(card => {
     card.addEventListener('click', () => {
       const val = card.dataset.val;
       const sel = qs('#ci-tipo');
@@ -1379,7 +1380,7 @@ function _setupROICalc() {
         sel.dispatchEvent(new Event('input',  { bubbles: true }));
         sel.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      document.querySelectorAll('.ci-typecard').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.rci-tc, .ci-typecard').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
     });
   });

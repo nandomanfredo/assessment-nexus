@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -485,137 +485,131 @@
 
           <!-- Coluna esquerda: inputs -->
           <div class="calc-inputs-col">
-            <div class="card ci-card">
+            <div class="rci-card">
 
               <!-- ① Processo Atual -->
-              <div class="ci-section">
-                <div class="ci-section-hdr">
-                  <span class="ci-step">1</span>
-                  <div class="ci-hdr-txt">
-                    <span class="ci-section-title">Processo Atual</span>
-                    <span class="ci-section-sub">Quanto custa o processo hoje?</span>
+              <div class="rci-sect">
+                <div class="rci-sect-hdr">
+                  <span class="rci-badge">1</span>
+                  <div>
+                    <div class="rci-sect-title">Processo Atual</div>
+                    <div class="rci-sect-sub">Quanto custa o processo hoje?</div>
                   </div>
                 </div>
-                <div class="ci-fields">
+
+                <div class="rci-fields">
 
                   <!-- Pessoas -->
-                  <div class="ci-fg">
-                    <label class="ci-lbl">Pessoas envolvidas</label>
-                    <div class="ci-iw">
-                      <span class="ci-ii">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                      </span>
-                      <input class="ci-fld" id="ci-pessoas" type="number" placeholder="5" min="1" step="1">
-                      <span class="ci-iu">pessoas</span>
+                  <div class="rci-field">
+                    <label class="rci-lbl">Pessoas envolvidas</label>
+                    <div class="rci-wr">
+                      <input class="rci-inp" id="ci-pessoas" type="number" placeholder="0" min="1" step="1">
+                      <span class="rci-sfx">pessoas</span>
                     </div>
-                    <div class="ci-chips">
-                      <button class="ci-chip" data-target="ci-pessoas" data-val="2">2</button>
-                      <button class="ci-chip" data-target="ci-pessoas" data-val="5">5</button>
-                      <button class="ci-chip" data-target="ci-pessoas" data-val="10">10</button>
-                      <button class="ci-chip" data-target="ci-pessoas" data-val="20">20</button>
+                    <div class="rci-chips">
+                      <button class="rci-chip" data-target="ci-pessoas" data-val="2">2</button>
+                      <button class="rci-chip" data-target="ci-pessoas" data-val="5">5</button>
+                      <button class="rci-chip" data-target="ci-pessoas" data-val="10">10</button>
+                      <button class="rci-chip" data-target="ci-pessoas" data-val="20">20</button>
                     </div>
                   </div>
 
                   <!-- Horas -->
-                  <div class="ci-fg">
-                    <label class="ci-lbl">Horas por semana / pessoa</label>
-                    <div class="ci-iw">
-                      <span class="ci-ii">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                      </span>
-                      <input class="ci-fld" id="ci-horas" type="number" placeholder="20" min="0">
-                      <span class="ci-iu">h/sem</span>
+                  <div class="rci-field">
+                    <label class="rci-lbl">Horas por semana / pessoa</label>
+                    <div class="rci-wr">
+                      <input class="rci-inp" id="ci-horas" type="number" placeholder="0" min="0">
+                      <span class="rci-sfx">h/sem</span>
                     </div>
-                    <div class="ci-chips">
-                      <button class="ci-chip" data-target="ci-horas" data-val="10">10h</button>
-                      <button class="ci-chip" data-target="ci-horas" data-val="20">20h</button>
-                      <button class="ci-chip" data-target="ci-horas" data-val="40">40h</button>
+                    <div class="rci-chips">
+                      <button class="rci-chip" data-target="ci-horas" data-val="10">10h</button>
+                      <button class="rci-chip" data-target="ci-horas" data-val="20">20h</button>
+                      <button class="rci-chip" data-target="ci-horas" data-val="40">40h</button>
                     </div>
                   </div>
 
                   <!-- Custo/hora -->
-                  <div class="ci-fg">
-                    <label class="ci-lbl">Custo/hora <span class="ci-hint">salário + encargos</span></label>
-                    <div class="ci-iw">
-                      <span class="ci-ii">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                      </span>
-                      <span class="ci-ip">R$</span>
-                      <input class="ci-fld ci-pfx" id="ci-custo-hora" type="number" placeholder="45" min="0">
-                      <span class="ci-iu">/hora</span>
+                  <div class="rci-field">
+                    <label class="rci-lbl">Custo / hora <span class="rci-badge-hint">salário + encargos</span></label>
+                    <div class="rci-wr">
+                      <span class="rci-pfx">R$</span>
+                      <input class="rci-inp rci-inp-pfx" id="ci-custo-hora" type="number" placeholder="0" min="0">
+                      <span class="rci-sfx">/hora</span>
                     </div>
                   </div>
 
                   <!-- Erros + Custo/erro em 2 colunas -->
-                  <div class="ci-2col">
-                    <div class="ci-fg">
-                      <label class="ci-lbl">Erros/mês</label>
-                      <div class="ci-iw">
-                        <span class="ci-ii ci-ii-warn">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        </span>
-                        <input class="ci-fld" id="ci-erros" type="number" placeholder="15" min="0">
+                  <div class="rci-2col">
+                    <div class="rci-field">
+                      <label class="rci-lbl">Erros / mês</label>
+                      <div class="rci-wr">
+                        <input class="rci-inp" id="ci-erros" type="number" placeholder="0" min="0">
                       </div>
                     </div>
-                    <div class="ci-fg">
-                      <label class="ci-lbl">Custo/erro</label>
-                      <div class="ci-iw">
-                        <span class="ci-ip ci-ip-sm">R$</span>
-                        <input class="ci-fld ci-pfx" id="ci-custo-erro" type="number" placeholder="200" min="0">
+                    <div class="rci-field">
+                      <label class="rci-lbl">Custo / erro</label>
+                      <div class="rci-wr">
+                        <span class="rci-pfx">R$</span>
+                        <input class="rci-inp rci-inp-pfx" id="ci-custo-erro" type="number" placeholder="0" min="0">
                       </div>
                     </div>
                   </div>
 
                   <!-- Preview em tempo real -->
-                  <div class="ci-live">
-                    <div class="ci-live-icon">
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  <div class="rci-live">
+                    <div class="rci-live-icon">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                     </div>
-                    <div class="ci-live-body">
-                      <span class="ci-live-lbl">Custo mensal estimado</span>
-                      <span class="ci-live-val" id="ci-live-val">— Preencha os campos</span>
+                    <div class="rci-live-body">
+                      <span class="rci-live-lbl">Custo mensal estimado</span>
+                      <span class="rci-live-val" id="ci-live-val">— Preencha os campos</span>
                     </div>
                   </div>
 
                 </div>
               </div>
 
-              <div class="ci-divider"></div>
+              <div class="rci-div"></div>
 
               <!-- ② Projeto de IA -->
-              <div class="ci-section">
-                <div class="ci-section-hdr">
-                  <span class="ci-step ci-step-indigo">2</span>
-                  <div class="ci-hdr-txt">
-                    <span class="ci-section-title">Projeto de IA</span>
-                    <span class="ci-section-sub">Qual é o investimento previsto?</span>
+              <div class="rci-sect">
+                <div class="rci-sect-hdr">
+                  <span class="rci-badge rci-badge-purple">2</span>
+                  <div>
+                    <div class="rci-sect-title">Projeto de IA</div>
+                    <div class="rci-sect-sub">Qual é o investimento previsto?</div>
                   </div>
                 </div>
-                <div class="ci-fields">
+
+                <div class="rci-fields">
 
                   <!-- Tipo como card grid -->
-                  <div class="ci-fg">
-                    <label class="ci-lbl">Tipo de produto</label>
-                    <div class="ci-typegrid" id="ci-typegrid">
-                      <button class="ci-typecard" data-val="diagnostico">
-                        <span class="ci-tc-name">Diagnóstico</span>
-                        <span class="ci-tc-price">R$ 8k–15k</span>
-                        <span class="ci-tc-time">15 dias</span>
+                  <div class="rci-field">
+                    <label class="rci-lbl">Tipo de produto</label>
+                    <div class="rci-tcgrid" id="ci-typegrid">
+                      <button class="rci-tc" data-val="diagnostico">
+                        <span class="rci-tc-icon">🔍</span>
+                        <span class="rci-tc-name">Diagnóstico</span>
+                        <span class="rci-tc-price">R$ 8k–15k</span>
+                        <span class="rci-tc-time">≈ 15 dias</span>
                       </button>
-                      <button class="ci-typecard" data-val="operacional">
-                        <span class="ci-tc-name">Operacional</span>
-                        <span class="ci-tc-price">R$ 35k–80k</span>
-                        <span class="ci-tc-time">30 dias</span>
+                      <button class="rci-tc" data-val="operacional">
+                        <span class="rci-tc-icon">⚙️</span>
+                        <span class="rci-tc-name">Operacional</span>
+                        <span class="rci-tc-price">R$ 35k–80k</span>
+                        <span class="rci-tc-time">≈ 30 dias</span>
                       </button>
-                      <button class="ci-typecard" data-val="produto">
-                        <span class="ci-tc-name">Produto IA</span>
-                        <span class="ci-tc-price">R$ 80k–250k</span>
-                        <span class="ci-tc-time">90 dias</span>
+                      <button class="rci-tc" data-val="produto">
+                        <span class="rci-tc-icon">🤖</span>
+                        <span class="rci-tc-name">Produto IA</span>
+                        <span class="rci-tc-price">R$ 80k–250k</span>
+                        <span class="rci-tc-time">≈ 90 dias</span>
                       </button>
-                      <button class="ci-typecard" data-val="parceiro">
-                        <span class="ci-tc-name">Parceiro</span>
-                        <span class="ci-tc-price">R$ 6k–20k/mês</span>
-                        <span class="ci-tc-time">Recorrente</span>
+                      <button class="rci-tc" data-val="parceiro">
+                        <span class="rci-tc-icon">🤝</span>
+                        <span class="rci-tc-name">Parceiro</span>
+                        <span class="rci-tc-price">R$ 6k–20k/mês</span>
+                        <span class="rci-tc-time">Recorrente</span>
                       </button>
                     </div>
                     <select id="ci-tipo" style="display:none">
@@ -628,22 +622,19 @@
                   </div>
 
                   <!-- Investimento -->
-                  <div class="ci-fg">
-                    <label class="ci-lbl">Investimento total</label>
-                    <div class="ci-iw">
-                      <span class="ci-ii">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                      </span>
-                      <span class="ci-ip">R$</span>
-                      <input class="ci-fld ci-pfx" id="ci-investimento" type="number" placeholder="60.000" min="0">
+                  <div class="rci-field">
+                    <label class="rci-lbl">Investimento total</label>
+                    <div class="rci-wr">
+                      <span class="rci-pfx">R$</span>
+                      <input class="rci-inp rci-inp-pfx" id="ci-investimento" type="number" placeholder="0" min="0">
                     </div>
                   </div>
 
-                  <!-- Redução com slider premium -->
-                  <div class="ci-fg">
-                    <div class="ci-range-label">
-                      <label class="ci-lbl" style="margin:0">Redução esperada</label>
-                      <strong class="ci-rdisplay" id="ci-reducao-lbl">60%</strong>
+                  <!-- Redução com slider -->
+                  <div class="rci-field">
+                    <div class="rci-range-row">
+                      <label class="rci-lbl" style="margin:0">Redução esperada</label>
+                      <strong class="rci-pct" id="ci-reducao-lbl">60%</strong>
                     </div>
                     <input type="range" class="ci ci-range" id="ci-reducao" min="10" max="90" value="60">
                     <div class="calc-range-marks">
@@ -1056,5 +1047,271 @@
 <script src="config.js"></script>
 <script src="perfil_maturidade.js"></script>
 <script src="app.js"></script>
+
+<!-- ROI CALCULATOR — Premium Input System v3 (inline for CDN reliability) -->
+<style>
+/* ═══════════════════════════════════════════
+   RCI — Premium calculator inputs v3
+═══════════════════════════════════════════ */
+
+/* Card container */
+.rci-card {
+  background: #fff;
+  border: 1.5px solid var(--border, #E8EDF5);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Section */
+.rci-sect { padding: 22px 20px; }
+.rci-div  { height: 1px; background: #EEF2FF; margin: 0; }
+
+/* Section header */
+.rci-sect-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.rci-badge {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB 0%, #6366F1 100%);
+  color: #fff;
+  font-size: 14px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(99,102,241,.32);
+}
+.rci-badge.rci-badge-purple {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  box-shadow: 0 4px 14px rgba(139,92,246,.32);
+}
+.rci-sect-title {
+  font-size: 14px; font-weight: 800;
+  color: #0F172A;
+  line-height: 1.2;
+}
+.rci-sect-sub {
+  font-size: 11.5px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+/* Fields layout */
+.rci-fields { display: flex; flex-direction: column; gap: 14px; }
+.rci-field  { display: flex; flex-direction: column; gap: 6px; }
+
+/* Label */
+.rci-lbl {
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rci-badge-hint {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6366F1;
+  background: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  border-radius: 99px;
+  padding: 1px 8px;
+}
+
+/* ─── THE INPUT WRAPPER — this is what makes it look modern ─── */
+.rci-wr {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  background: #EEF2FF;
+  border: 2px solid #C7D2FE;
+  border-radius: 14px;
+  padding: 0 16px;
+  gap: 8px;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  cursor: text;
+}
+.rci-wr:focus-within {
+  background: #fff;
+  border-color: #6366F1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* Prefix (R$) */
+.rci-pfx {
+  font-size: 14px;
+  font-weight: 800;
+  color: #6366F1;
+  flex-shrink: 0;
+  transition: color .15s;
+  user-select: none;
+}
+
+/* THE INPUT ITSELF */
+.rci-inp {
+  flex: 1;
+  height: 100%;
+  border: none !important;
+  background: transparent !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  outline: none !important;
+  min-width: 0;
+  padding: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  box-shadow: none !important;
+}
+.rci-inp::placeholder {
+  color: #BFC9DC !important;
+  font-weight: 400 !important;
+  font-size: 17px !important;
+}
+.rci-inp-pfx { /* has prefix, no extra padding needed */ }
+
+/* Suffix (pessoas, h/sem, /hora) */
+.rci-sfx {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94A3B8;
+  flex-shrink: 0;
+  white-space: nowrap;
+  user-select: none;
+  transition: color .15s;
+}
+.rci-wr:focus-within .rci-sfx { color: #6366F1; }
+
+/* 2-col layout */
+.rci-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.rci-2col .rci-wr { height: 48px; padding: 0 12px; gap: 6px; }
+.rci-2col .rci-inp { font-size: 16px !important; }
+
+/* Quick-select chips */
+.rci-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.rci-chip {
+  padding: 4px 13px;
+  border-radius: 999px;
+  border: 1.5px solid #C7D2FE;
+  background: #EEF2FF;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #6366F1;
+  cursor: pointer;
+  transition: all .15s;
+  line-height: 1.6;
+  font-family: inherit;
+}
+.rci-chip:hover {
+  border-color: #6366F1;
+  background: #6366F1;
+  color: #fff;
+}
+.rci-chip.active {
+  border-color: #4338CA;
+  background: #4338CA;
+  color: #fff;
+}
+
+/* Live preview */
+.rci-live {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #EEF2FF 0%, #EDE9FE 100%);
+  border: 1.5px solid #C7D2FE;
+  border-radius: 14px;
+  padding: 13px 16px;
+  margin-top: 2px;
+}
+.rci-live-icon {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: #6366F1;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(99,102,241,.2);
+}
+.rci-live-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.rci-live-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  color: #6366F1;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.rci-live-val {
+  font-size: 14px;
+  font-weight: 900;
+  color: #3730A3;
+  letter-spacing: -0.02em;
+}
+
+/* Product type card grid */
+.rci-tcgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.rci-tc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 12px;
+  border: 2px solid #E2E8F0;
+  border-radius: 14px;
+  background: #F8FAFB;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, background .15s, box-shadow .15s, transform .15s;
+  font-family: inherit;
+}
+.rci-tc:hover {
+  border-color: #A5B4FC;
+  background: #EEF2FF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99,102,241,.14);
+}
+.rci-tc.active {
+  border-color: #6366F1;
+  background: linear-gradient(135deg, #EEF2FF 0%, #EDE9FE 100%);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15), 0 4px 12px rgba(99,102,241,.12);
+  transform: translateY(-1px);
+}
+.rci-tc-icon { font-size: 16px; line-height: 1; margin-bottom: 2px; }
+.rci-tc-name  { font-size: 12px; font-weight: 700; color: #1E293B; line-height: 1.2; }
+.rci-tc-price { font-size: 11px; font-weight: 800; color: #6366F1; margin-top: 4px; }
+.rci-tc-time  { font-size: 10px; font-weight: 600; color: #94A3B8; }
+.rci-tc.active .rci-tc-name  { color: #3730A3; }
+.rci-tc.active .rci-tc-price { color: #4338CA; }
+
+/* Range row */
+.rci-range-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.rci-pct {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.05em;
+}
+</style>
 </body>
 </html>
